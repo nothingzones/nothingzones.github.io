@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nothingzones.github.io/sitemap.xml
