@@ -504,18 +504,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     let SERVICE_DB = {}; 
     let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
 
-    window.addEventListener('load', () => {
-        applyAutoTheme();
-        createStars();
-        createMoon();
-        
-        initSoftwareData();
-        initServiceData();
-        loadMessages();
+    // ISSE PASTE KARO (NEW CODE)
+window.addEventListener('load', () => {
+    applyAutoTheme();
+    createStars();
+    createMoon();
+    
+    initSoftwareData();
+    initServiceData();
+    loadMessages();
 
-        const wrapper = document.getElementById('wrapper');
-        setTimeout(() => { if(wrapper) { wrapper.classList.add('exit'); setTimeout(() => { wrapper.style.display = 'none'; }, 1300); } }, 2000);
-    });
+    // --- SMART WRAPPER LOGIC ---
+    const wrapper = document.getElementById('wrapper');
+    
+    // Check karo agar user abhi-abhi aaya hai
+    if (sessionStorage.getItem('ns_visited')) {
+        // Agar pehle visit kiya hai, toh wrapper turant gayab karo
+        if(wrapper) wrapper.style.display = 'none';
+    } else {
+        // Agar pehli baar aaya hai, toh animation dikhao
+        if(wrapper) {
+            setTimeout(() => { 
+                wrapper.classList.add('exit'); 
+                setTimeout(() => { 
+                    wrapper.style.display = 'none'; 
+                }, 1300); 
+                // Browser mein save kar lo ki user aa chuka hai
+                sessionStorage.setItem('ns_visited', 'true');
+            }, 2000);
+        }
+    }
+});
+
 
     function applyAutoTheme() {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
