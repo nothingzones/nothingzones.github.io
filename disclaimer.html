@@ -1,0 +1,111 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        (function() {
+            function updateTheme() {
+                const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+            }
+            updateTheme();
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateTheme);
+        })();
+    </script>
+</head>
+<body>
+    <div class="stars-container" id="starField"></div><div class="canvas"></div>
+
+    <div class="page-wrapper">
+        <div class="nav-header"><a href="index.html" class="back-btn">RETURN HOME</a></div>
+
+        <div class="modal-static">
+            <h1>LEGAL DISCLAIMER</h1>
+            <p class="sub-head">IMPORTANT NOTICE</p>
+
+            <div style="border: 2px solid var(--text); padding: 25px; border-radius: 25px; margin-bottom: 30px; background: rgba(255,255,255,0.05);">
+                <div style="display:flex; align-items:center; gap:15px; margin-bottom:10px;">
+                    <i class="fa-solid fa-shield-halved" style="font-size:2rem;"></i>
+                    <span style="font-size:1.4rem; font-weight:bold;">UNOFFICIAL FAN PROJECT</span>
+                </div>
+                <p class="detail-text" style="margin:0; font-weight:bold;">
+                    Nothing Space is an independent, community-run resource hub. We are <u>NOT</u> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>Nothing Technology Limited</b>, CMF, or any of their subsidiaries.
+                </p>
+            </div>
+
+            <h3>TRADEMARKS</h3>
+            <p class="detail-text">
+                The names "Nothing", "Phone (1)", "Phone (2)", "Phone (2a)", "CMF" and related marks, emblems, and images are registered trademarks of their respective owners. We use these names solely for descriptive purposes to identify the devices our resources are intended for. This constitutes <b>"Fair Use"</b> under copyright law.
+            </p>
+
+            <h3>CONTENT ACCURACY</h3>
+            <p class="detail-text">
+                While we strive to keep the information up to date and correct, we make no representations or warranties of any kind about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information contained on the website.
+            </p>
+        </div>
+    </div>
+    <script>window.onload=function(){const f=document.getElementById('starField');for(let i=0;i<150;i++){const s=document.createElement('div');s.className='star';const z=Math.random()*3;Object.assign(s.style,{width:z+'px',height:z+'px',top:Math.random()*100+'%',left:Math.random()*100+'%',animation:`blink ${2+Math.random()*3}s infinite`,opacity:Math.random()});f.appendChild(s);}}</script>
+</body>
+</html>
+<style>/* style.css - FINAL FIXED */
+:root { 
+    /* Default Dark Mode Variables */
+    --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #222; 
+    --border: #1a1a1a; --instr: #bbb; 
+    --accent: #ffffff; 
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color-scheme: light dark;
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] { --bg: #fff; --card: #f5f5f5; --text: #000; --dot-bg: #ddd; --border: #eee; --instr: #333; }
+[data-theme="dark"] { --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #250; --border: #1a1a1a; --instr: #bbb; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body { 
+    background: var(--bg); color: var(--text); font-family: 'VT323', monospace; 
+    transition: background var(--transition); width: 100%; min-height: 100vh; overflow-x: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px 0;
+}
+
+h1, h2, h3, span, button, select, input, p { font-family: 'VT323', monospace !important; text-transform: uppercase; }
+a { text-decoration: none; color: inherit; }
+
+/* Backgrounds */
+.stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); pointer-events: none; }
+.star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: blink 3s infinite; }
+@keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
+.canvas { position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); background-size: 32px 32px; z-index: -1; opacity: 0.5; pointer-events: none; }
+
+/* Layout */
+.page-wrapper { width: 90%; max-width: 700px; position: relative; z-index: 10; margin-top: 40px; }
+.nav-header { display: flex; justify-content: flex-start; margin-bottom: 20px; }
+
+/* Back Button */
+.back-btn {
+    background: var(--card); border: 1px solid var(--border); padding: 12px 25px; 
+    border-radius: 25px; cursor: pointer; font-size: 1.2rem; display: flex; 
+    align-items: center; gap: 10px; transition: 0.2s; color: var(--text);
+}
+.back-btn:hover { border-color: var(--text); transform: translateX(-5px); }
+
+/* Main Card */
+.modal-static { 
+    background: var(--card); border: 1px solid var(--border); border-radius: 35px; padding: 40px; 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Typography */
+h1 { font-size: 2.8rem; text-align: center; margin-bottom: 10px; line-height: 1; }
+.sub-head { text-align: center; opacity: 0.5; margin-bottom: 30px; letter-spacing: 2px; font-size: 0.9rem; }
+.detail-text { opacity: 0.8; font-size: 1.1rem; line-height: 1.8; text-transform: none; margin-bottom: 20px; font-family: sans-serif; color: var(--text); text-align: justify; }
+h3 { margin-top: 35px; margin-bottom: 15px; font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; color: var(--text); display: block; }
+.detail-list { margin-left: 20px; opacity
+</style>
