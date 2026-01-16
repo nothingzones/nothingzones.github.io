@@ -1,41 +1,27 @@
 <!DOCTYPE html>
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
-
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nothing Space - Built Together</title>
+    <meta name="description" content="Community hub for Nothing Phone users. Download firmware, wallpapers, and tools.">
 
     <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NRVF4F2X');</script>
-<!-- End Google Tag Manager -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H1F7EJT2QD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://nothingcommunity-7664f-default-rtdb.firebaseio.com">
 
-  gtag('config', 'G-H1F7EJT2QD');
-</script>
-</script>
+    <meta name="google-site-verification" content="Zt4sdOmeNgw0zO3ATyQ84gkPiO0R-tnNs6r8nCFNsZw" />
+    <meta name="google-adsense-account" content="ca-pub-5839265106233069">
 
-<meta name="google-site-verification" content="Zt4sdOmeNgw0zO3ATyQ84gkPiO0R-tnNs6r8nCFNsZw" />
-<meta name="google-adsense-account" content="ca-pub-5839265106233069">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839265106233069"
-     crossorigin="anonymous"></script>
     <style>
         /* ================= ROOT & THEME ================= */
         :root { 
@@ -48,19 +34,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         [data-theme="dark"] { --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #250; --border: #1a1a1a; --instr: #bbb; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
+
         body { 
             background: var(--bg); color: var(--text); font-family: 'VT323', monospace; 
             transition: background var(--transition); width: 100%; overflow-x: hidden; min-height: 100vh; 
         }
-        
+
         h1, h2, h3, span, button, select, input, p { font-family: 'VT323', monospace !important; text-transform: uppercase; }
+
+        /* PERFORMANCE OPTIMIZATION */
+        .bento, footer, .screen { content-visibility: auto; contain-intrinsic-size: 1000px; }
+        img { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-user-drag: none !important; }
 
         /* ================= BACKGROUND ANIMATIONS ================= */
         .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; animation: blink 3s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
-        
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; }
+
         .canvas { 
             position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); 
             background-size: 32px 32px; z-index: -1; opacity: 0.5; pointer-events: none;
@@ -74,22 +63,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             background-image: radial-gradient(circle at 30% 30%, #adadad 10%, transparent 15%), radial-gradient(circle at 60% 70%, #adadad 8%, transparent 12%);
         }
 
-        /* ================= ENTRANCE LOADER ================= */
-        .entrance-wrapper {
-            position: fixed; inset: 0; background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000;
-            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-        .entrance-wrapper.exit { transform: translateY(-100%); }
-        .nothing-logo { font-family: 'NDOT', sans-serif; color: #fff; letter-spacing: 5px; font-size: 2rem; animation: pulse 1.5s infinite; }
-        .loader-bar { width: 225px; height: 2px; background: #333; margin-top: 10px; position: relative; overflow: hidden; }
-        .loader-bar::after { content: ''; position: absolute; width: 60px; height: 100%; background: #fff; animation: loading 10.5s infinite; }
-        @keyframes loading { from { left: -50px; } to { left: 100px; } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
         /* ================= HEADER & BENTO ================= */
         header { max-width: 1000px; margin: 50px auto 20px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo h1 { font-size: 3.5rem; letter-spacing: -1px; line-height: 0.9; }
-        
+
         .t-toggle { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; background: var(--card); transition: var(--transition); }
         .t-toggle:hover { border-color: var(--text); }
         #t-icon { transition: transform .3s ease; }
@@ -168,7 +145,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: rgba(128,128,128,0.5); z-index: 1; }
         .btn-text { position: relative; z-index: 2; }
-        
+
         .pg-btn {
             width: 100%; padding: 20px 30px; border-radius: 22px; background: var(--card);
             border: 1px solid var(--border); color: var(--text); font-size: 1.2rem; letter-spacing: 1px;
@@ -186,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         /* ================= CHAT STYLES ================= */
         .red-dot-loader { width: 12px; height: 12px; background-color: #ff0000; border-radius: 50%; display: inline-block; animation: pulse-red 0.8s ease-in-out infinite; }
         @keyframes pulse-red { 0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
-        
+
         .msg-bubble { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px 15px; border-radius: 20px; position: relative; max-width: 85%; align-self: flex-start; margin-bottom: 10px; }
         .u-badge { font-size: 0.7rem; background: var(--text); color: var(--bg); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; display: inline-block; }
         .admin-reply-box { margin-top: 10px; padding: 8px 12px; background: rgba(255, 0, 0, 0.05); border-left: 2px solid var(--accent); border-radius: 10px; font-size: 0.9rem; }
@@ -202,16 +179,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .spinning { animation: rotate 10s linear infinite; }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .m-ctrls { display: flex; justify-content: center; align-items: center; gap: 30px; font-size: 1.8rem; margin: 20px 0; }
-        
+
         #mini-player { position:absolute; top:85px; right:90px; width:45px; height:45px; border-radius:50%; border:2px solid var(--accent); overflow:hidden; cursor:pointer; display:none; z-index:10; background:#000; }
         #mini-art { width:100%; height:100%; object-fit:cover; display:block; }
 
-        /* ================= WALLPAPERS & CARDS (WITH SCROLL ANIMATION) ================= */
+        /* ================= WALLPAPERS & CARDS ================= */
         .wp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
-        
+
         .wp-card { 
             height: 250px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--text);
-            /* Scroll Animation Styles */
             opacity: 1; transform: translateY(0); transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .wp-card.hidden-state { opacity: 0; transform: translateY(50px) scale(0.95); }
@@ -227,7 +203,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; }
         .up-box h4 { font-size: 1.4rem; color: var(--text) !important; }
         .up-box p { font-size: 0.9rem; opacity: 0.5; margin-top: 4px; text-transform: none; }
-        
+
         .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
         .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; }
         .sw-img-box img { width: 120%; height: 100%; object-fit: cover; }
@@ -249,1356 +225,697 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRVF4F2X"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-<div class="stars-container" id="starField"></div>
-<div class="canvas"></div>
+    <div class="stars-container" id="starField"></div>
+    <div class="canvas"></div>
 
-<header>
-    
-    <div class="logo">
-        <p style="opacity: 0.4; letter-spacing: 2px;">ONLY FOR FANS</p>
-        <h1>NOTHING<br>SPACE</h1>
-    </div>
-    <div class="t-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="t-icon"></i></div>
-</header>
-
-<div class="bento">
-    <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
-    <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>Preview Your Song</p></div>
-    <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p></div>
-    <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE </h1><p>NOS ZIP FILE</p></div>
-    <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER </h1><p>EXCLUSIVe Collection</p></div>
-    <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE </h1><p>LOCATE CENTERS</p></div>
-    <div class="tile full" onclick="openScreen('feedbackScr')"><h1>COMMUNITY </h1><p>FEEDBACK & SUGGESTIONS</p></div>
-</div>
-
-<div id="mini-player" onclick="restorePlayer()">
-    <img src="" id="mini-art" class="spinning">
-</div>
-
-<div id="upScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('upScr')">×</span>
-    <h2>WEBSITE LOGS</h2>
-    <div style="margin-top:20px;">
-        <div class="up-box"><h4>COMMUNITY BOARD</h4><p>Now you can share feedback, ideas & suggestions.</p></div>
-        <div class="up-box"><h4>NEW RINGTONE PLAYER</h4><p>Ad-free nonstop ringtones & background Playble.</p></div>
-        <div class="up-box"><h4>NEW WALLPAPERS</h4><p>Added high-quality art works in the gallery.</p></div>
-        <div class="up-box"><h4>SOFTWARE UPDATE</h4><p>Now supports all phones with latest NOS ZIPs.</p></div>
-        <div class="up-box"><h4>SERVICE DATABASE</h4><p>Call or open maps directly, no more hassle.</p></div>
-    </div>
-</div></div>
-
-<div id="feedbackScr" class="screen">
-    <div class="modal" style="height: 80vh; display: flex; flex-direction: column;">
-        <span class="close-icon" onclick="closeScreen('feedbackScr')">×</span>
-        <h2>COMMUNITY BOARD</h2>
-        <p style="opacity: 0.4; font-size: 0.8rem; margin-bottom: 15px;">PUBLIC FEEDBACK & CHAT</p>
-        <div id="msgBoard" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;"></div>
-        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 5px 5px 5px 15px; display: flex; align-items: center; margin-top: 15px;">
-            <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
-            <button onclick="sendMsg()" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center;">
-                <i class="fa-solid fa-arrow-up"></i>
-            </button>
+    <header>
+        <div class="logo">
+            <p style="opacity: 0.4; letter-spacing: 2px;">ONLY FOR FANS</p>
+            <h1>NOTHING<br>SPACE</h1>
         </div>
-    </div>
-</div>
+        <div class="t-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="t-icon"></i></div>
+    </header>
 
-<div id="musicScr" class="screen">
-    <div class="modal">
-        <span class="close-icon" onclick="handleMusicClose()">×</span>
-        <h2>RINGTONE PLAYER</h2>
-        <div class="music-ui">
-            <div class="search-box-m">
-                <input type="text" id="mQuery" placeholder="SEARCH SONG...">
-                <button class="go-btn" id="mSearchBtn" onclick="searchMusic()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <div class="bento">
+        <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
+        <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>Preview Your Song</p></div>
+        <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p></div>
+        <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE </h1><p>NOS ZIP FILE</p></div>
+        <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER </h1><p>EXCLUSIVe Collection</p></div>
+        <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE </h1><p>LOCATE CENTERS</p></div>
+        <div class="tile full" onclick="openScreen('feedbackScr')"><h1>COMMUNITY </h1><p>FEEDBACK & SUGGESTIONS</p></div>
+    </div>
+
+    <div id="mini-player" onclick="restorePlayer()">
+        <img src="" id="mini-art" class="spinning" alt="Mini Player Art">
+    </div>
+
+    <div id="upScr" class="screen"><div class="modal">
+        <span class="close-icon" onclick="closeScreen('upScr')">×</span>
+        <h2>WEBSITE LOGS</h2>
+        <div style="margin-top:20px;">
+            <div class="up-box"><h4>COMMUNITY BOARD</h4><p>Now you can share feedback, ideas & suggestions.</p></div>
+            <div class="up-box"><h4>NEW RINGTONE PLAYER</h4><p>Ad-free nonstop ringtones & background Playble.</p></div>
+            <div class="up-box"><h4>NEW WALLPAPERS</h4><p>Added high-quality art works in the gallery.</p></div>
+            <div class="up-box"><h4>SOFTWARE UPDATE</h4><p>Now supports all phones with latest NOS ZIPs.</p></div>
+            <div class="up-box"><h4>SERVICE DATABASE</h4><p>Call or open maps directly, no more hassle.</p></div>
+        </div>
+    </div></div>
+
+    <div id="feedbackScr" class="screen">
+        <div class="modal" style="height: 80vh; display: flex; flex-direction: column;">
+            <span class="close-icon" onclick="closeScreen('feedbackScr')">×</span>
+            <h2>COMMUNITY BOARD</h2>
+            <p style="opacity: 0.4; font-size: 0.8rem; margin-bottom: 15px;">PUBLIC FEEDBACK & CHAT</p>
+            <div id="msgBoard" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;"></div>
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 5px 5px 5px 15px; display: flex; align-items: center; margin-top: 15px;">
+                <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
+                <button onclick="sendMsg()" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
             </div>
         </div>
-        <div id="music-card">
-            <img src="" id="mArt" class="disc">
-            <h3 id="mTitle" style="margin-top:15px;">TITLE</h3>
-            <p id="mArtist" style="opacity:0.5;">ARTIST</p>
-            <div class="m-ctrls">
-                <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer"></i>
-                <span id="play-pause" onclick="togglePlay()" style="cursor:pointer"><i class="fa-solid fa-circle-play"></i></span>
-                <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer"></i>
-            </div>
-            <button class="btn" onclick="downloadCurrentSong()">DOWNLOAD</button>
-        </div>
-        <audio id="mPlayer" onended="nextSong()"></audio>
     </div>
-</div>
 
-<div id="swScr" class="screen">
-<div class="modal">
-    <span class="close-icon" onclick="closeScreen('swScr')">×</span>
-    <h2>SYSTEM UPDATE</h2>
-    <div class="guide-box">
-        <div class="guide-header" onclick="toggleAccordion()">
-            <span>HOW TO UPDATE?</span>
-            <div class="arrow-wrapper" style="position:static;"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+    <div id="musicScr" class="screen">
+        <div class="modal">
+            <span class="close-icon" onclick="handleMusicClose()">×</span>
+            <h2>RINGTONE PLAYER</h2>
+            <div class="music-ui">
+                <div class="search-box-m">
+                    <input type="text" id="mQuery" placeholder="SEARCH SONG...">
+                    <button class="go-btn" id="mSearchBtn" onclick="searchMusic()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+            <div id="music-card">
+                <img src="" id="mArt" class="disc" alt="Album Art">
+                <h3 id="mTitle" style="margin-top:15px;">TITLE</h3>
+                <p id="mArtist" style="opacity:0.5;">ARTIST</p>
+                <div class="m-ctrls">
+                    <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer"></i>
+                    <span id="play-pause" onclick="togglePlay()" style="cursor:pointer"><i class="fa-solid fa-circle-play"></i></span>
+                    <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer"></i>
+                </div>
+                <button class="btn" onclick="downloadCurrentSong()">DOWNLOAD</button>
+            </div>
+            <audio id="mPlayer" onended="nextSong()"></audio>
         </div>
-        <div class="guide-content" id="accContent">
-            <p>1. DOWNLOAD THE BETA HUB TOOL APK.<br>2. CREATE "OTA" FOLDER IN INTERNAL STORAGE AND PASTE OTA ZIP INSIDE.<br>3. SETTING - SYSTEM - BETA HUB - IMPORT FILE - ZIP - UPDATE.</p>
-                           <button class="btn" style="font-size:1.6rem; padding:17px;"  onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD BETA TOOL</span></button>
-     
+    </div>
+
+    <div id="swScr" class="screen">
+        <div class="modal">
+            <span class="close-icon" onclick="closeScreen('swScr')">×</span>
+            <h2>SYSTEM UPDATE</h2>
+            <div class="guide-box">
+                <div class="guide-header" onclick="toggleAccordion()">
+                    <span>HOW TO UPDATE?</span>
+                    <div class="arrow-wrapper" style="position:static;"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+                </div>
+                <div class="guide-content" id="accContent">
+                    <p>1. DOWNLOAD THE BETA HUB TOOL APK.<br>2. CREATE "OTA" FOLDER IN INTERNAL STORAGE AND PASTE OTA ZIP INSIDE.<br>3. SETTING - SYSTEM - BETA HUB - IMPORT FILE - ZIP - UPDATE.</p>
+                    <button class="btn" style="font-size:1.6rem; padding:17px;"  onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD BETA TOOL</span></button>
                 </div>
             </div>
 
             <div class="sw-display" id="swDisplay">
-<div class="sw-img-box">
-    <img src="" id="swPhoneImg"
-         style="cursor: pointer;"
-         onmousedown="startSoftwareLogic()" 
-         ontouchstart="startSoftwareLogic()" 
-         onmouseup="cancelSoftwareLogic()" 
-         onmouseleave="cancelSoftwareLogic()" 
-         ontouchend="cancelSoftwareLogic()" 
-         ontouchmove="cancelSoftwareLogic()">
-</div>
-
+                <div class="sw-img-box">
+                    <img src="" id="swPhoneImg"
+                         style="cursor: pointer;"
+                         alt="Phone Image"
+                         onmousedown="startSoftwareLogic()" 
+                         ontouchstart="startSoftwareLogic()" 
+                         onmouseup="cancelSoftwareLogic()" 
+                         onmouseleave="cancelSoftwareLogic()" 
+                         ontouchend="cancelSoftwareLogic()" 
+                         ontouchmove="cancelSoftwareLogic()">
+                </div>
                 <div class="sw-info">
                     <h2 id="swPhoneTitle">DEVICE</h2>
                     <p style="opacity:0.5; font-size:0.9rem;">Official OTA Firmware</p>
                 </div>
             </div>
 
-    <div class="input-group">
-        <select id="swSelect" onchange="showLogs()">
-            <option value="">SELECT YOUR DEVICE</option>
-            <option value="p1">NOTHING PHONE (1)</option>
-            <option value="p2">NOTHING PHONE (2)</option>
-            <option value="p2a">NOTHING PHONE (2A)</option>
-            <option value="p2aplus">NOTHING PHONE (2A) PLUS</option>
-            <option value="p3">NOTHING PHONE (3)</option>
-            <option value="p3a">NOTHING PHONE (3A)</option>
-            <option value="p3apro">NOTHING PHONE (3A) PRO</option>
-            <option value="p3alite">NOTHING PHONE (3A) LITE</option>
-            <option value="cmf1">CMF PHONE 1</option>
-            <option value="cmf2pro">CMF PHONE 2 PRO</option>
-       </select>
-        <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-    </div>
-    <div id="logBox" style="display:none;" class="detail-card">
-        <h3>NOTES:</h3>
-        <ul id="swList" style="margin:15px 0; opacity:0.7; list-style: inside; text-transform: none;"></ul>
-        <button class="btn" onclick="runDownload(this, 'OTA_ZIP')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD OTA ZIP</span></button>
-    </div>
-</div></div>
-
-<div id="pgScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('pgScr')">×</span>
-    <h2>PLAYGROUND</h2>
-    <div style="margin-top:20px;">
-        <div class="pg-btn" onclick="openScreen('presetScr')"><span>CAMERA PRESETS</span><i class="fa-solid fa-camera"></i></div>
-        <div class="pg-btn" onclick="alert('Coming Soon')"><span>COMMUNITY WIDGETS</span><i class="fa-solid fa-shapes"></i></div>
-    </div>
-</div></div>
-
-<div id="presetScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('presetScr')">×</span>
-    <h2>CAMERA PRESETS</h2>
-    <p style="opacity:0.5; margin-bottom:10px;">EXCLUSIVE PRESETS</p>
-    <div class="wp-grid" id="presetGrid"></div>
-</div></div>
-
-<div id="wpScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('wpScr')">×</span>
-    <h2>GALLERY</h2>
-    <div onclick="openScreen('aiWpScr')" style="background: var(--text); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-        <span style="color: var(--bg); font-weight: bold; font-size: 1.2rem;"> CREATE WITH AI</span><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--bg);"></i>
-    </div>
-    <div class="wp-grid" id="wallpaperGrid"></div>
-</div></div>
-
-<div id="aiWpScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('aiWpScr')">×</span>
-    <h2>AI STUDIO</h2>
-    <div class="input-group"><input type="text" id="aiPrompt" placeholder="DESCRIBE YOUR IDEA..." style="text-align: left;"></div>
-    <div class="input-group">
-        <select id="aiRatio"><option value="9:16">MOBILE (9:16)</option><option value="16:9">PC (16:9)</option><option value="1:1">SQUARE (1:1)</option></select>
-        <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-    </div>
-    <button class="btn" id="genBtn" onclick="generateAIWall()"><div class="progress-bar"></div><span class="btn-text">GENERATE</span></button>
-    <div id="aiResult" style="margin-top: 20px; display: none;">
-        <div class="wp-card" style="height: 400px; border: 1px solid var(--border);">
-            <img id="aiImg" src="" style="width: 100%; height: 100%; object-fit: cover;">
-            <div class="wp-overlay"><button class="btn" onclick="downloadAIWall(this)"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div>
+            <div class="input-group">
+                <select id="swSelect" onchange="showLogs()">
+                    <option value="">SELECT YOUR DEVICE</option>
+                    <option value="p1">NOTHING PHONE (1)</option>
+                    <option value="p2">NOTHING PHONE (2)</option>
+                    <option value="p2a">NOTHING PHONE (2A)</option>
+                    <option value="p2aplus">NOTHING PHONE (2A) PLUS</option>
+                    <option value="p3">NOTHING PHONE (3)</option>
+                    <option value="p3a">NOTHING PHONE (3A)</option>
+                    <option value="p3apro">NOTHING PHONE (3A) PRO</option>
+                    <option value="p3alite">NOTHING PHONE (3A) LITE</option>
+                    <option value="cmf1">CMF PHONE 1</option>
+                    <option value="cmf2pro">CMF PHONE 2 PRO</option>
+                </select>
+                <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+            </div>
+            <div id="logBox" style="display:none;" class="detail-card">
+                <h3>NOTES:</h3>
+                <ul id="swList" style="margin:15px 0; opacity:0.7; list-style: inside; text-transform: none;"></ul>
+                <button class="btn" onclick="runDownload(this, 'OTA_ZIP')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD OTA ZIP</span></button>
+            </div>
         </div>
     </div>
-</div></div>
 
-<div id="scScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('scScr')">×</span>
-    <h2>SERVICE CENTERS</h2>
-    <div class="input-group" style="margin-top:20px;">
-        <select id="state" onchange="loadCities()">
-            <option value="">SELECT STATE</option>
-            <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
-            <option value="ASSAM">ASSAM</option>
-            <option value="BIHAR">BIHAR</option>
-            <option value="CHANDIGARH">CHANDIGARH</option>
-            <option value="CHHATTISGARH">CHHATTISGARH</option>
-            <option value="DELHI">DELHI</option>
-            <option value="GOA">GOA</option>
-            <option value="GUJARAT">GUJARAT</option>
-            <option value="HARYANA">HARYANA</option>
-            <option value="HIMACHAL PRADESH">HIMACHAL PRADESH</option>
-            <option value="JAMMU & KASHMIR">JAMMU & KASHMIR</option>
-            <option value="JHARKHAND">JHARKHAND</option>
-            <option value="KARNATAKA">KARNATAKA</option>
-            <option value="KERALA">KERALA</option>
-            <option value="MADHYA PRADESH">MADHYA PRADESH</option>
-            <option value="MAHARASHTRA">MAHARASHTRA</option>
-            <option value="MEGHALAYA">MEGHALAYA</option>
-            <option value="NAGALAND">NAGALAND</option>
-            <option value="ODISHA">ODISHA</option>
-            <option value="PUDUCHERRY">PUDUCHERRY</option>
-            <option value="PUNJAB">PUNJAB</option>
-            <option value="RAJASTHAN">RAJASTHAN</option>
-            <option value="TAMIL NADU">TAMIL NADU</option>
-            <option value="TELANGANA">TELANGANA</option>
-            <option value="TRIPURA">TRIPURA</option>
-            <option value="UTTAR PRADESH">UTTAR PRADESH</option>
-            <option value="UTTARAKHAND">UTTARAKHAND</option>
-            <option value="WEST BENGAL">WEST BENGAL</option>
-      </select>
-        <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-    </div>
-    <div class="input-group">
-        <select id="city" onchange="showDetails()" style="display:none"></select>
-        <div class="arrow-wrapper" id="cityArrow" style="display:none"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-    </div>
-    <div id="scInfo"></div>
-</div></div>
+    <div id="pgScr" class="screen"><div class="modal">
+        <span class="close-icon" onclick="closeScreen('pgScr')">×</span>
+        <h2>PLAYGROUND</h2>
+        <div style="margin-top:20px;">
+            <div class="pg-btn" onclick="openScreen('presetScr')"><span>CAMERA PRESETS</span><i class="fa-solid fa-camera"></i></div>
+            <div class="pg-btn" onclick="alert('Coming Soon')"><span>COMMUNITY WIDGETS</span><i class="fa-solid fa-shapes"></i></div>
+        </div>
+    </div></div>
 
-<footer>
-    <div style="max-width: 900px; margin: 50px auto; padding: 30px; border-top: 1px solid var(--border); font-family: sans-serif; text-transform: none; color: var(--text); opacity: 0.8; line-height: 1.8;">
-    
-    <h2 style="font-family: 'VT323'; font-size: 2.5rem; margin-bottom: 20px; color: var(--text);">WELCOME TO NOTHING SPACE: THE COMMUNITY HUB</h2>
-    
-    <p>
-        <strong>Nothing Space</strong> is a dedicated, community-driven platform designed exclusively for enthusiasts of the Nothing™ brand. In an era where technology often feels stale and repetitive, Nothing has brought a breath of fresh air with its transparent design philosophy and the Glyph Interface. However, finding reliable resources, official firmware files, and aesthetic assets for these unique devices can sometimes be fragmented. That is where Nothing Space comes in. We are not just a download site; we are a comprehensive ecosystem built by fans, for fans, aiming to enhance your ownership experience of the Nothing Phone (1), Phone (2), Phone (2a), and CMF devices.
-    </p>
+    <div id="presetScr" class="screen"><div class="modal">
+        <span class="close-icon" onclick="closeScreen('presetScr')">×</span>
+        <h2>CAMERA PRESETS</h2>
+        <p style="opacity:0.5; margin-bottom:10px;">EXCLUSIVE PRESETS</p>
+        <div class="wp-grid" id="presetGrid"></div>
+    </div></div>
 
-    <h3 style="font-family: 'VT323'; font-size: 1.8rem; margin-top: 30px; margin-bottom: 15px;">WHY WE BUILT THIS PLATFORM</h3>
-    <p>
-        The core mission of Nothing Space is <strong>accessibility and safety</strong>. Often, users struggle to find the correct OTA (Over-The-Air) update zip files when they want to manually update their devices or fix a software loop. Third-party forums can be cluttered with broken links or unverified files. At Nothing Space, we aggregate direct download links sourced strictly from official repositories (android.googleapis.com). This ensures that when you download a firmware file or a beta update utility from our "Software" section, you are getting the genuine file without any tampering. We believe in the right to repair and the freedom to customize, which starts with having easy access to your device's software.
-    </p>
+    <div id="wpScr" class="screen"><div class="modal">
+        <span class="close-icon" onclick="closeScreen('wpScr')">×</span>
+        <h2>GALLERY</h2>
+        <div onclick="openScreen('aiWpScr')" style="background: var(--text); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--bg); font-weight: bold; font-size: 1.2rem;"> CREATE WITH AI</span><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--bg);"></i>
+        </div>
+        <div class="wp-grid" id="wallpaperGrid"></div>
+    </div></div>
 
-    <h3 style="font-family: 'VT323'; font-size: 1.8rem; margin-top: 30px; margin-bottom: 15px;">COMPREHENSIVE DEVICE SUPPORT</h3>
-    <p>
-        Our database is constantly updated to support the growing family of Nothing products. Currently, we provide specialized resources for:
-    </p>
-    <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
-        <li><strong>Nothing Phone (1):</strong> The device that started it all. We host the latest Nothing OS builds based on Android 14, along with rollback packages for beta testers who wish to return to stable builds.</li>
-        <li><strong>Nothing Phone (2):</strong> For power users, we offer high-resolution wallpapers and Glyph ringtones that take full advantage of the upgraded LED zones.</li>
-        <li><strong>Nothing Phone (2a) & CMF Phone 1:</strong> As budget-friendly options enter the market, we are committed to providing the same level of support, including service center details and accessory compatibility guides.</li>
-    </ul>
+    <div id="aiWpScr" class="screen"><div class="modal">
+        <span class="close-icon" onclick="closeScreen('aiWpScr')">×</span>
+        <h2>AI STUDIO</h2>
+        <div class="input-group"><input type="text" id="aiPrompt" placeholder="DESCRIBE YOUR IDEA..." style="text-align: left;"></div>
+        <div class="input-group">
+            <select id="aiRatio"><option value="9:16">MOBILE (9:16)</option><option value="16:9">PC (16:9)</option><option value="1:1">SQUARE (1:1)</option></select>
+            <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+        </div>
+        <button class="btn" id="genBtn" onclick="generateAIWall()"><div class="progress-bar"></div><span class="btn-text">GENERATE</span></button>
+        <div id="aiResult" style="margin-top: 20px; display: none;">
+            <div class="wp-card" style="height: 400px; border: 1px solid var(--border);">
+                <img id="aiImg" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="AI Result">
+                <div class="wp-overlay"><button class="btn" onclick="downloadAIWall(this)"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div>
+            </div>
+        </div>
+    </div></div>
 
-    <h3 style="font-family: 'VT323'; font-size: 1.8rem; margin-top: 30px; margin-bottom: 15px;">FEATURES THAT MATTER</h3>
-    
-    <h4 style="font-weight: bold; margin-top: 15px;">1. The Software Repository</h4>
-    <p>
-        Keeping your phone updated is crucial for security and performance. Our Software hub allows users to select their specific device model and region (Global, Europe, India) to find the exact update package they need. We also provide a custom-built "Beta Hub Tool" APK, which simplifies the process of local updates for users who might not be familiar with the complex dialer codes usually required to flash zip files.
-    </p>
+    <div id="scScr" class="screen"><div class="modal">
+        <span class="close-icon" onclick="closeScreen('scScr')">×</span>
+        <h2>SERVICE CENTERS</h2>
+        <div class="input-group" style="margin-top:20px;">
+            <select id="state" onchange="loadCities()">
+                <option value="">SELECT STATE</option>
+                <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
+                <option value="ASSAM">ASSAM</option>
+                <option value="BIHAR">BIHAR</option>
+                <option value="CHANDIGARH">CHANDIGARH</option>
+                <option value="CHHATTISGARH">CHHATTISGARH</option>
+                <option value="DELHI">DELHI</option>
+                <option value="GOA">GOA</option>
+                <option value="GUJARAT">GUJARAT</option>
+                <option value="HARYANA">HARYANA</option>
+                <option value="HIMACHAL PRADESH">HIMACHAL PRADESH</option>
+                <option value="JAMMU & KASHMIR">JAMMU & KASHMIR</option>
+                <option value="JHARKHAND">JHARKHAND</option>
+                <option value="KARNATAKA">KARNATAKA</option>
+                <option value="KERALA">KERALA</option>
+                <option value="MADHYA PRADESH">MADHYA PRADESH</option>
+                <option value="MAHARASHTRA">MAHARASHTRA</option>
+                <option value="MEGHALAYA">MEGHALAYA</option>
+                <option value="NAGALAND">NAGALAND</option>
+                <option value="ODISHA">ODISHA</option>
+                <option value="PUDUCHERRY">PUDUCHERRY</option>
+                <option value="PUNJAB">PUNJAB</option>
+                <option value="RAJASTHAN">RAJASTHAN</option>
+                <option value="TAMIL NADU">TAMIL NADU</option>
+                <option value="TELANGANA">TELANGANA</option>
+                <option value="TRIPURA">TRIPURA</option>
+                <option value="UTTAR PRADESH">UTTAR PRADESH</option>
+                <option value="UTTARAKHAND">UTTARAKHAND</option>
+                <option value="WEST BENGAL">WEST BENGAL</option>
+            </select>
+            <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+        </div>
+        <div class="input-group">
+            <select id="city" onchange="showDetails()" style="display:none"></select>
+            <div class="arrow-wrapper" id="cityArrow" style="display:none"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+        </div>
+        <div id="scInfo"></div>
+    </div></div>
 
-    <h4 style="font-weight: bold; margin-top: 15px;">2. Aesthetic Customization</h4>
-    <p>
-        Nothing's hardware is beautiful, and your software should match. Our Gallery section features a curated collection of <strong>Dot Matrix</strong> style wallpapers, monochrome photography, and abstract art that fits perfectly with the Nothing OS aesthetic. Furthermore, our "Ringtone Player" allows you to preview and download exclusive Glyph-synced notification sounds, ensuring your phone sounds as unique as it looks.
-    </p>
+    <footer>
+        <div style="max-width: 900px; margin: 50px auto; padding: 30px; border-top: 1px solid var(--border); font-family: sans-serif; text-transform: none; color: var(--text); opacity: 0.8; line-height: 1.8;">
+            <h2 style="font-family: 'VT323'; font-size: 2.5rem; margin-bottom: 20px; color: var(--text);">WELCOME TO NOTHING SPACE</h2>
+            <p>Nothing Space is a community-driven platform. We are not affiliated with Nothing Technology Limited.</p>
+        </div>
+        <p style="opacity: 0.5; margin-top: 20px; font-size: 0.9rem;">
+            NOTHING SPACE © 2026<br>DESIGNED FOR THE COMMUNITY
+        </p>
+        <div class="footer-links">
+            <a href="about.html">ABOUT</a>
+            <a href="privacy.html">PRIVACY</a>
+            <a href="terms.html">TERMS</a>
+            <a href="disclaimer.html">DISCLAIMER</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </footer>
 
-    <h4 style="font-weight: bold; margin-top: 15px;">3. Service Center Locator (India)</h4>
-    <p>
-        We understand that hardware issues can happen. To assist our large user base in India, we have integrated a robust Service Center Database. Whether you are in Bihar, Maharashtra, Delhi, or Karnataka, our tool helps you find the nearest authorized service point. You can view addresses, check operational hours, and even initiate a call or open Google Maps directly from our website. This feature is particularly useful for users in Tier-2 and Tier-3 cities who need quick support.
-    </p>
+    <script>
+        /* ================= CONFIG & GLOBALS ================= */
+        const CONFIG = {
+            BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk",
+            SOFTWARE: {}, SERVICE_DB: {}, WALLPAPERS: []
+        };
+        const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
+        let SERVICE_DB = {}; 
+        let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
 
-    <h4 style="font-weight: bold; margin-top: 15px;">4. Community & Feedback</h4>
-    <p>
-        Technology is nothing without people. Our new "Community Board" allows users to leave feedback, report broken links, or request new features. We have also implemented a transparent "Admin Reply" system, so you know that your voice is being heard. This real-time interaction helps us improve the platform daily.
-    </p>
-
-    <h3 style="font-family: 'VT323'; font-size: 1.8rem; margin-top: 30px; margin-bottom: 15px;">UNDERSTANDING NOTHING OS UPDATES</h3>
-    <p>
-        For those new to the ecosystem, Nothing OS is a near-stock Android experience with a unique visual identity. Updates are generally released in stages. However, manual updating via OTA ZIP files is a safe and legal way to skip the queue. 
-        <br><br>
-        <strong>How it works:</strong> When you download a ZIP file from Nothing Space, you are downloading an encrypted package signed by the manufacturer. You place this file in a specific folder (usually created as 'OTA') in your internal storage. Using the built-in system updater (or our Beta Tool), the phone verifies the signature of the file before installing. This means it is impossible to accidentally install a virus or a corrupted file via the system updater, as the phone will simply reject it. This makes manual updating a safe procedure for enthusiasts.
-    </p>
-
-    <h3 style="font-family: 'VT323'; font-size: 1.8rem; margin-top: 30px; margin-bottom: 15px;">THE FUTURE OF NOTHING SPACE</h3>
-    <p>
-        We are constantly experimenting with new web technologies to make this hub better. Our roadmap includes an AI-powered wallpaper generator that creates Dot-Matrix art from text prompts, a more advanced "Nothing Widget" builder for your home screen, and deeper integration with community forums.
-    </p>
-
-    <p style="margin-top: 40px; font-size: 0.9rem; opacity: 0.7;">
-        <em><strong>Legal Disclaimer:</strong> Nothing Space is a non-profit, fan-developed project. We are not affiliated with, endorsed by, or connected to Nothing Technology Limited or its subsidiaries. All product names, trademarks, and registered trademarks are property of their respective owners. The content provided on this site is for educational and informational purposes only.</em>
-    </p>
-    </div>
-    
-    
-    <p style="opacity: 0.5; margin-top: 20px; font-size: 0.9rem;">
-        NOTHING SPACE © 2026<br>
-        DESIGNED FOR THE COMMUNITY
-    </p>
-    <div class="footer-links">
-        <a href="about.html">ABOUT</a>
-        <a href="privacy.html">PRIVACY</a>
-        <a href="terms.html">TERMS</a>
-        <a href="disclaimer.html">DISCLAIMER</a>
-        <a href="contact.html">CONTACT</a>
-    </div>
-</footer>
-<script>
-    const CONFIG = {
-        BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk",
-        SOFTWARE: {}, SERVICE_DB: {}, WALLPAPERS: []
-    };
-    const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
-    let SERVICE_DB = {}; 
-    let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
-
-    // ISSE PASTE KARO (NEW CODE)
-window.addEventListener('load', () => {
-    applyAutoTheme();
-    createStars();
-    createMoon();
-    
-    initSoftwareData();
-    initServiceData();
-    loadMessages();
-
-    // --- SMART WRAPPER LOGIC ---
-    const wrapper = document.getElementById('wrapper');
-    
-    // Check karo agar user abhi-abhi aaya hai
-    if (sessionStorage.getItem('ns_visited')) {
-        // Agar pehle visit kiya hai, toh wrapper turant gayab karo
-        if(wrapper) wrapper.style.display = 'none';
-    } else {
-        // Agar pehli baar aaya hai, toh animation dikhao
-        if(wrapper) {
-            setTimeout(() => { 
-                wrapper.classList.add('exit'); 
-                setTimeout(() => { 
-                    wrapper.style.display = 'none'; 
-                }, 1300); 
-                // Browser mein save kar lo ki user aa chuka hai
-                sessionStorage.setItem('ns_visited', 'true');
-            }, 2000);
-        }
-    }
-});
-
-
-    function applyAutoTheme() {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-        updateThemeIcon(prefersDark ? 'dark' : 'light');
-    }
-    function toggleTheme() {
-        const root = document.documentElement;
-        const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', newTheme);
-        updateThemeIcon(newTheme);
-    }
-    function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
-    
-    function createStars() {
-        const field = document.getElementById('starField');
-        field.innerHTML = '';
-        for(let i=0; i<300; i++) {
-            const s = document.createElement('div'); s.className = 'star';
-            const size = Math.random() * 3;
-            Object.assign(s.style, { width:size+'px', height:size+'px', top:Math.random()*100+'%', left:Math.random()*100+'%', animation:`blink ${2+Math.random()*3}s infinite`, opacity:Math.random() });
-            field.appendChild(s);
-        }
-    }
-    function createMoon() {
-        if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); }
-    }
-    
-    // --- SCROLL ANIMATION LOGIC ---
-    function attachScrollAnimation() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.remove('hidden-state'); 
-                    entry.target.classList.add('scroll-active');    
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.wp-card').forEach(card => {
-            card.classList.add('hidden-state'); 
-            observer.observe(card);
-        });
-    }
-
-    // --- SCREEN NAVIGATION ---
-    function openScreen(id) {
-        const s = document.getElementById(id);
-        if(!s) return;
-        s.style.display = 'flex'; 
-        void s.offsetWidth; 
-        s.classList.add('active');
-        
-        if(id === 'wpScr') initWallpaperData();
-        if(id === 'presetScr') initPresetData();
-    }
-    function closeScreen(id) {
-        const s = document.getElementById(id);
-        if(!s) return;
-        s.classList.remove('active'); 
-        setTimeout(() => { s.style.display = 'none'; }, 500);
-    }
-
-    // --- MUSIC DOWNLOAD ---
-    async function downloadCurrentSong() {
-        const song = currentPlaylist[currentIndex];
-        const btn = document.querySelector('#music-card .btn');
-        const originalText = btn.innerText;
-        if(!song) return;
-        btn.style.pointerEvents = "none"; btn.innerText = "FETCHING...";
-        try {
-            const response = await fetch(song.url);
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const cleanTitle = song.title.replace(/[^a-zA-Z0-9\s]/g, '').trim(); 
-            const fileName = `${cleanTitle} - NothingSpace.mp3`;
-            const a = document.createElement('a'); a.href = url; a.download = fileName;
-            document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url);
-            btn.innerText = "DONE ✓";
-        } catch (e) {
-            console.error(e); window.open(song.url, '_blank'); btn.innerText = "OPENED";
-        }
-        setTimeout(() => { btn.innerText = originalText; btn.style.pointerEvents = "all"; }, 2000);
-    }
-
-    async function runDownload(btn, input) {
-        const bar = btn.querySelector('.progress-bar');
-        const txt = btn.querySelector('.btn-text');
-        const oldTxt = txt.innerText;
-        let finalUrl = "";
-
-        if (input === 'BETA_TOOL') finalUrl = CONFIG.BETA_TOOL_URL;
-        else if (input === 'OTA_ZIP') {
-            const device = document.getElementById('swSelect').value;
-            if(!device) { alert("PLEASE SELECT A DEVICE!"); return; }
-            finalUrl = CONFIG.SOFTWARE[device]?.url;
-        } else finalUrl = input;
-
-        if (!finalUrl || finalUrl === "#") { alert("LINK NOT FOUND!"); return; }
-
-        btn.style.pointerEvents = 'none'; txt.innerText = 'PROCESSING...';
-        bar.style.transition = 'width 1.5s linear'; bar.style.width = '100%';
-
-        const isZip = finalUrl.toLowerCase().endsWith('.zip') || finalUrl.toLowerCase().endsWith('.apk');
-        if (isZip) {
+        // ================= INITIALIZATION (PERFORMANCE OPTIMIZED) =================
+        window.addEventListener('load', () => {
+            applyAutoTheme();
+            createStars(); // Optimized
+            createMoon();
+            
+            // Defer heavy data fetch slightly to prioritize UI
             setTimeout(() => {
-                const link = document.createElement('a'); link.href = finalUrl; link.target = "_blank";
-                document.body.appendChild(link); link.click(); document.body.removeChild(link);
-                finishDownload(btn, txt, bar, oldTxt);
-            }, 1000);
-        } else {
-            try {
-                const response = await fetch(finalUrl);
-                const blob = await response.blob();
-                const blobUrl = window.URL.createObjectURL(blob);
-                const link = document.createElement('a'); link.href = blobUrl; link.download = "NothingSpace_" + Date.now() + ".png";
-                document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(blobUrl);
-                finishDownload(btn, txt, bar, oldTxt);
-            } catch (err) {
-                window.open(finalUrl, '_blank'); finishDownload(btn, txt, bar, oldTxt);
-            }
-        }
-    }
-    function finishDownload(btn, txt, bar, oldTxt) {
-        txt.innerText = "DONE ✓"; setTimeout(() => { bar.style.transition = 'none'; bar.style.width = '0%'; txt.innerText = oldTxt; btn.style.pointerEvents = 'all'; }, 1000);
-    }
-
-    async function initSoftwareData() {
-        try {
-            const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Software/software.json", { cache: "no-cache" });
-            const data = await response.json();
-            if (data.SOFTWARE) CONFIG.SOFTWARE = data.SOFTWARE;
-        } catch (err) { console.error("SW Error:", err); }
-    }
-    function showLogs() {
-        const m = document.getElementById('swSelect').value;
-        const box = document.getElementById('logBox'), disp = document.getElementById('swDisplay');
-        if(!m || !CONFIG.SOFTWARE[m]) { box.style.display = 'none'; disp.style.display = 'none'; return; }
-        const data = CONFIG.SOFTWARE[m];
-        document.getElementById('swPhoneImg').src = data.img;
-        document.getElementById('swPhoneTitle').innerText = data.disp;
-        disp.style.display = 'flex';
-        document.getElementById('swList').innerHTML = (data.logs && Array.isArray(data.logs)) ? data.logs.map(l => `<li>${l}</li>`).join('') : "<li>Details not available</li>";
-        box.style.display = 'block';
-    }
-    function toggleAccordion() { document.getElementById('accContent').classList.toggle('open'); }
-
-    async function searchMusic() {
-        const query = document.getElementById('mQuery').value;
-        const btn = document.getElementById('mSearchBtn');
-        const card = document.getElementById('music-card');
-        if (!query) return;
-        const originalBtn = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-        try {
-                        const _0x1 = "aHR0cHM6Ly9pdHVuZXMuYXBwbGUuY29tL3NlYXJjaD9saW1pdD0yNTAmZW50aXR5PXNvbmcmdGVybT0=";
-            const res = await fetch(`${atob(_0x1)}${encodeURIComponent(query)}`);
-            const data = await res.json();
-            if (data.results.length > 0) {
-                currentPlaylist = data.results.map(song => ({
-                    url: song.previewUrl, art: song.artworkUrl100.replace('100x100', '400x400'),
-                    title: song.trackName.replace(/mzaf_\d+/g, "NOTHING TRACK").toUpperCase(), artist: "NOTHING SPACE"
-                }));
-
-                currentIndex = 0; card.style.display = "block"; loadSong(0);
-            } else alert("NOTHING FOUND");
-        } catch (e) { console.error(e); } finally { btn.innerHTML = originalBtn; }
-    }
-    function loadSong(index) {
-        if (!currentPlaylist[index]) return;
-        const song = currentPlaylist[index];
-        const player = document.getElementById('mPlayer');
-        document.getElementById('mArt').src = song.art;
-        document.getElementById('mTitle').innerText = song.title;
-        document.getElementById('mArtist').innerText = song.artist;
-        lastPlayedArt = song.art;
-        if(document.getElementById('mini-art')) document.getElementById('mini-art').src = lastPlayedArt; 
-        player.src = song.url; player.load(); togglePlay(true);
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({ title: song.title, artist: 'NOTHING SPACE', artwork: [{ src: song.art, sizes: '512x512', type: 'image/png' }] });
-            navigator.mediaSession.setActionHandler('previoustrack', prevSong); navigator.mediaSession.setActionHandler('nexttrack', nextSong);
-            navigator.mediaSession.setActionHandler('play', () => togglePlay(true)); navigator.mediaSession.setActionHandler('pause', () => togglePlay());
-        }
-    }
-    function togglePlay(forcePlay = false) {
-        const player = document.getElementById('mPlayer');
-        const icon = document.querySelector('#play-pause i');
-        const art = document.getElementById('mArt');
-        if (player.paused || forcePlay) { player.play().catch(()=>{}); icon.className = "fa-solid fa-circle-pause"; art.classList.add('spinning'); } 
-        else { player.pause(); icon.className = "fa-solid fa-circle-play"; art.classList.remove('spinning'); }
-    }
-    function nextSong() { if(currentPlaylist.length) { currentIndex = (currentIndex + 1) % currentPlaylist.length; loadSong(currentIndex); } }
-    function prevSong() { if(currentPlaylist.length) { currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length; loadSong(currentIndex); } }
-    function handleMusicClose() { closeScreen('musicScr'); if (!document.getElementById('mPlayer').paused) { document.getElementById('mini-player').style.display = 'block'; document.getElementById('mini-art').src = lastPlayedArt; document.getElementById('mini-art').classList.add('spinning'); } }
-    function restorePlayer() { document.getElementById('mini-player').style.display = 'none'; openScreen('musicScr'); }
-
-    async function initServiceData() {
-        try { const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); SERVICE_DB = await response.json(); } catch (err) { console.error("Service Data Error"); }
-    }
-    function loadCities() {
-        const s = document.getElementById('state').value, cSel = document.getElementById('city'), cArr = document.getElementById('cityArrow');
-        cSel.innerHTML = '<option value="">SELECT CITY</option>';
-        if(!s || !SERVICE_DB[s]) { cSel.style.display = 'none'; cArr.style.display = 'none'; return; }
-        cSel.style.display = 'block'; cArr.style.display = 'block';
-        [...new Set(Object.keys(SERVICE_DB[s]).map(c => c.split('_')[0]))].sort().forEach(c => cSel.innerHTML += `<option value="${c}">${c}</option>`);
-    }
-    function showDetails() {
-        const s = document.getElementById('state').value, c = document.getElementById('city').value, scInfo = document.getElementById('scInfo');
-        if(!c || !SERVICE_DB[s]) return;
-        scInfo.innerHTML = ''; 
-        Object.keys(SERVICE_DB[s]).filter(key => key === c || key.startsWith(c + "_")).forEach(key => {
-            const d = SERVICE_DB[s][key];
-            scInfo.innerHTML += `<div class="detail-card"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><h3 style="font-size:1.4rem;">${d.n}</h3><span class="sc-badge">ID: ${d.c}</span></div><p style="text-transform:none;opacity:0.7;font-size:1rem;margin-bottom:15px;">${d.a}</p><div style="font-size:0.9rem;margin-bottom:15px;"><p>🕒 TIME: ${d.t}</p><p>🚫 OFF : ${d.o}</p></div><div class="card-row"><button class="btn" style="flex:1;padding:12px;" onclick="window.open('tel:${d.p}')">CALL</button><button class="btn" style="flex:1;padding:12px;" onclick="window.open('${d.m}')">MAPS</button></div></div>`;
+                initSoftwareData();
+                initServiceData();
+                loadMessages();
+            }, 100);
         });
-    }
 
-    // --- UPDATED PRESET (WITH SCROLL ANIM) ---
-    async function initPresetData() {
-        const grid = document.getElementById('presetGrid');
-        grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING PRESETS...</p>";
-        try { 
-            const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
-            const data = await res.json(); 
-            grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); 
-            setTimeout(attachScrollAnimation, 100);
-        } catch(e) { grid.innerHTML = "ERROR"; }
-    }
+        // SMART LAZY LOADER (ADS & ANALYTICS)
+        function loadHeavyScripts() {
+            if (window.isScriptsLoaded) return;
+            window.isScriptsLoaded = true;
 
-    // --- UPDATED WALLPAPER (WITH SCROLL ANIM) ---
-    async function initWallpaperData() {
-        const grid = document.getElementById('wallpaperGrid');
-        grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING WALLPAPERS...</p>";
-        try { 
-            const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
-            const data = await res.json(); 
-            const walls = Array.isArray(data) ? data : data.wallpapers; 
-            grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); 
-            setTimeout(attachScrollAnimation, 100); 
-        } catch(e) { grid.innerHTML = "ERROR LOADING"; }
-    }
+            // Google Analytics
+            const ga = document.createElement('script');
+            ga.src = "https://www.googletagmanager.com/gtag/js?id=G-H1F7EJT2QD";
+            ga.async = true;
+            document.body.appendChild(ga);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-H1F7EJT2QD');
 
-    async function generateAIWall() {
-        const prompt = document.getElementById('aiPrompt').value.trim();
-        const ratio = document.getElementById('aiRatio').value;
-        const btn = document.getElementById('genBtn'), aiImg = document.getElementById('aiImg'), resultDiv = document.getElementById('aiResult'), bar = btn.querySelector('.progress-bar'), txt = btn.querySelector('.btn-text');
-        if (!prompt) { alert("PLEASE ENTER SOMETHING"); return; }
-        btn.style.pointerEvents = 'none'; txt.innerText = 'IMAGINING...'; bar.style.transition = 'width 60s cubic-bezier(0.4, 0, 0.2, 1)'; bar.style.width = '90%'; resultDiv.style.display = 'none'; aiImg.style.opacity = '0';
-        let w = 1080, h = 1920; if (ratio === "16:9") { w = 1920; h = 1080; } else if (ratio === "1:1") { w = 1080; h = 1080; }
-        const seed = Math.floor(Math.random() * 100000);
-        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", nothing style, minimal, 8k")}?width=${w}&height=${h}&seed=${seed}&nologo=true&model=flux`;
-        try {
-            const res = await fetch(url); if (!res.ok) throw new Error("Error"); const blob = await res.blob();
-            if (blob.size > 1000000) throw new Error("Rate Limit");
-            aiImg.src = URL.createObjectURL(blob); resultDiv.style.display = 'block'; setTimeout(() => { aiImg.style.opacity = '1'; resultDiv.scrollIntoView({behavior:'smooth'}); }, 100);
-            bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'GENERATE AGAIN';
-        } catch (e) { alert("SERVER BUSY. TRY LATER."); bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'TRY AGAIN'; } finally { btn.style.pointerEvents = 'all'; }
-    }
-    async function downloadAIWall(btn) { runDownload(btn, document.getElementById('aiImg').src); }
-
-    // ==========================================
-    //       FIXED CHAT LOGIC (USER NAME PERSISTENCE)
-    // ==========================================
-    
-    // Check if name is already saved in LocalStorage
-    let savedName = localStorage.getItem('ns_user_fixed') || "";
-
-    async function loadMessages() {
-        try {
-            const res = await fetch(DB_URL); const data = await res.json(); const board = document.getElementById('msgBoard');
-            if (!data) { board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; return; }
-            const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            board.innerHTML = messages.map(m => `<div class="msg-bubble" onclick="adminControl('${m.id}', '${m.userName || 'USER'}')"><span class="u-badge">${m.userName || 'USER'}</span><p style="text-transform:none; margin:5px 0;">${m.text}</p>${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}</div>`).join('');
-            board.scrollTop = board.scrollHeight;
-        } catch (e) { console.log(e); }
-    }
-
-    async function sendMsg() {
-        const input = document.getElementById('userMsg');
-        const btn = document.querySelector('#feedbackScr button');
-        const msg = input.value.trim();
-        
-        if (!msg) return;
-
-        // COMMAND TO RESET NAME (Type /reset in chat)
-        if (msg === "/reset") {
-            localStorage.removeItem('ns_user_fixed');
-            savedName = "";
-            alert("NAME RESET! You will be asked for a name next time.");
-            input.value = "";
-            return;
+            // AdSense (Only after user interaction)
+            const ads = document.createElement('script');
+            ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839265106233069";
+            ads.async = true;
+            ads.crossOrigin = "anonymous";
+            document.body.appendChild(ads);
+            console.log("🚀 Heavy Scripts Loaded");
         }
+        ['scroll','mousemove','touchstart','click'].forEach(e => window.addEventListener(e, loadHeavyScripts, {passive:true, once:true}));
+        setTimeout(loadHeavyScripts, 4500); // Fallback
 
-        // --- NAME CHECK LOGIC ---
-        if (!savedName || savedName === "USER") {
-            let enterName = prompt("ENTER YOUR NAME FOR THE COMMUNITY:");
-            if (!enterName || enterName.trim() === "") {
-                alert("Name is required to send messages.");
-                return;
-            }
-            savedName = enterName.trim().toUpperCase();
-            localStorage.setItem('ns_user_fixed', savedName);
+        /* ================= THEME & UI ================= */
+        function applyAutoTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            updateThemeIcon(prefersDark ? 'dark' : 'light');
         }
-
-        const originalHTML = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="red-dot-loader"></span>';
-        try { 
-            await fetch(DB_URL, { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ userName: savedName, text: msg, reply: "", timestamp: Date.now() }) 
-            }); 
-            input.value = ""; 
-            await loadMessages(); 
-        } catch (e) { alert("FAILED TO SEND"); } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
-    }
-
-    async function adminControl(msgId, currentName) {
-        const pass = prompt("ADMIN PASSWORD:");
-        if (pass === "000000") {
-            const action = prompt("1. REPLY \n2. EDIT NAME \n3. DELETE MESSAGE");
-            const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-            if (action === "1") { const txt = prompt("REPLY:"); if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); }
-            else if (action === "2") { const name = prompt("NEW NAME:", currentName); if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); }
-            else if (action === "3") { if(confirm("DELETE?")) await fetch(url, { method: 'DELETE' }); }
-            loadMessages();
+        function toggleTheme() {
+            const root = document.documentElement;
+            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            updateThemeIcon(newTheme);
         }
-    }
-</script>
+        function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
 
-</body>
-</html><script>    async function loadMessages() {
-        try {
-            const res = await fetch(DB_URL);
-            const data = await res.json();
-            const board = document.getElementById('msgBoard');
-            
-            if (!data) { 
-                board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; 
-                return; 
-            }
-
-            const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            
-            // 1. Check karo kaunse users verified hain
-            const verifiedUsers = new Set();
-            messages.forEach(m => {
-                if (m.isVerified === true) {
-                    verifiedUsers.add(m.userName); // Agar ek bhi msg verified hai, toh user verified hai
+        /* ================= OPTIMIZED STARS ================= */
+        function createStars() {
+            requestAnimationFrame(() => {
+                const field = document.getElementById('starField');
+                field.innerHTML = '';
+                const fragment = document.createDocumentFragment();
+                const count = window.innerWidth < 768 ? 50 : 200; // Less stars on mobile
+                for(let i=0; i < count; i++) {
+                    const s = document.createElement('div'); s.className = 'star';
+                    const size = Math.random() * 3;
+                    s.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation: blink ${2+Math.random()*3}s infinite; opacity:${Math.random()}`;
+                    fragment.appendChild(s);
                 }
+                field.appendChild(fragment);
             });
+        }
+        function createMoon() {
+            if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); }
+        }
 
-            // 2. Messages display karo
-            board.innerHTML = messages.map(m => {
-                // Check karo agar ye user list mein hai
-                const isUserVerified = verifiedUsers.has(m.userName);
-                const tickHtml = isUserVerified ? '<i class="fa-solid fa-circle-check" style="color:#1da1f2; margin-left:4px; font-size:0.8rem;"></i>' : '';
-                
-                return `
-                <div class="msg-bubble" onclick="adminControl('${m.id}', '${m.userName || 'USER'}', ${m.isVerified})">
-                    <span class="u-badge">
-                        ${m.userName || 'USER'}
-                        ${tickHtml}
-                    </span>
-                    <p style="text-transform:none; margin:5px 0;">${m.text}</p>
-                    ${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}
-                </div>`;
-            }).join('');
-            
-            board.scrollTop = board.scrollHeight;
-        } catch (e) { console.log(e); }
-    }
-    async function adminControl(msgId, currentName, currentStatus) {
-        const pass = prompt("ADMIN PASSWORD:");
-        if (pass === "000000") {
-            const action = prompt(`MESSAGE: ${currentName}\n\n1. REPLY\n2. EDIT NAME\n3. DELETE\n4. ${currentStatus ? 'UN-VERIFY' : 'VERIFY USER'}`);
-            
-            const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-            
-            if (action === "1") { 
-                const txt = prompt("REPLY:"); 
-                if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); 
-            }
-            else if (action === "2") { 
-                const name = prompt("NEW NAME:", currentName); 
-                if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); 
-            }
-            else if (action === "3") { 
-                if(confirm("DELETE?")) await fetch(url, { method: 'DELETE' }); 
-            }
-            else if (action === "4") {
-                // Yeh user ko permanent verify karega
-                const newStatus = !currentStatus; // True ko false, false ko true
-                await fetch(url, { method: 'PATCH', body: JSON.stringify({ isVerified: newStatus }) });
-                alert(newStatus ? "USER VERIFIED! BLUE TICK ADDED." : "VERIFICATION REMOVED.");
-            }
-            
-                        else if (action === "5") {
-                // BAN Logic: Add UUID to 'banned' node
-                if(confirm(`BAN ${currentName}? They won't be able to chat.`)) {
-                    if(userUUID) {
-                        await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`, {
-                            method: 'PUT', body: JSON.stringify(true)
-                        });
-                        alert("USER BANNED SUCCESSFULLY ");
-                    } else {
-                        alert("ERROR: Old message, no ID found.");
+        /* ================= SCROLL ANIMATION ================= */
+        function attachScrollAnimation() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('hidden-state'); 
+                        entry.target.classList.add('scroll-active');    
+                        observer.unobserve(entry.target);
                     }
-                }
-            }
-            else if (action === "6") {
-                // UNBAN Logic
-                if(userUUID) {
-                    await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`, { method: 'DELETE' });
-                    alert("USER UNBANNED");
-                }
-            }
-            
-            loadMessages();
-        } 
-    }
-</script><script>    // --- 1. USER UUID SETUP (Hidden ID for Ban System) ---
-    let userUUID = localStorage.getItem('ns_user_uuid');
-    if (!userUUID) {
-        userUUID = 'uid_' + Date.now().toString(36) + Math.random().toString(36).substr(2);
-        localStorage.setItem('ns_user_uuid', userUUID);
-    }
-
-    // --- 2. UPDATED SEND MESSAGE (Checks Ban Status First) ---
-    async function sendMsg() {
-        const input = document.getElementById('userMsg');
-        const btn = document.querySelector('#feedbackScr button');
-        const msg = input.value.trim();
-        
-        if (!msg) return;
-
-        // Reset Name Logic
-        if (msg === "/reset") {
-            localStorage.removeItem('ns_user_fixed');
-            savedName = "";
-            alert("NAME RESET! You will be asked for a name next time.");
-            input.value = "";
-            return;
-        }
-
-        // Name Logic
-        if (!savedName || savedName === "USER") {
-            let enterName = prompt("ENTER YOUR NAME:");
-            if (!enterName || enterName.trim() === "") return;
-            savedName = enterName.trim().toUpperCase();
-            localStorage.setItem('ns_user_fixed', savedName);
-        }
-
-        const originalHTML = btn.innerHTML; 
-        btn.disabled = true; 
-        btn.innerHTML = '<span class="red-dot-loader"></span>';
-
-        try {
-            // STEP A: Check if User is BANNED
-            const banCheck = await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`);
-            const isBanned = await banCheck.json();
-
-            if (isBanned === true) {
-                alert("🚫 YOU ARE BANNED FROM THE COMMUNITY.");
-                btn.disabled = false;
-                btn.innerHTML = originalHTML;
-                return; // Stop here
-            }
-
-            // STEP B: Send Message with UUID
-            await fetch(DB_URL, { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ 
-                    userName: savedName, 
-                    text: msg, 
-                    reply: "", 
-                    timestamp: Date.now(),
-                    uuid: userUUID, // Sending UUID securely
-                    isVerified: false 
-                }) 
-            }); 
-            
-            input.value = ""; 
-            await loadMessages(); 
-
-        } catch (e) { 
-            console.error(e);
-            alert("FAILED TO SEND"); 
-        } finally { 
-            btn.disabled = false; 
-            btn.innerHTML = originalHTML; 
-        }
-    }
-
-    // --- 3. UPDATED LOAD MESSAGES (Passes UUID to Admin) ---
-    async function loadMessages() {
-        try {
-            const res = await fetch(DB_URL);
-            const data = await res.json();
-            const board = document.getElementById('msgBoard');
-            
-            if (!data) { 
-                board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; 
-                return; 
-            }
-
-            const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            
-            // Check verified users
-            const verifiedUsers = new Set();
-            messages.forEach(m => { if (m.isVerified === true) verifiedUsers.add(m.userName); });
-
-            board.innerHTML = messages.map(m => {
-                const isUserVerified = verifiedUsers.has(m.userName);
-                const tickHtml = isUserVerified ? '<i class="fa-solid fa-circle-check" style="color:#1da1f2; margin-left:4px; font-size:0.8rem;"></i>' : '';
-                
-                // IMPORTANT: Passing 'm.uuid' to adminControl function
-                return `
-                <div class="msg-bubble" onclick="adminControl('${m.id}', '${m.userName || 'USER'}', ${m.isVerified}, '${m.uuid || ''}')">
-                    <span class="u-badge">${m.userName || 'USER'} ${tickHtml}</span>
-                    <p style="text-transform:none; margin:5px 0;">${m.text}</p>
-                    ${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}
-                </div>`;
-            }).join('');
-            
-            board.scrollTop = board.scrollHeight;
-        } catch (e) { console.log(e); }
-    }
-    // --- 4. ADMIN CONTROL WITH BAN SYSTEM ---
-    async function adminControl(msgId, currentName, currentStatus, targetUUID) {
-        const pass = prompt("ADMIN PASSWORD:");
-        
-        if (pass === "000000") {
-            const action = prompt(
-                `MANAGE: ${currentName}\nUUID: ${targetUUID ? 'FOUND' : 'MISSING'}\n\n` +
-                "1. REPLY\n" +
-                "2. EDIT NAME\n" +
-                "3. DELETE MSG\n" +
-                "4. VERIFY / UNVERIFY\n" +
-                "5. BAN USER\n" +
-                "6. UNBAN USER"
-            );
-            
-            const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-            const banUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`;
-            
-            if (action === "1") { 
-                const txt = prompt("REPLY:"); 
-                if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); 
-            }
-            else if (action === "2") { 
-                const name = prompt("NEW NAME:", currentName); 
-                if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); 
-            }
-            else if (action === "3") { 
-                if(confirm("DELETE MESSAGE?")) await fetch(url, { method: 'DELETE' }); 
-            }
-            else if (action === "4") {
-                const newStatus = !currentStatus;
-                await fetch(url, { method: 'PATCH', body: JSON.stringify({ isVerified: newStatus }) });
-                alert(newStatus ? "USER VERIFIED" : "VERIFICATION REMOVED");
-            }
-            else if (action === "5") {
-                // BAN Logic
-                if(!targetUUID) { alert("ERROR: Cannot Ban. Old message (No UUID)."); return; }
-                
-                if(confirm(`ARE YOU SURE YOU WANT TO BAN ${currentName}?`)) {
-                    await fetch(banUrl, { method: 'PUT', body: JSON.stringify(true) });
-                    alert("USER BANNED 🚫");
-                }
-            }
-            else if (action === "6") {
-                // UNBAN Logic
-                if(!targetUUID) { alert("ERROR: UUID Missing."); return; }
-                
-                await fetch(banUrl, { method: 'DELETE' });
-                alert("USER UNBANNED ✅");
-            }
-            
-            loadMessages();
-        } 
-    }
-</script><script>    async function loadMessages() {
-        try {
-            // 1. Chat aur Verified List dono ko fetch karo
-            const [chatRes, verifyRes] = await Promise.all([
-                fetch(DB_URL),
-                fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json")
-            ]);
-
-            const data = await chatRes.json();
-            const verifiedData = await verifyRes.json() || {}; // Agar list khali hai toh empty object
-
-            const board = document.getElementById('msgBoard');
-            
-            if (!data) { 
-                board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; 
-                return; 
-            }
-
-            const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            
-            board.innerHTML = messages.map(m => {
-                // --- MAGIC LOGIC ---
-                // Yahan hum check kar rahe hain ki kya user ka UUID 'verified_users' list mein hai?
-                // Naam kuch bhi ho, agar UUID match hua toh Tick milega.
-                const isUserVerified = (m.uuid && verifiedData[m.uuid] === true);
-
-                const tickHtml = isUserVerified ? '<i class="fa-solid fa-circle-check" style="color:#1da1f2; margin-left:4px; font-size:0.8rem;"></i>' : '';
-                
-                return `
-                <div class="msg-bubble" onclick="adminControl('${m.id}', '${m.userName || 'USER'}', ${isUserVerified}, '${m.uuid || ''}')">
-                    <span class="u-badge">${m.userName || 'USER'} ${tickHtml}</span>
-                    <p style="text-transform:none; margin:5px 0;">${m.text}</p>
-                    ${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}
-                </div>`;
-            }).join('');
-            
-            board.scrollTop = board.scrollHeight;
-        } catch (e) { console.log(e); }
-    }
-    async function adminControl(msgId, currentName, currentStatus, targetUUID) {
-        const pass = prompt("ADMIN PASSWORD:");
-        
-        if (pass === "000000") {
-            const action = prompt(
-                `MANAGE: ${currentName}\nUUID: ${targetUUID ? 'FOUND' : 'MISSING'}\n\n` +
-                "1. REPLY\n" +
-                "2. EDIT NAME\n" +
-                "3. DELETE MSG\n" +
-                "4. " + (currentStatus ? "REMOVE VERIFICATION ❌" : "VERIFY USER ID ✅") + "\n" +
-                "5. BAN USER\n" +
-                "6. UNBAN USER"
-            );
-            
-            const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-            const banUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`;
-            // Ye naya URL hai jahan verified IDs save hongi
-            const verifyUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users/${targetUUID}.json`;
-            
-            if (action === "1") { 
-                const txt = prompt("REPLY:"); 
-                if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); 
-            }
-            else if (action === "2") { 
-                const name = prompt("NEW NAME:", currentName); 
-                if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); 
-            }
-            else if (action === "3") { 
-                if(confirm("DELETE MESSAGE?")) await fetch(url, { method: 'DELETE' }); 
-            }
-            else if (action === "4") {
-                // --- UUID VERIFICATION LOGIC ---
-                if (!targetUUID) { alert("ERROR: UUID Missing (Old Message)"); return; }
-
-                if (currentStatus) {
-                    // Agar verified tha, toh ID delete kar do
-                    await fetch(verifyUrl, { method: 'DELETE' });
-                    alert("VERIFICATION REMOVED ❌");
-                } else {
-                    // Agar verified nahi tha, toh ID add kar do
-                    await fetch(verifyUrl, { method: 'PUT', body: JSON.stringify(true) });
-                    alert("USER ID VERIFIED ✅ (Name change karne par bhi tick rahega)");
-                }
-            }
-            else if (action === "5") {
-                if(!targetUUID) { alert("ERROR: No UUID."); return; }
-                if(confirm(`BAN ${currentName}?`)) {
-                    await fetch(banUrl, { method: 'PUT', body: JSON.stringify(true) });
-                    alert("USER BANNED 🚫");
-                }
-            }
-            else if (action === "6") {
-                if(!targetUUID) { alert("ERROR: UUID Missing."); return; }
-                await fetch(banUrl, { method: 'DELETE' });
-                alert("USER UNBANNED ✅");
-            }
-            
-            loadMessages();
-        } 
-    }
-</script><script>function stringToHash(string) {
-    let hash = 0;
-    if (string.length === 0) return hash;
-    for (let i = 0; i < string.length; i++) {
-        const char = string.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; 
-    }
-    return hash.toString();
-}
-
-// 2. Updated Admin Control Function
-async function adminControl(msgId, currentName, currentStatus, targetUUID) {
-    const pass = prompt("ADMIN PASSWORD:");
-    
-    if (!pass) return;
-
-  
-    const enteredHash = stringToHash(pass);
-
-    const secretHash = "1540218370"; 
-
-    if (enteredHash === secretHash) {
-        
-        // --- ACCESS GRANTED ---
-        const action = prompt(
-            `MANAGE: ${currentName}\nUUID: ${targetUUID ? 'FOUND' : 'MISSING'}\n\n` +
-            "1. REPLY\n" +
-            "2. EDIT NAME\n" +
-            "3. DELETE MSG\n" +
-            "4. " + (currentStatus ? "REMOVE VERIFICATION ❌" : "VERIFY USER ID ✅") + "\n" +
-            "5. BAN USER\n" +
-            "6. UNBAN USER"
-        );
-        
-        const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-        const banUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`;
-        const verifyUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users/${targetUUID}.json`;
-        
-        if (action === "1") { 
-            const txt = prompt("REPLY:"); 
-            if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); 
-        }
-        else if (action === "2") { 
-            const name = prompt("NEW NAME:", currentName); 
-            if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); 
-        }
-        else if (action === "3") { 
-            if(confirm("DELETE MESSAGE?")) await fetch(url, { method: 'DELETE' }); 
-        }
-        else if (action === "4") {
-            if (!targetUUID) { alert("ERROR: UUID Missing (Old Message)"); return; }
-            if (currentStatus) {
-                await fetch(verifyUrl, { method: 'DELETE' });
-                alert("VERIFICATION REMOVED ❌");
-            } else {
-                await fetch(verifyUrl, { method: 'PUT', body: JSON.stringify(true) });
-                alert("USER ID VERIFIED ✅");
-            }
-        }
-        else if (action === "5") {
-            if(!targetUUID) { alert("ERROR: No UUID."); return; }
-            if(confirm(`BAN ${currentName}?`)) {
-                await fetch(banUrl, { method: 'PUT', body: JSON.stringify(true) });
-                alert("USER BANNED 🚫");
-            }
-        }
-        else if (action === "6") {
-            if(!targetUUID) { alert("ERROR: UUID Missing."); return; }
-            await fetch(banUrl, { method: 'DELETE' });
-            alert("USER UNBANNED ✅");
-        }
-        
-        loadMessages(); 
-
-    } else {
-        alert("WRONG PASSWORD!");
-    }
-}
-// --- LONG PRESS LOGIC VARIABLES ---
-let pressTimer;
-
-// Jab user touch karega (Start Timer)
-function startPress(id, name, verified, uuid) {
-    // 5000 ms = 5 Seconds
-    pressTimer = setTimeout(() => {
-        // Agar mobile hai to halka vibration hoga (Feedback)
-        if (navigator.vibrate) navigator.vibrate(50); 
-        
-        // 3 second baad Admin Panel khulega
-        adminControl(id, name, verified, uuid); 
-    }, 3000); 
-}
-
-// Jab user ungli hata le ya hila le (Cancel Timer)
-function cancelPress() {
-    clearTimeout(pressTimer);
-}
-    async function loadMessages() {
-        try {
-            // Data fetch karo
-            const [chatRes, verifyRes] = await Promise.all([
-                fetch(DB_URL),
-                fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json")
-            ]);
-
-            const data = await chatRes.json();
-            const verifiedData = await verifyRes.json() || {}; 
-
-            const board = document.getElementById('msgBoard');
-            
-            if (!data) { 
-                board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; 
-                return; 
-            }
-
-            const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            
-            board.innerHTML = messages.map(m => {
-                const isUserVerified = (m.uuid && verifiedData[m.uuid] === true);
-                const tickHtml = isUserVerified ? '<i class="fa-solid fa-circle-check" style="color:#1da1f2; margin-left:4px; font-size:0.8rem;"></i>' : '';
-                
-                // ✅ YAHAN CHANGE KIYA HAI: onclick hata diya, mouse/touch events laga diye
-                return `
-                <div class="msg-bubble" 
-                     style="user-select: none; -webkit-user-select: none;" 
-                     onmousedown="startPress('${m.id}', '${m.userName || 'USER'}', ${isUserVerified}, '${m.uuid || ''}')" 
-                     ontouchstart="startPress('${m.id}', '${m.userName || 'USER'}', ${isUserVerified}, '${m.uuid || ''}')" 
-                     
-                     onmouseup="cancelPress()" 
-                     onmouseleave="cancelPress()" 
-                     ontouchend="cancelPress()" 
-                     ontouchmove="cancelPress()">
-
-                    <span class="u-badge">${m.userName || 'USER'} ${tickHtml}</span>
-                    <p style="text-transform:none; margin:5px 0;">${m.text}</p>
-                    ${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}
-                </div>`;
-            }).join('');
-            
-            board.scrollTop = board.scrollHeight;
-        } catch (e) { console.log(e); }
-    }
-</script>
- 
-  <style>/* ==============================================
-   BLOCK BROWSER LONG PRESS (APP FEEL FIX)
-============================================== */
-img {
-    -webkit-touch-callout: none !important; /* iOS/Android Long Press Block */
-    -webkit-user-select: none !important;   /* Selection Block */
-    -khtml-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important;
-    -webkit-user-drag: none !important;     /* Dragging Block */
-}
-</style><script>// ===============================================
-//       PASSWORD ENCRYPTION (HASHING)
-// ===============================================
-function stringToHash(string) {
-    let hash = 0;
-    if (string.length === 0) return hash;
-    for (let i = 0; i < string.length; i++) {
-        const char = string.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; 
-    }
-    return hash.toString();
-}
-
-// ==========================================
-//       FIXED SOFTWARE ADMIN LOGIC
-// ==========================================
-let sw_timer; // Alag timer variable
-
-// 1. Jab Daba Ke Rakhoge (Start)
-function startSoftwareLogic() {
-    sw_timer = setTimeout(() => {
-        if(navigator.vibrate) navigator.vibrate(50); // Vibration
-        openSoftwareMenu(); // Sahi wala Admin panel khulega
-    }, 2500); // 3 Second
-}
-
-// 2. Jab Ungli Hataoge (Cancel)
-function cancelSoftwareLogic() {
-    clearTimeout(sw_timer);
-}
-
-// 3. Main Admin Menu (Sirf Software ke liye)
-async function openSoftwareMenu() {
-    const id = document.getElementById('swSelect').value;
-    
- 
-    if(!id) { alert("PEHLE KOI PHONE SELECT KARO!"); return; }
-
-    const pass = prompt("🔐 SOFTWARE PASSWORD:");
-    
-    if(pass === "000000") {
-        const current = CONFIG.SOFTWARE[id] || {};
-        
-        const choice = prompt(
-            `EDITING: ${current.disp || id}\n\n` +
-            "1. ZIP LINK UPDATE\n" +
-            "2. PHONE NAME CHANGE\n" +
-            "3. IMAGE CHANGE\n" +
-            "4. NOTE UPDATE"
-        );
-
-        let payload = {};
-
-        if(choice === "1") payload = { url: prompt("NEW LINK:", "...") };
-        if(choice === "2") payload = { disp: prompt("NEW NAME:", "...") };
-        if(choice === "3") payload = { img: prompt("NEW IMG:", "...") };
-        if(choice === "4") payload = { logs: [prompt("NEW NOTE:", "...")] };
-
-        // Save to Firebase
-        if(Object.keys(payload).length > 0) {
-            const btn = document.querySelector('#swScr .btn');
-            btn.innerText = "SAVING...";
-            
-            await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${id}.json`, {
-                method: 'PATCH',
-                body: JSON.stringify(payload)
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.wp-card').forEach(card => {
+                card.classList.add('hidden-state'); 
+                observer.observe(card);
             });
-
-            alert("✅ SAVED!");
-          
-            const res = await fetch("https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data.json");
-            CONFIG.SOFTWARE = await res.json();
-            showLogs(); // Screen update
-            btn.innerText = "DOWNLOAD OTA ZIP";
         }
-    } else {
-        if(pass) alert("WRONG PASSWORD!");
-    }
-}
-// ===============================================
-//       CORRECTED DATA LOADER (FIREBASE ONLY)
-// ===============================================
 
-async function initSoftwareData() {
-    console.log("🔄 CONNECTING TO FIREBASE..."); // Debugging ke liye
-    try {
-        // YAHAN HAI CHANGE: GitHub link hata kar Firebase link dala hai
-        const response = await fetch("https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data.json");
-        
-        const data = await response.json();
-        
-        if (data) {
-            CONFIG.SOFTWARE = data; // Ab data seedha Firebase se aayega
-            console.log("✅ FIREBASE DATA LOADED!");
-        } else {
-            console.log("⚠️ FIREBASE IS EMPTY");
+        /* ================= NAVIGATION ================= */
+        function openScreen(id) {
+            const s = document.getElementById(id);
+            if(!s) return;
+            s.style.display = 'flex'; 
+            void s.offsetWidth; 
+            s.classList.add('active');
+            if(id === 'wpScr') initWallpaperData();
+            if(id === 'presetScr') initPresetData();
         }
-    } catch (err) { 
-        console.error("❌ DATA LOAD ERROR:", err); 
-        alert("Database Error! Check Internet.");
-    }
-}
+        function closeScreen(id) {
+            const s = document.getElementById(id);
+            if(!s) return;
+            s.classList.remove('active'); 
+            setTimeout(() => { s.style.display = 'none'; }, 500);
+        }
 
-// ===============================================
-//       SECURE ADMIN MENU (NO DELETE OPTION)
-// ===============================================
+        /* ================= DOWNLOAD LOGIC ================= */
+        async function runDownload(btn, input) {
+            const bar = btn.querySelector('.progress-bar');
+            const txt = btn.querySelector('.btn-text');
+            const oldTxt = txt.innerText;
+            let finalUrl = "";
 
-async function openSoftwareMenu() {
-    const id = document.getElementById('swSelect').value;
-    const pass = prompt("🔐 SOFTWARE ADMIN PASSWORD:");
-    
-    if(stringToHash(pass) === "1540218401") {
-        
-        // --- ADD NEW DEVICE ---
-        if(!id) {
-            if(confirm("🆕 ADD NEW DEVICE?")) {
-                const newId = prompt("Unique ID (e.g. phone3):");
-                if(!newId) return;
-                const payload = {
-                    disp: prompt("Device Name:"),
-                    img: prompt("Image URL:"),
-                    url: prompt("Zip Link:"),
-                    logs: [prompt("Note:")]
-                };
-                await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${newId}.json`, {method:'PUT', body:JSON.stringify(payload)});
-                alert("ADDED!"); initSoftwareData();
+            if (input === 'BETA_TOOL') finalUrl = CONFIG.BETA_TOOL_URL;
+            else if (input === 'OTA_ZIP') {
+                const device = document.getElementById('swSelect').value;
+                if(!device) { alert("PLEASE SELECT A DEVICE!"); return; }
+                finalUrl = CONFIG.SOFTWARE[device]?.url;
+            } else finalUrl = input;
+
+            if (!finalUrl || finalUrl === "#") { alert("LINK NOT FOUND!"); return; }
+
+            btn.style.pointerEvents = 'none'; txt.innerText = 'PROCESSING...';
+            bar.style.transition = 'width 1.5s linear'; bar.style.width = '100%';
+
+            const isZip = finalUrl.toLowerCase().endsWith('.zip') || finalUrl.toLowerCase().endsWith('.apk');
+            if (isZip) {
+                setTimeout(() => {
+                    const link = document.createElement('a'); link.href = finalUrl; link.target = "_blank";
+                    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+                    finishDownload(btn, txt, bar, oldTxt);
+                }, 1000);
+            } else {
+                try {
+                    const response = await fetch(finalUrl);
+                    const blob = await response.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a'); link.href = blobUrl; link.download = "NothingSpace_" + Date.now() + ".png";
+                    document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(blobUrl);
+                    finishDownload(btn, txt, bar, oldTxt);
+                } catch (err) {
+                    window.open(finalUrl, '_blank'); finishDownload(btn, txt, bar, oldTxt);
+                }
             }
-            return;
+        }
+        function finishDownload(btn, txt, bar, oldTxt) {
+            txt.innerText = "DONE ✓"; setTimeout(() => { bar.style.transition = 'none'; bar.style.width = '0%'; txt.innerText = oldTxt; btn.style.pointerEvents = 'all'; }, 1000);
         }
 
-     
-        const cur = CONFIG.SOFTWARE[id];
-        const choice = prompt(`EDIT ${cur.disp}:\n1.LINK\n2.NAME\n3.IMG\n4.NOTE`);
-        let load = {};
+        /* ================= SOFTWARE MODULE (FIREBASE) ================= */
+        async function initSoftwareData() {
+            try {
+                const response = await fetch("https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data.json");
+                const data = await response.json();
+                if (data) CONFIG.SOFTWARE = data;
+            } catch (err) { console.error("SW Error:", err); }
+        }
+        function showLogs() {
+            const m = document.getElementById('swSelect').value;
+            const box = document.getElementById('logBox'), disp = document.getElementById('swDisplay');
+            if(!m || !CONFIG.SOFTWARE[m]) { box.style.display = 'none'; disp.style.display = 'none'; return; }
+            const data = CONFIG.SOFTWARE[m];
+            document.getElementById('swPhoneImg').src = data.img;
+            document.getElementById('swPhoneTitle').innerText = data.disp;
+            disp.style.display = 'flex';
+            document.getElementById('swList').innerHTML = (data.logs && Array.isArray(data.logs)) ? data.logs.map(l => `<li>${l}</li>`).join('') : "<li>Details not available</li>";
+            box.style.display = 'block';
+        }
+        function toggleAccordion() { document.getElementById('accContent').classList.toggle('open'); }
 
-        if(choice==="1") load={url:prompt("URL:", "")};
-        if(choice==="2") load={disp:prompt("NAME:", "")};
-        if(choice==="3") load={img:prompt("IMG:", "")};
-        if(choice==="4") {
-            const raw = prompt("NOTE (Use | for new line):", "");
-            if(raw) load={logs: raw.split('|').map(s=>s.trim())};
+        // SOFTWARE ADMIN LOGIC (With Hash)
+        let sw_timer;
+        function startSoftwareLogic() {
+            sw_timer = setTimeout(() => {
+                if(navigator.vibrate) navigator.vibrate(50);
+                openSoftwareMenu();
+            }, 2500);
+        }
+        function cancelSoftwareLogic() { clearTimeout(sw_timer); }
+
+        async function openSoftwareMenu() {
+            const id = document.getElementById('swSelect').value;
+            const pass = prompt("🔐 SOFTWARE ADMIN PASSWORD:");
+            if(stringToHash(pass) === "1540218401") {
+                if(!id) {
+                    if(confirm("🆕 ADD NEW DEVICE?")) {
+                        const newId = prompt("Unique ID (e.g. phone3):");
+                        if(!newId) return;
+                        const payload = { disp: prompt("Name:"), img: prompt("Img URL:"), url: prompt("Zip Link:"), logs: [prompt("Note:")] };
+                        await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${newId}.json`, {method:'PUT', body:JSON.stringify(payload)});
+                        alert("ADDED!"); initSoftwareData();
+                    }
+                    return;
+                }
+                const cur = CONFIG.SOFTWARE[id];
+                const choice = prompt(`EDIT ${cur.disp}:\n1.LINK\n2.NAME\n3.IMG\n4.NOTE`);
+                let load = {};
+                if(choice==="1") load={url:prompt("URL:", "")};
+                if(choice==="2") load={disp:prompt("NAME:", "")};
+                if(choice==="3") load={img:prompt("IMG:", "")};
+                if(choice==="4") {
+                    const raw = prompt("NOTE (| for new line):", "");
+                    if(raw) load={logs: raw.split('|').map(s=>s.trim())};
+                }
+                if(Object.keys(load).length) {
+                    await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${id}.json`, {method:'PATCH', body:JSON.stringify(load)});
+                    alert("SAVED!"); initSoftwareData(); showLogs();
+                }
+            } else { if(pass) alert("WRONG PASSWORD"); }
         }
 
-        if(Object.keys(load).length) {
-            await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${id}.json`, {method:'PATCH', body:JSON.stringify(load)});
-            alert("SAVED!"); initSoftwareData(); showLogs();
+        /* ================= MUSIC MODULE ================= */
+        async function searchMusic() {
+            const query = document.getElementById('mQuery').value;
+            const btn = document.getElementById('mSearchBtn');
+            const card = document.getElementById('music-card');
+            if (!query) return;
+            const originalBtn = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            try {
+                const _0x1 = "aHR0cHM6Ly9pdHVuZXMuYXBwbGUuY29tL3NlYXJjaD9saW1pdD0yNTAmZW50aXR5PXNvbmcmdGVybT0=";
+                const res = await fetch(`${atob(_0x1)}${encodeURIComponent(query)}`);
+                const data = await res.json();
+                if (data.results.length > 0) {
+                    currentPlaylist = data.results.map(song => ({
+                        url: song.previewUrl, art: song.artworkUrl100.replace('100x100', '400x400'),
+                        title: song.trackName.replace(/mzaf_\d+/g, "NOTHING TRACK").toUpperCase(), artist: "NOTHING SPACE"
+                    }));
+                    currentIndex = 0; card.style.display = "block"; loadSong(0);
+                } else alert("NOTHING FOUND");
+            } catch (e) { console.error(e); } finally { btn.innerHTML = originalBtn; }
         }
-    } else {
-        if(pass) alert("WRONG PASSWORD");
-    }
-}
-// ===============================================
-//       BLOCK BROWSER CONTEXT MENU (GLOBAL)
-// ===============================================
+        function loadSong(index) {
+            if (!currentPlaylist[index]) return;
+            const song = currentPlaylist[index];
+            const player = document.getElementById('mPlayer');
+            document.getElementById('mArt').src = song.art;
+            document.getElementById('mTitle').innerText = song.title;
+            document.getElementById('mArtist').innerText = song.artist;
+            lastPlayedArt = song.art;
+            if(document.getElementById('mini-art')) document.getElementById('mini-art').src = lastPlayedArt; 
+            player.src = song.url; player.load(); togglePlay(true);
+        }
+        function togglePlay(forcePlay = false) {
+            const player = document.getElementById('mPlayer');
+            const icon = document.querySelector('#play-pause i');
+            const art = document.getElementById('mArt');
+            if (player.paused || forcePlay) { player.play().catch(()=>{}); icon.className = "fa-solid fa-circle-pause"; art.classList.add('spinning'); } 
+            else { player.pause(); icon.className = "fa-solid fa-circle-play"; art.classList.remove('spinning'); }
+        }
+        function nextSong() { if(currentPlaylist.length) { currentIndex = (currentIndex + 1) % currentPlaylist.length; loadSong(currentIndex); } }
+        function prevSong() { if(currentPlaylist.length) { currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length; loadSong(currentIndex); } }
+        function handleMusicClose() { closeScreen('musicScr'); if (!document.getElementById('mPlayer').paused) { document.getElementById('mini-player').style.display = 'block'; document.getElementById('mini-art').src = lastPlayedArt; document.getElementById('mini-art').classList.add('spinning'); } }
+        function restorePlayer() { document.getElementById('mini-player').style.display = 'none'; openScreen('musicScr'); }
+        async function downloadCurrentSong() {
+            const song = currentPlaylist[currentIndex];
+            const btn = document.querySelector('#music-card .btn');
+            if(!song) return;
+            btn.style.pointerEvents = "none"; btn.innerText = "FETCHING...";
+            try {
+                const response = await fetch(song.url);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = `${song.title.replace(/[^a-zA-Z0-9\s]/g, '').trim()} - NothingSpace.mp3`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url);
+                btn.innerText = "DONE ✓";
+            } catch (e) { window.open(song.url, '_blank'); btn.innerText = "OPENED"; }
+            setTimeout(() => { btn.innerText = "DOWNLOAD"; btn.style.pointerEvents = "all"; }, 2000);
+        }
 
-// Pure page par Image ke liye Menu Block karo
-document.addEventListener('contextmenu', function(event) {
-    if (event.target.tagName === 'IMG') {
-        event.preventDefault(); // Menu khulne se roko
-        return false;
-    }
-});
+        /* ================= CHAT MODULE (FIXED) ================= */
+        let userUUID = localStorage.getItem('ns_user_uuid');
+        if (!userUUID) {
+            userUUID = 'uid_' + Date.now().toString(36) + Math.random().toString(36).substr(2);
+            localStorage.setItem('ns_user_uuid', userUUID);
+        }
+        let savedName = localStorage.getItem('ns_user_fixed') || "";
 
-// Admin Long Press Logic ko disturb na kare isliye
-// Touch events ko passive rakhenge
-document.addEventListener('touchstart', function(event) {
-    if (event.target.tagName === 'IMG') {
-        // Default touch behavior rehne do taaki humara custom long press chale
-        // Lekin context menu upar wale code se block ho jayega
-    }
-}, { passive: false });
-</script>
+        async function sendMsg() {
+            const input = document.getElementById('userMsg');
+            const btn = document.querySelector('#feedbackScr button');
+            const msg = input.value.trim();
+            
+            if (!msg) return;
+            if (msg === "/reset") {
+                localStorage.removeItem('ns_user_fixed'); savedName = "";
+                alert("NAME RESET!"); input.value = ""; return;
+            }
+            if (!savedName || savedName === "USER") {
+                let enterName = prompt("ENTER YOUR NAME:");
+                if (!enterName || enterName.trim() === "") return;
+                savedName = enterName.trim().toUpperCase();
+                localStorage.setItem('ns_user_fixed', savedName);
+            }
+
+            const originalHTML = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="red-dot-loader"></span>';
+            try {
+                const banCheck = await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`);
+                const isBanned = await banCheck.json();
+                if (isBanned === true) { alert("🚫 YOU ARE BANNED."); return; }
+
+                await fetch(DB_URL, { 
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ userName: savedName, text: msg, reply: "", timestamp: Date.now(), uuid: userUUID, isVerified: false }) 
+                }); 
+                input.value = ""; await loadMessages(); 
+            } catch (e) { alert("FAILED"); } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
+        }
+
+        async function loadMessages() {
+            try {
+                const [chatRes, verifyRes] = await Promise.all([
+                    fetch(DB_URL),
+                    fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json")
+                ]);
+                const data = await chatRes.json();
+                const verifiedData = await verifyRes.json() || {};
+                const board = document.getElementById('msgBoard');
+                
+                if (!data) { board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; return; }
+                const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+                
+                board.innerHTML = messages.map(m => {
+                    const isUserVerified = (m.uuid && verifiedData[m.uuid] === true);
+                    const tickHtml = isUserVerified ? '<i class="fa-solid fa-circle-check" style="color:#1da1f2; margin-left:4px; font-size:0.8rem;"></i>' : '';
+                    return `
+                    <div class="msg-bubble" style="user-select: none;" 
+                         onmousedown="startPress('${m.id}', '${m.userName}', ${isUserVerified}, '${m.uuid}')" 
+                         ontouchstart="startPress('${m.id}', '${m.userName}', ${isUserVerified}, '${m.uuid}')" 
+                         onmouseup="cancelPress()" onmouseleave="cancelPress()" ontouchend="cancelPress()">
+                        <span class="u-badge">${m.userName || 'USER'} ${tickHtml}</span>
+                        <p style="text-transform:none; margin:5px 0;">${m.text}</p>
+                        ${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}
+                    </div>`;
+                }).join('');
+                board.scrollTop = board.scrollHeight;
+            } catch (e) { console.log(e); }
+        }
+
+        // CHAT ADMIN & BAN LOGIC
+        let pressTimer;
+        function startPress(id, name, verified, uuid) {
+            pressTimer = setTimeout(() => { if (navigator.vibrate) navigator.vibrate(50); adminControl(id, name, verified, uuid); }, 3000); 
+        }
+        function cancelPress() { clearTimeout(pressTimer); }
+
+        async function adminControl(msgId, currentName, currentStatus, targetUUID) {
+            const pass = prompt("ADMIN PASSWORD:");
+            if (!pass) return;
+            if (stringToHash(pass) === "1540218370") {
+                const action = prompt(`MANAGE: ${currentName}\nUUID: ${targetUUID ? 'FOUND' : 'MISSING'}\n\n1.REPLY 2.EDIT NAME 3.DELETE 4.${currentStatus ? 'UNVERIFY' : 'VERIFY'} 5.BAN 6.UNBAN`);
+                const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
+                const banUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`;
+                const verifyUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users/${targetUUID}.json`;
+                
+                if (action === "1") { const txt = prompt("REPLY:"); if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); }
+                else if (action === "2") { const name = prompt("NEW NAME:"); if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); }
+                else if (action === "3") { if(confirm("DELETE?")) await fetch(url, { method: 'DELETE' }); }
+                else if (action === "4") {
+                    if (!targetUUID) { alert("NO UUID"); return; }
+                    if (currentStatus) { await fetch(verifyUrl, { method: 'DELETE' }); alert("UNVERIFIED"); } 
+                    else { await fetch(verifyUrl, { method: 'PUT', body: JSON.stringify(true) }); alert("VERIFIED"); }
+                }
+                else if (action === "5") { if(targetUUID && confirm("BAN?")) { await fetch(banUrl, { method: 'PUT', body: JSON.stringify(true) }); alert("BANNED"); } }
+                else if (action === "6") { if(targetUUID) { await fetch(banUrl, { method: 'DELETE' }); alert("UNBANNED"); } }
+                loadMessages();
+            } else alert("WRONG PASSWORD!");
+        }
+
+        /* ================= UTILS & OTHERS ================= */
+        function stringToHash(string) {
+            let hash = 0;
+            if (string.length === 0) return hash;
+            for (let i = 0; i < string.length; i++) {
+                const char = string.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; 
+            }
+            return hash.toString();
+        }
+
+        async function initServiceData() {
+            try { const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); SERVICE_DB = await response.json(); } catch (err) { console.error("Service Data Error"); }
+        }
+        function loadCities() {
+            const s = document.getElementById('state').value, cSel = document.getElementById('city'), cArr = document.getElementById('cityArrow');
+            cSel.innerHTML = '<option value="">SELECT CITY</option>';
+            if(!s || !SERVICE_DB[s]) { cSel.style.display = 'none'; cArr.style.display = 'none'; return; }
+            cSel.style.display = 'block'; cArr.style.display = 'block';
+            [...new Set(Object.keys(SERVICE_DB[s]).map(c => c.split('_')[0]))].sort().forEach(c => cSel.innerHTML += `<option value="${c}">${c}</option>`);
+        }
+        function showDetails() {
+            const s = document.getElementById('state').value, c = document.getElementById('city').value, scInfo = document.getElementById('scInfo');
+            if(!c || !SERVICE_DB[s]) return;
+            scInfo.innerHTML = ''; 
+            Object.keys(SERVICE_DB[s]).filter(key => key === c || key.startsWith(c + "_")).forEach(key => {
+                const d = SERVICE_DB[s][key];
+                scInfo.innerHTML += `<div class="detail-card"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><h3 style="font-size:1.4rem;">${d.n}</h3><span class="sc-badge">ID: ${d.c}</span></div><p style="text-transform:none;opacity:0.7;font-size:1rem;margin-bottom:15px;">${d.a}</p><div style="font-size:0.9rem;margin-bottom:15px;"><p>🕒 TIME: ${d.t}</p><p>🚫 OFF : ${d.o}</p></div><div class="card-row"><button class="btn" style="flex:1;padding:12px;" onclick="window.open('tel:${d.p}')">CALL</button><button class="btn" style="flex:1;padding:12px;" onclick="window.open('${d.m}')">MAPS</button></div></div>`;
+            });
+        }
+
+        async function initPresetData() {
+            const grid = document.getElementById('presetGrid');
+            grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING PRESETS...</p>";
+            try { 
+                const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
+                const data = await res.json(); 
+                grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); 
+                setTimeout(attachScrollAnimation, 100);
+            } catch(e) { grid.innerHTML = "ERROR"; }
+        }
+
+        async function initWallpaperData() {
+            const grid = document.getElementById('wallpaperGrid');
+            grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING WALLPAPERS...</p>";
+            try { 
+                const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
+                const data = await res.json(); 
+                const walls = Array.isArray(data) ? data : data.wallpapers; 
+                grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); 
+                setTimeout(attachScrollAnimation, 100); 
+            } catch(e) { grid.innerHTML = "ERROR LOADING"; }
+        }
+
+        async function generateAIWall() {
+            const prompt = document.getElementById('aiPrompt').value.trim();
+            const ratio = document.getElementById('aiRatio').value;
+            const btn = document.getElementById('genBtn'), aiImg = document.getElementById('aiImg'), resultDiv = document.getElementById('aiResult'), bar = btn.querySelector('.progress-bar'), txt = btn.querySelector('.btn-text');
+            if (!prompt) { alert("PLEASE ENTER SOMETHING"); return; }
+            btn.style.pointerEvents = 'none'; txt.innerText = 'IMAGINING...'; bar.style.transition = 'width 60s cubic-bezier(0.4, 0, 0.2, 1)'; bar.style.width = '90%'; resultDiv.style.display = 'none'; aiImg.style.opacity = '0';
+            let w = 1080, h = 1920; if (ratio === "16:9") { w = 1920; h = 1080; } else if (ratio === "1:1") { w = 1080; h = 1080; }
+            const seed = Math.floor(Math.random() * 100000);
+            const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", nothing style, minimal, 8k")}?width=${w}&height=${h}&seed=${seed}&nologo=true&model=flux`;
+            try {
+                const res = await fetch(url); if (!res.ok) throw new Error("Error"); const blob = await res.blob();
+                if (blob.size > 1000000) throw new Error("Rate Limit");
+                aiImg.src = URL.createObjectURL(blob); resultDiv.style.display = 'block'; setTimeout(() => { aiImg.style.opacity = '1'; resultDiv.scrollIntoView({behavior:'smooth'}); }, 100);
+                bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'GENERATE AGAIN';
+            } catch (e) { alert("SERVER BUSY. TRY LATER."); bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'TRY AGAIN'; } finally { btn.style.pointerEvents = 'all'; }
+        }
+        async function downloadAIWall(btn) { runDownload(btn, document.getElementById('aiImg').src); }
+    </script>
+</body>
+</html>
