@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nothing Space - Built Together</title>
     <meta name="description" content="Community hub for Nothing Phone users. Download firmware, wallpapers, and tools.">
+    <title>Nothing Space - Built Together</title>
 
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -42,14 +42,14 @@
 
         h1, h2, h3, span, button, select, input, p { font-family: 'VT323', monospace !important; text-transform: uppercase; }
 
-        /* PERFORMANCE OPTIMIZATION */
-        .bento, footer, .screen { content-visibility: auto; contain-intrinsic-size: 1000px; }
-        img { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-user-drag: none !important; }
-
-        /* ================= BACKGROUND ANIMATIONS ================= */
-        .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; }
-
+        /* PERFORMANCE: CONTENT VISIBILITY & LAYOUT SHIFT FIXES */
+        .bento, footer, .screen { content-visibility: auto; contain-intrinsic-size: 800px; }
+        img { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+        
+        /* Fix Layout Shift for Images */
+        .wp-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; background: #222; }
+        
+        /* ================= STATIC BACKGROUNDS (No JS Animation) ================= */
         .canvas { 
             position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); 
             background-size: 32px 32px; z-index: -1; opacity: 0.5; pointer-events: none;
@@ -77,7 +77,7 @@
 
         .tile { 
             background: var(--card); border: 1px solid var(--border); border-radius: 35px; padding: 25px; cursor: pointer; transition: var(--transition);
-            opacity: 1; transform: none;
+            opacity: 1; transform: none; min-height: 180px; /* CLS Fix */
         }
         .tile:hover { border-color: #333; transform: translateY(-2px); }
         .tile:active { transform: scale(0.95); }
@@ -88,53 +88,29 @@
 
         /* ================= MODALS ================= */
         .screen { 
-            position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(15px); 
-            z-index: 2000; 
-            display: none; 
-            align-items: center; justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); 
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
         }
-
         .screen.active { display: flex !important; opacity: 1; }
 
         .modal { 
-            background: var(--bg); 
-            border: 1px solid var(--border); 
-            width: 90%; 
-            max-width: 500px; 
-            max-height: 85vh;
-            border-radius: 35px;
-            padding: 30px; 
-            position: relative; 
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            opacity: 0;
+            background: var(--bg); border: 1px solid var(--border); width: 90%; max-width: 500px; max-height: 85vh;
+            border-radius: 35px; padding: 30px; position: relative; overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); opacity: 0;
             transform: scale(0.9) translateY(30px);
             transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.35s ease;
             will-change: transform, opacity;
         }
+        .screen.active .modal { opacity: 1; transform: scale(1) translateY(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease; }
 
-        .screen.active .modal { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-        }
-
-        .close-icon { 
-            position: absolute; right: 25px; top: 25px;
-            font-size: 2.2rem; cursor: pointer; opacity: 0.5; 
-            transition: 0.2s; z-index: 10;
-        }
+        .close-icon { position: absolute; right: 25px; top: 25px; font-size: 2.2rem; cursor: pointer; opacity: 0.5; transition: 0.2s; z-index: 10; }
         .close-icon:hover { opacity: 1; color: var(--text); }
         .modal h2 { margin-bottom: 20px !important; margin-top: 5px !important; line-height: 1; }
 
         /* ================= BUTTONS & INPUTS ================= */
         .input-group { position: relative; width: 100%; margin-bottom: 18px; display: flex; align-items: center; }
         select, input.imei-box, input[type="text"] { width: 100%; padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 22px; font-size: 1.6rem; outline: none; appearance: none; }
-        input.imei-box { text-align: center; letter-spacing: 2px; }
         .arrow-wrapper { position: absolute; right: 25px; pointer-events: none; color: #ffffff; }
 
         .btn { 
@@ -152,24 +128,20 @@
             display: flex; justify-content: space-between; align-items: center;
             cursor: pointer; margin-bottom: 15px; font-weight: thin; transition: 0.2s; text-transform: uppercase;
         }
-        .pg-btn i { font-size: 1.2rem; }
-        .pg-btn:hover { border-color: var(--text); }
         .pg-btn:active { transform: scale(0.98); background: var(--border); }
 
         .dot-arrow { width: 20px; height: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
         .dot-row { display: flex; gap: 2px; }
         .dot { width: 2.5px; height: 2.5px; background: var(--text); border-radius: 50%; }
 
-        /* ================= CHAT STYLES ================= */
+        /* ================= CHAT & MUSIC ================= */
         .red-dot-loader { width: 12px; height: 12px; background-color: #ff0000; border-radius: 50%; display: inline-block; animation: pulse-red 0.8s ease-in-out infinite; }
-        @keyframes pulse-red { 0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
+        @keyframes pulse-red { 0% { transform: scale(0.8); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { transform: scale(0.8); } }
 
         .msg-bubble { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px 15px; border-radius: 20px; position: relative; max-width: 85%; align-self: flex-start; margin-bottom: 10px; }
         .u-badge { font-size: 0.7rem; background: var(--text); color: var(--bg); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; display: inline-block; }
         .admin-reply-box { margin-top: 10px; padding: 8px 12px; background: rgba(255, 0, 0, 0.05); border-left: 2px solid var(--accent); border-radius: 10px; font-size: 0.9rem; }
-        .admin-tag { color: var(--accent); font-weight: bold; font-size: 0.7rem; display: block; margin-bottom: 2px; }
-
-        /* ================= MUSIC UI ================= */
+        
         .music-ui { text-align: center; }
         .search-box-m { display: flex; background: #eef2f7 !important; padding: 5px 10px; border-radius: 50px !important; border: 1px solid var(--border); margin-bottom: 20px; align-items: center; }
         .search-box-m input { flex: 1; background: transparent !important; border: none !important; color: #000 !important; padding: 12px; font-size: 1.2rem; outline: none; }
@@ -183,17 +155,18 @@
         #mini-player { position:absolute; top:85px; right:90px; width:45px; height:45px; border-radius:50%; border:2px solid var(--accent); overflow:hidden; cursor:pointer; display:none; z-index:10; background:#000; }
         #mini-art { width:100%; height:100%; object-fit:cover; display:block; }
 
-        /* ================= WALLPAPERS & CARDS ================= */
+        /* ================= WALLPAPERS (CLS FIX) ================= */
         .wp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
 
         .wp-card { 
             height: 250px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--text);
+            /* Aspect Ratio for CLS prevention */
+            aspect-ratio: 9 / 16; 
             opacity: 1; transform: translateY(0); transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .wp-card.hidden-state { opacity: 0; transform: translateY(50px) scale(0.95); }
         .wp-card.scroll-active { opacity: 1; transform: translateY(0) scale(1); }
 
-        .wp-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; }
         .wp-overlay { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align: center; }
         .wp-overlay p { color: #fff !important; opacity: 1 !important; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
         .wp-overlay .btn { width: 90%; margin: 5px auto 0; padding: 8px 0; font-size: 1rem; border-radius: 15px; background: #fff !important; }
@@ -226,7 +199,6 @@
 </head>
 <body>
 
-    <div class="stars-container" id="starField"></div>
     <div class="canvas"></div>
 
     <header>
@@ -476,7 +448,6 @@
         // ================= INITIALIZATION (PERFORMANCE OPTIMIZED) =================
         window.addEventListener('load', () => {
             applyAutoTheme();
-            createStars(); // Optimized
             createMoon();
             
             // Defer heavy data fetch slightly to prioritize UI
@@ -510,7 +481,8 @@
             document.body.appendChild(ads);
             console.log("🚀 Heavy Scripts Loaded");
         }
-        ['scroll','mousemove','touchstart','click'].forEach(e => window.addEventListener(e, loadHeavyScripts, {passive:true, once:true}));
+        // Removed 'mousemove' to avoid instant load on desktop
+        ['scroll','touchstart','click'].forEach(e => window.addEventListener(e, loadHeavyScripts, {passive:true, once:true}));
         setTimeout(loadHeavyScripts, 4500); // Fallback
 
         /* ================= THEME & UI ================= */
@@ -527,22 +499,6 @@
         }
         function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
 
-        /* ================= OPTIMIZED STARS ================= */
-        function createStars() {
-            requestAnimationFrame(() => {
-                const field = document.getElementById('starField');
-                field.innerHTML = '';
-                const fragment = document.createDocumentFragment();
-                const count = window.innerWidth < 768 ? 50 : 200; // Less stars on mobile
-                for(let i=0; i < count; i++) {
-                    const s = document.createElement('div'); s.className = 'star';
-                    const size = Math.random() * 3;
-                    s.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation: blink ${2+Math.random()*3}s infinite; opacity:${Math.random()}`;
-                    fragment.appendChild(s);
-                }
-                field.appendChild(fragment);
-            });
-        }
         function createMoon() {
             if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); }
         }
@@ -882,7 +838,7 @@
             try { 
                 const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
                 const data = await res.json(); 
-                grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); 
+                grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy" width="200" height="355"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); 
                 setTimeout(attachScrollAnimation, 100);
             } catch(e) { grid.innerHTML = "ERROR"; }
         }
@@ -894,7 +850,7 @@
                 const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
                 const data = await res.json(); 
                 const walls = Array.isArray(data) ? data : data.wallpapers; 
-                grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); 
+                grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy" width="200" height="355"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); 
                 setTimeout(attachScrollAnimation, 100); 
             } catch(e) { grid.innerHTML = "ERROR LOADING"; }
         }
