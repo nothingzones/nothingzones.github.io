@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nothing Space - Built Together</title>
     <meta name="description" content="Community hub for Nothing Phone users. Download firmware, wallpapers, and tools.">
 
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -46,9 +46,10 @@
         .bento, footer, .screen { content-visibility: auto; contain-intrinsic-size: 1000px; }
         img { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-user-drag: none !important; }
 
-        /* ================= BACKGROUND ANIMATIONS ================= */
+        /* ================= BACKGROUND ANIMATIONS (STARS BACK) ================= */
         .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
 
         .canvas { 
             position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); 
@@ -63,9 +64,11 @@
             background-image: radial-gradient(circle at 30% 30%, #adadad 10%, transparent 15%), radial-gradient(circle at 60% 70%, #adadad 8%, transparent 12%);
         }
 
-        /* ================= HEADER & BENTO ================= */
+        /* ================= HEADER & BENTO (ORIGINAL) ================= */
         header { max-width: 1000px; margin: 50px auto 20px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo h1 { font-size: 3.5rem; letter-spacing: -1px; line-height: 0.9; }
+        /* VISIBILITY FIX: Opacity increased to 0.8 */
+        .logo p { opacity: 0.8 !important; letter-spacing: 2px; }
 
         .t-toggle { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; background: var(--card); transition: var(--transition); }
         .t-toggle:hover { border-color: var(--text); }
@@ -82,52 +85,30 @@
         .tile:hover { border-color: #333; transform: translateY(-2px); }
         .tile:active { transform: scale(0.95); }
         .tile h2 { font-size: 2.2rem; }
-        .tile p { opacity: 0.4; font-size: 1rem; }
+        /* VISIBILITY FIX: Opacity increased */
+        .tile p { opacity: 0.8 !important; font-size: 1rem; }
         .full { grid-column: span 2; }
         @media (min-width: 768px) { .full { grid-column: span 1; } }
 
         /* ================= MODALS ================= */
         .screen { 
-            position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(15px); 
-            z-index: 2000; 
-            display: none; 
-            align-items: center; justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); 
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
         }
-
         .screen.active { display: flex !important; opacity: 1; }
 
         .modal { 
-            background: var(--bg); 
-            border: 1px solid var(--border); 
-            width: 90%; 
-            max-width: 500px; 
-            max-height: 85vh;
-            border-radius: 35px;
-            padding: 30px; 
-            position: relative; 
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            opacity: 0;
+            background: var(--bg); border: 1px solid var(--border); width: 90%; max-width: 500px; max-height: 85vh;
+            border-radius: 35px; padding: 30px; position: relative; overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); opacity: 0;
             transform: scale(0.9) translateY(30px);
             transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.35s ease;
             will-change: transform, opacity;
         }
+        .screen.active .modal { opacity: 1; transform: scale(1) translateY(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease; }
 
-        .screen.active .modal { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-        }
-
-        .close-icon { 
-            position: absolute; right: 25px; top: 25px;
-            font-size: 2.2rem; cursor: pointer; opacity: 0.5; 
-            transition: 0.2s; z-index: 10;
-        }
+        .close-icon { position: absolute; right: 25px; top: 25px; font-size: 2.2rem; cursor: pointer; opacity: 0.5; transition: 0.2s; z-index: 10; }
         .close-icon:hover { opacity: 1; color: var(--text); }
         .modal h2 { margin-bottom: 20px !important; margin-top: 5px !important; line-height: 1; }
 
@@ -202,7 +183,7 @@
         /* ================= OTHER MODULES ================= */
         .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; }
         .up-box h4 { font-size: 1.4rem; color: var(--text) !important; }
-        .up-box p { font-size: 0.9rem; opacity: 0.5; margin-top: 4px; text-transform: none; }
+        .up-box p { font-size: 0.9rem; opacity: 0.8 !important; margin-top: 4px; text-transform: none; }
 
         .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
         .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; }
@@ -213,15 +194,16 @@
         .guide-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .guide-content { max-height: 0; overflow: hidden; transition: 0.4s ease; padding: 0 20px; opacity: 0; }
         .guide-content.open { max-height: 500px; padding: 20px; opacity: 1; border-top: 1px solid var(--border); }
-        .guide-content p { color: var(--text) !important; opacity: 0.7 !important; text-transform: none; font-size: 1.1rem; margin-bottom: 15px; }
+        .guide-content p { color: var(--text) !important; opacity: 0.8 !important; text-transform: none; font-size: 1.1rem; margin-bottom: 15px; }
 
         .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 25px; margin-top: 20px; animation: fadeIn 0.3s ease; }
         .sc-badge { background: #222; color: #888; padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; border: 1px solid var(--border); }
         .card-row { display: flex; gap: 10px; margin-top: 15px; }
 
-        footer { text-align: center; padding: 30px; opacity: 0.3; font-size: 0.8rem; letter-spacing: 1px; }
+        footer { text-align: center; padding: 30px; opacity: 1 !important; font-size: 0.8rem; letter-spacing: 1px; }
         .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 10px; }
         footer a { color: var(--text); }
+        footer p { opacity: 0.8 !important; }
     </style>
 </head>
 <body>
@@ -234,7 +216,9 @@
             <p style="opacity: 0.4; letter-spacing: 2px;">ONLY FOR FANS</p>
             <h1>NOTHING<br>SPACE</h1>
         </div>
-        <div class="t-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="t-icon"></i></div>
+        <button class="t-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode" style="background:var(--card); border:1px solid var(--border);">
+            <i class="fa-solid fa-moon" id="t-icon"></i>
+        </button>
     </header>
 
     <div class="bento">
@@ -252,7 +236,7 @@
     </div>
 
     <div id="upScr" class="screen"><div class="modal">
-        <span class="close-icon" onclick="closeScreen('upScr')">×</span>
+        <button class="close-icon" onclick="closeScreen('upScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
         <h2>WEBSITE LOGS</h2>
         <div style="margin-top:20px;">
             <div class="up-box"><h4>COMMUNITY BOARD</h4><p>Now you can share feedback, ideas & suggestions.</p></div>
@@ -265,13 +249,13 @@
 
     <div id="feedbackScr" class="screen">
         <div class="modal" style="height: 80vh; display: flex; flex-direction: column;">
-            <span class="close-icon" onclick="closeScreen('feedbackScr')">×</span>
+            <button class="close-icon" onclick="closeScreen('feedbackScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
             <h2>COMMUNITY BOARD</h2>
             <p style="opacity: 0.4; font-size: 0.8rem; margin-bottom: 15px;">PUBLIC FEEDBACK & CHAT</p>
             <div id="msgBoard" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;"></div>
             <div style="background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 5px 5px 5px 15px; display: flex; align-items: center; margin-top: 15px;">
-                <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
-                <button onclick="sendMsg()" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." aria-label="Type Message" style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
+                <button onclick="sendMsg()" aria-label="Send Message" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center;">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
@@ -280,12 +264,12 @@
 
     <div id="musicScr" class="screen">
         <div class="modal">
-            <span class="close-icon" onclick="handleMusicClose()">×</span>
+            <button class="close-icon" onclick="handleMusicClose()" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
             <h2>RINGTONE PLAYER</h2>
             <div class="music-ui">
                 <div class="search-box-m">
-                    <input type="text" id="mQuery" placeholder="SEARCH SONG...">
-                    <button class="go-btn" id="mSearchBtn" onclick="searchMusic()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" id="mQuery" placeholder="SEARCH SONG..." aria-label="Search Song">
+                    <button class="go-btn" id="mSearchBtn" onclick="searchMusic()" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
             <div id="music-card">
@@ -305,7 +289,7 @@
 
     <div id="swScr" class="screen">
         <div class="modal">
-            <span class="close-icon" onclick="closeScreen('swScr')">×</span>
+            <button class="close-icon" onclick="closeScreen('swScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
             <h2>SYSTEM UPDATE</h2>
             <div class="guide-box">
                 <div class="guide-header" onclick="toggleAccordion()">
@@ -337,7 +321,7 @@
             </div>
 
             <div class="input-group">
-                <select id="swSelect" onchange="showLogs()">
+                <select id="swSelect" onchange="showLogs()" aria-label="Select Device">
                     <option value="">SELECT YOUR DEVICE</option>
                     <option value="p1">NOTHING PHONE (1)</option>
                     <option value="p2">NOTHING PHONE (2)</option>
@@ -361,7 +345,7 @@
     </div>
 
     <div id="pgScr" class="screen"><div class="modal">
-        <span class="close-icon" onclick="closeScreen('pgScr')">×</span>
+        <button class="close-icon" onclick="closeScreen('pgScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
         <h2>PLAYGROUND</h2>
         <div style="margin-top:20px;">
             <div class="pg-btn" onclick="openScreen('presetScr')"><span>CAMERA PRESETS</span><i class="fa-solid fa-camera"></i></div>
@@ -370,14 +354,14 @@
     </div></div>
 
     <div id="presetScr" class="screen"><div class="modal">
-        <span class="close-icon" onclick="closeScreen('presetScr')">×</span>
+        <button class="close-icon" onclick="closeScreen('presetScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
         <h2>CAMERA PRESETS</h2>
         <p style="opacity:0.5; margin-bottom:10px;">EXCLUSIVE PRESETS</p>
         <div class="wp-grid" id="presetGrid"></div>
     </div></div>
 
     <div id="wpScr" class="screen"><div class="modal">
-        <span class="close-icon" onclick="closeScreen('wpScr')">×</span>
+        <button class="close-icon" onclick="closeScreen('wpScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
         <h2>GALLERY</h2>
         <div onclick="openScreen('aiWpScr')" style="background: var(--text); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
             <span style="color: var(--bg); font-weight: bold; font-size: 1.2rem;"> CREATE WITH AI</span><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--bg);"></i>
@@ -386,11 +370,11 @@
     </div></div>
 
     <div id="aiWpScr" class="screen"><div class="modal">
-        <span class="close-icon" onclick="closeScreen('aiWpScr')">×</span>
+        <button class="close-icon" onclick="closeScreen('aiWpScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
         <h2>AI STUDIO</h2>
-        <div class="input-group"><input type="text" id="aiPrompt" placeholder="DESCRIBE YOUR IDEA..." style="text-align: left;"></div>
+        <div class="input-group"><input type="text" id="aiPrompt" placeholder="DESCRIBE YOUR IDEA..." aria-label="AI Prompt" style="text-align: left;"></div>
         <div class="input-group">
-            <select id="aiRatio"><option value="9:16">MOBILE (9:16)</option><option value="16:9">PC (16:9)</option><option value="1:1">SQUARE (1:1)</option></select>
+            <select id="aiRatio" aria-label="Aspect Ratio"><option value="9:16">MOBILE (9:16)</option><option value="16:9">PC (16:9)</option><option value="1:1">SQUARE (1:1)</option></select>
             <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
         </div>
         <button class="btn" id="genBtn" onclick="generateAIWall()"><div class="progress-bar"></div><span class="btn-text">GENERATE</span></button>
@@ -403,10 +387,10 @@
     </div></div>
 
     <div id="scScr" class="screen"><div class="modal">
-        <span class="close-icon" onclick="closeScreen('scScr')">×</span>
+        <button class="close-icon" onclick="closeScreen('scScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
         <h2>SERVICE CENTERS</h2>
         <div class="input-group" style="margin-top:20px;">
-            <select id="state" onchange="loadCities()">
+            <select id="state" onchange="loadCities()" aria-label="Select State">
                 <option value="">SELECT STATE</option>
                 <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
                 <option value="ASSAM">ASSAM</option>
@@ -440,7 +424,7 @@
             <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
         </div>
         <div class="input-group">
-            <select id="city" onchange="showDetails()" style="display:none"></select>
+            <select id="city" onchange="showDetails()" aria-label="Select City" style="display:none"></select>
             <div class="arrow-wrapper" id="cityArrow" style="display:none"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
         </div>
         <div id="scInfo"></div>
@@ -451,7 +435,7 @@
             <h2 style="font-family: 'VT323'; font-size: 2.5rem; margin-bottom: 20px; color: var(--text);">WELCOME TO NOTHING SPACE</h2>
             <p>Nothing Space is a community-driven platform. We are not affiliated with Nothing Technology Limited.</p>
         </div>
-        <p style="opacity: 0.5; margin-top: 20px; font-size: 0.9rem;">
+        <p style="opacity: 0.8; margin-top: 20px; font-size: 0.9rem;">
             NOTHING SPACE © 2026<br>DESIGNED FOR THE COMMUNITY
         </p>
         <div class="footer-links">
@@ -476,7 +460,7 @@
         // ================= INITIALIZATION (PERFORMANCE OPTIMIZED) =================
         window.addEventListener('load', () => {
             applyAutoTheme();
-            createStars(); // Optimized
+            createStars(); // Optimized Stars Back
             createMoon();
             
             // Defer heavy data fetch slightly to prioritize UI
@@ -510,7 +494,7 @@
             document.body.appendChild(ads);
             console.log("🚀 Heavy Scripts Loaded");
         }
-        ['scroll','mousemove','touchstart','click'].forEach(e => window.addEventListener(e, loadHeavyScripts, {passive:true, once:true}));
+        ['scroll','touchstart','click'].forEach(e => window.addEventListener(e, loadHeavyScripts, {passive:true, once:true}));
         setTimeout(loadHeavyScripts, 4500); // Fallback
 
         /* ================= THEME & UI ================= */
@@ -527,13 +511,14 @@
         }
         function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
 
-        /* ================= OPTIMIZED STARS ================= */
+        /* ================= OPTIMIZED STARS (Back & Fast) ================= */
         function createStars() {
             requestAnimationFrame(() => {
                 const field = document.getElementById('starField');
                 field.innerHTML = '';
                 const fragment = document.createDocumentFragment();
-                const count = window.innerWidth < 768 ? 50 : 200; // Less stars on mobile
+                // Optimization: Less stars on mobile to avoid lag
+                const count = window.innerWidth < 768 ? 80 : 250; 
                 for(let i=0; i < count; i++) {
                     const s = document.createElement('div'); s.className = 'star';
                     const size = Math.random() * 3;
