@@ -1121,4 +1121,19 @@
         async function downloadAIWall(btn) { runDownload(btn, document.getElementById('aiImg').src); }
     </script>
 </body>
-</html>
+</html><style>img { 
+    -webkit-touch-callout: none !important; /* Blocks iOS Menu */
+    -webkit-user-select: none !important;   /* Blocks Text Selection */
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;     /* Blocks Dragging */
+    pointer-events: auto !important;        /* Keeps your click buttons working */
+}</style><script>// ================= BLOCK IMAGE LONG-PRESS MENU =================
+    window.addEventListener("contextmenu", function(e) {
+        // Only block if the element touched is an Image
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    }, false);</script>
