@@ -46,6 +46,35 @@
         .bento, footer, .screen { content-visibility: auto; contain-intrinsic-size: 1000px; }
         img { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-user-drag: none !important; }
 
+        /* ================= INTRO / LANDING PAGE STYLES (ADDED) ================= */
+        #landing-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 9999; /* Always on top */
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            transition: opacity 0.5s ease;
+        }
+        
+        .landing-content { max-width: 800px; width: 100%; }
+        .landing-title { font-size: 3.5rem; line-height: 0.9; margin-bottom: 20px; letter-spacing: -1px; }
+        .landing-p { font-size: 1.2rem; opacity: 0.8; line-height: 1.5; margin-bottom: 15px; text-transform: none; font-family: sans-serif !important; } /* Sans-serif for Google readability */
+        .landing-h3 { color: var(--accent); font-size: 1.5rem; margin-top: 30px; margin-bottom: 10px; font-weight: bold; }
+        
+        .enter-btn {
+            background: var(--text); color: var(--bg);
+            border: none; padding: 15px 40px; border-radius: 50px;
+            font-size: 1.5rem; font-weight: bold; cursor: pointer;
+            margin-top: 40px; margin-bottom: 50px;
+            display: inline-flex; align-items: center; gap: 10px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+
         /* ================= BACKGROUND ANIMATIONS ================= */
         .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; }
@@ -258,6 +287,47 @@
 <body>
 <div class="stars-container" id="starField"></div>
     <div class="canvas"></div>
+
+    <div id="landing-overlay">
+    <div class="landing-content">
+        <h1 class="landing-title">WELCOME TO NOTHING SPACE COMMUNITY HUB</h1>
+        <hr style="width: 100px; border: 1px solid var(--accent); margin: 20px auto;">
+        
+        <p class="landing-p">Nothing Space is an unofficial, community-driven resource hub built for enthusiasts of the Nothing™ technology ecosystem. Our goal is to provide a seamless experience for customizing and maintaining your Nothing Phone (1), Phone (2), and CMF devices.</p>
+
+        <h3 class="landing-h3">OFFICIAL FIRMWARE REPOSITORY</h3>
+        <p class="landing-p">We provide a direct mirror to official OTA (Over-The-Air) firmware zip files. This allows advanced users to manually update their Nothing OS version, unbrick devices, or switch between regional builds (Global, Europe, India) safely and quickly.</p>
+
+        <h3 class="landing-h3">MODDING & TUTORIALS</h3>
+        <p class="landing-p">Unlock the full potential of your device with our step-by-step guides. Whether you want to unlock your bootloader, root your phone via Magisk, or install custom ROMs, our library of tested tutorials makes the process safe and easy for everyone.</p>
+
+        <h3 class="landing-h3">NOTHING APPS & PORTS</h3>
+        <p class="landing-p">Experience the iconic dot-matrix design on any Android device. Download the latest APKs for the Nothing Launcher, Weather, and Recorder apps, along with the Nothing Icon Pack to transform your interface.</p>
+
+        <h3 class="landing-h3">CUSTOMIZATION & TOOLS</h3>
+        <p class="landing-p">Explore our exclusive gallery of high-resolution wallpapers optimized for OLED displays and the Glyph Interface. Download verified GCam (Google Camera) XML configuration files to enhance photography, and access our custom-built Ringtone Player.</p>
+
+        <h3 class="landing-h3">ACCESSORIES & MERCH</h3>
+        <p class="landing-p">Find the perfect match for your transparent back. We curate the best cases, skins, and tempered glass from top brands like Spigen and Gadgetshieldz, plus 3D-printable files for CMF accessories.</p>
+
+        <h3 class="landing-h3">PHOTOGRAPHY SHOWCASE</h3>
+        <p class="landing-p">See the world through the Nothing lens. Browse our "Shot on Nothing" gallery featuring the best community photos, macro shots, and long-exposure light painting experiments.</p>
+
+        <h3 class="landing-h3">JOIN THE CONVERSATION</h3>
+        <p class="landing-p">Don't explore the void alone. Join our active Telegram and Discord channels to troubleshoot issues, share your Glyph composer creations, and discuss the latest leaks and Nothing OS beta features with thousands of other members.</p>
+
+        <h3 class="landing-h3">SERVICE CENTER LOCATOR</h3>
+        <p class="landing-p">Find authorized service centers near you with our comprehensive database. Access contact details, timings, and direct map links for centers across India.</p>
+
+        <hr style="width: 50px; border: 1px solid rgba(255,255,255,0.2); margin: 30px auto;">
+        
+        <p class="landing-p" style="font-size: 0.8rem; opacity: 0.7;"><em>Disclaimer: This project is not affiliated with Nothing Technology Ltd. All trademarks belong to their respective owners.</em></p>
+
+        <button class="enter-btn" onclick="enterSite()">
+            Skip Page <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+</div>
 
     <header>
         <div class="header-top">
@@ -660,6 +730,15 @@
         const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
         let SERVICE_DB = {}; 
         let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
+
+        // ================= INTRO PAGE LOGIC (NEW) =================
+        function enterSite() {
+            const overlay = document.getElementById('landing-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none'; // Permanently remove on click
+            }, 500); // Wait for transition
+        }
 
         // ================= INITIALIZATION (PERFORMANCE OPTIMIZED) =================
         window.addEventListener('load', () => {
