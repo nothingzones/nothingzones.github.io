@@ -110,23 +110,7 @@
         .tile h2 { font-size: 2.2rem; position: relative; z-index: 2; }
         .tile p { opacity: 0.8 !important; font-size: 1rem; position: relative; z-index: 2; }
         
-        /* New Tile Icon Style */
-        .tile-icon {
-            position: absolute;
-            bottom: 15px;
-            right: 20px;
-            font-size: 1.7rem;
-            opacity: 0.15;
-            color: var(--text);
-            z-index: 1;
-            transform: rotate;
-            transition: 0.3s;
-        }
-        .tile:hover .tile-icon { opacity: 0.3; transform: rotate(0deg) scale(1.1); }
-
-        .full { grid-column: span 2; }
-        @media (min-width: 768px) { .full { grid-column: span 1; } }
-
+        
         /* ================= MODALS WITH BOUNCY ANIMATION ================= */
         .screen { 
             position: fixed; inset: 0; 
@@ -287,9 +271,9 @@
     </header>
 
     <div class="bento">
-        <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p><i class="fa-solid fa-globe tile-icon"></i></div>
-        <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>Preview Your Song</p><i class="fa-solid fa-music tile-icon"></i></div>
-        <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p><i class="fa-solid fa-shapes tile-icon"></i></div>
+        <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
+        <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>Preview Your Song</p></div>
+        <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p></div>
         <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE </h1><p>NOS ZIP FILE</p><i class="fa-solid fa-download tile-icon"></i></div>
         <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER </h1><p>EXCLUSIVe Collection</p><i class="fa-solid fa-image tile-icon"></i></div>
         <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE </h1><p>LOCATE CENTERS</p><i class="fa-solid fa-screwdriver-wrench tile-icon"></i></div>
