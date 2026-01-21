@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The #1 community source for Nothing Phone (1), (2), and (2a). Download official NOS firmware, GCam ports, custom ROMs, wallpapers, and ringtones. Comprehensive guides and tools.">
-    <meta name="keywords" content="Nothing Phone Firmware, Nothing OS OTA, Nothing Wallpapers, Nothing Ringtones, CMF Phone 1, Nothing Community, GCam Nothing Phone, Nothing OS 2.6 Update, Unbrick Nothing Phone">
+    <meta name="description" content="The #1 community source for Nothing Phone (1), (2), and (2a). Download official NOS firmware, GCam ports, custom ROMs, wallpapers, and ringtones.">
+    <meta name="keywords" content="Nothing Phone Firmware, Nothing OS OTA, Nothing Wallpapers, Nothing Ringtones, CMF Phone 1, Nothing Community">
     <meta name="author" content="Nothing Zones Team">
     <title>Nothing Zones - The Ultimate Community Hub</title>
 
+
     <meta name="google-adsense-account" content="ca-pub-1607055557776596">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1607055557776596"
-     crossorigin="anonymous"></script>
-    <link rel="icon" type="image/svg+xml" href="icon.svg">
+     crossorigin="anonymous"></script>    <link rel="icon" type="image/svg+xml" href="icon.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -267,7 +267,7 @@
         @media (min-width: 768px) { .card.wide { grid-column: span 2; } }
 
         /* ========================================
-           CONTENT BLOCKS (ADSENSE OPTIMIZED)
+           CONTENT BLOCKS
         ========================================
         */
         .content-block {
@@ -448,6 +448,7 @@
             font-size: 0.95rem;
             font-weight: 500;
             position: relative;
+            text-transform: uppercase;
         }
 
         .footer-nav a::after {
@@ -477,6 +478,10 @@
             margin: 0 auto;
             line-height: 1.6;
         }
+<button ...>
+   <div class="progress-bar"></div>
+   <span class="btn-text">DOWNLOAD</span>
+</button>
 
         .copyright {
             margin-top: 30px;
@@ -692,7 +697,7 @@
 
     <header class="container">
         <div class="logo">
-            <h1>NOTHING <span>ZONES</span></h1>
+            <h1>NOTHING <span>zones</span></h1>
             <p>Built for the Community</p>
         </div>
         <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
@@ -780,7 +785,7 @@
                     Nothing OS represents a paradigm shift in the Android ecosystem. Unlike traditional skins that prioritize feature bloat, Nothing OS focuses on the essential relationship between the user and technology. Built on the core principles of "Pure Instinct," the operating system strips away distractions to reveal a raw, dot-matrix inspired aesthetic that is both retro and futuristic.
                 </p>
                 <p class="content-text">
-                    <strong>Key Characteristics:</strong> The interface is designed to be intentional. The unique dot-matrix font (Ndot) is used sparingly to highlight key information, while the monochrome color palette ensures that content takes center stage. The integration of hardware and software is seamless, exemplified by the Glyph Interface—a series of LED strips on the back of the device that communicate notifications, charging status, and more without needing to wake the screen.
+                    <strong>Key Characteristics:</strong> The interface is designed to be intentional. The unique dot-matrix font (Ndot) is used sparingly to highlight key information, while the monochrome color palette ensures that content takes center stage. The integration of hardware and software is seamless, exemplified by the Glyph Interface--a series of LED strips on the back of the device that communicate notifications, charging status, and more without needing to wake the screen.
                 </p>
                 <p class="content-text">
                     At Nothing Zones, we mirror this philosophy. Our goal is to provide tools that respect the user's time and device integrity. We host only verified files, ensuring that your journey from stock firmware to custom ROMs is safe and efficient.
@@ -936,18 +941,15 @@
             <div class="footer-logo">NOTHING <span>zones</span></div>
             
             <div class="footer-nav">
-                <a href="#" onclick="openScreen('aboutScr'); return false;">About Us</a>
-                <a href="#" onclick="openScreen('privacyScr'); return false;">Privacy Policy</a>
-                <a href="#" onclick="openScreen('termsScr'); return false;">Terms of Use</a>
-                <a href="#" onclick="openScreen('contactScr'); return false;">Contact & Support</a>
+                <a href="#" onclick="openScreen('aboutScr'); return false;">ABOUT</a>
+                <a href="#" onclick="openScreen('privacyScr'); return false;">PRIVACY</a>
+                <a href="#" onclick="openScreen('termsScr'); return false;">TERMS</a>
+                <a href="#" onclick="openScreen('disclaimerScr'); return false;">DISCLAIMER</a>
+                <a href="#" onclick="openScreen('contactScr'); return false;">CONTACT</a>
             </div>
 
-            <p class="disclaimer">
-                <strong>Disclaimer:</strong> Nothing Zones is an independent community project and is NOT affiliated, associated, authorized, endorsed by, or in any way officially connected with Nothing Technology Ltd or any of its subsidiaries or its affiliates. The official Nothing website can be found at nothing.tech. The name "Nothing" as well as related names, marks, emblems and images are registered trademarks of their respective owners.
-            </p>
-
             <p class="copyright">
-                © 2026 Nothing Zones | Designed with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> in Bihar, India.
+                Nothing Zones © 2026<br>DESIGNED FOR THE COMMUNITY
             </p>
         </div>
     </footer>
@@ -1085,10 +1087,8 @@
                 </div>
                 <div class="list-item" style="padding:20px; border-bottom:1px solid var(--border); display:flex; justify-content:zones-between; align-items:center; opacity:0.5;">
                     <div>
-                        <span style="font-weight:600; display:block; font-size:1.1rem;"><i class="fa-brands fa-android" style="margin-right:10px;"></i> Magisk Modules</span>
-                        <span style="font-size:0.85rem; color:var(--text-sec);">Coming Soon</span>
-                    </div>
-                    <i class="fa-solid fa-lock"></i>
+                                  </div>
+                 
                 </div>
             </div>
         </div>
@@ -1137,55 +1137,160 @@
     </div>
 
     <div id="aboutScr" class="overlay">
-        <div class="modal-window">
-            <div class="modal-header"><h2>ABOUT NOTHING zones</h2><button class="close-btn" onclick="closeScreen('aboutScr')">×</button></div>
-            <div class="modal-content">
-                <h3>Our Mission</h3>
-                <p style="margin-bottom:20px; color:var(--text-sec);">Nothing Zones was founded with a singular vision: to empower the Nothing Technology community. We bridge the gap between official releases and community needs.</p>
-                <h3>Developer</h3>
-                <p style="color:var(--text-sec);">Developed by Rohit Kumar in Muzaffarpur, Bihar. Dedicated to open-source innovation.</p>
+      <div class="modal-window">
+        <div class="modal-header"><h2>ABOUT US</h2><button class="close-btn" onclick="closeScreen('aboutScr')">×</button></div>
+        <div class="modal-content">
+          <p style="text-align:center; opacity:0.6; font-size:0.9rem; margin-bottom:15px; letter-spacing:1px;">ESTABLISHED 2026 • COMMUNITY DRIVEN</p>
+          
+          <div class="detail-card">
+            <p>
+              Welcome to <b>Nothing Zones</b>. We are a dedicated open-source resource hub built for enthusiasts of the Nothing™ technology ecosystem. Our mission is to bridge the gap between complex developer resources and the average user.
+            </p>
+            
+            <h3 style="margin-top:20px; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">OUR MISSION</h3>
+            <p>
+              To provide a safe, ad-free (pop-up free), and direct download environment for Firmware, wallpaper, Preset, and Tools. We believe in the "Right to Repair" and "Device Customization" philosophies.
+            </p>
+
+            <h3 style="margin-top:20px; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">EDITORIAL STANDARDS</h3>
+            <p>
+              Reliability is our core value. To ensure user safety, every file hosted on Nothing Zones undergoes a strict 3-step verification process:
+            </p>
+            <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:10px;">
+              <li><b>Source Verification:</b> We only mirror links from official OTA servers (android.googleapis.com) or trusted developers.</li>
+              <li><b>Security Scanning:</b> All APKs are scanned via VirusTotal APIs before listing to ensure 0% malware.</li>
+              <li><b>Manual Testing:</b> Our internal team tests UI wallpaper, Preset on real hardware (Phone 1/2) to ensure stability.</li>
+            </ul>
+
+            <h3 style="margin-top:20px; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">THE TEAM</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+              <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; text-align:center;">
+                  <span style="font-size:0.8rem; opacity:0.6;">LEAD DEVELOPER</span><br><b>ROHIT KUMAR</b>
+              </div>
+              <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; text-align:center;">
+                  <span style="font-size:0.8rem; opacity:0.6;">HQ LOCATION</span><br><b>BIHAR, INDIA</b>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <div id="privacyScr" class="overlay">
-        <div class="modal-window">
-            <div class="modal-header"><h2>PRIVACY POLICY</h2><button class="close-btn" onclick="closeScreen('privacyScr')">×</button></div>
-            <div class="modal-content">
-                <h3>Data Collection</h3>
-                <p style="margin-bottom:20px; color:var(--text-sec);">We do not collect personal data. We use Google AdSense which may use cookies to serve ads based on user interests.</p>
-                <h3>Third Party Links</h3>
-                <p style="color:var(--text-sec);">Our site contains links to external sites (GitHub, Telegram). We are not responsible for their content.</p>
-            </div>
+      <div class="modal-window">
+        <div class="modal-header"><h2>PRIVACY POLICY</h2><button class="close-btn" onclick="closeScreen('privacyScr')">×</button></div>
+        <div class="modal-content">
+          <p style="font-size:0.9rem; opacity:0.6; margin-bottom:15px;">Last Updated: January 16, 2026</p>
+          
+          <p>At Nothing Zones (accessible from nothingzones.github.io), safeguarding the privacy of our visitors is one of our primary objectives. This Privacy Policy document contains types of information that is collected and recorded by Nothing Zones and how we use it.</p>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">1. INFORMATION COLLECTION</h3>
+          <p>
+            <b>Personal Data:</b> We do not require you to create an account or provide personal details (like Name, Phone Number, Address) to access our downloads.<br>
+            <b>Voluntary Data:</b> If you contact us via email, we will only use your email address to reply to your query. It will never be sold or shared.
+          </p>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">2. GOOGLE ADSENSE & COOKIES</h3>
+          <p>We partner with Google AdSense to display advertisements. Google uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
+          <div style="margin-top:10px; background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; font-size:0.9rem;">
+            <b>OPT-OUT:</b> You may choose to decline the use of DART cookies by visiting the Google Ad and Content Network Privacy Policy at <a href="https://policies.google.com/technologies/ads" target="_blank" style="text-decoration:underline;">policies.google.com</a>.
+          </div>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">3. GDPR DATA PROTECTION RIGHTS</h3>
+          <p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:</p>
+          <ul style="margin-left:20px; opacity:0.8; list-style:circle; margin-top:5px;">
+              <li>The right to access – You have the right to request copies of your personal data.</li>
+              <li>The right to rectification – You have the right to request that we correct any information you believe is inaccurate.</li>
+              <li>The right to erasure – You have the right to request that we erase your personal data, under certain conditions.</li>
+          </ul>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">4. CCPA PRIVACY RIGHTS</h3>
+          <p>Under the CCPA, among other rights, California consumers have the right to request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.</p>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">5. LOG FILES</h3>
+          <p>Nothing Zones follows a standard procedure of using log files. The data collected includes internet protocol (IP) addresses, browser type, ISP, date/time stamp, and referring/exit pages. This information is used for analyzing trends and preventing DDoS attacks.</p>
         </div>
+      </div>
     </div>
 
     <div id="termsScr" class="overlay">
-        <div class="modal-window">
-            <div class="modal-header"><h2>TERMS OF USE</h2><button class="close-btn" onclick="closeScreen('termsScr')">×</button></div>
-            <div class="modal-content">
-                <h3>Disclaimer</h3>
-                <p style="margin-bottom:20px; color:var(--text-sec);">Use these tools at your own risk. Nothing Zones is not responsible for bricked devices or lost data.</p>
-                <h3>License</h3>
-                <p style="color:var(--text-sec);">All original content is licensed under MIT License. "Nothing" is a trademark of Nothing Technology Ltd.</p>
-            </div>
+      <div class="modal-window">
+        <div class="modal-header"><h2>TERMS OF USE</h2><button class="close-btn" onclick="closeScreen('termsScr')">×</button></div>
+        <div class="modal-content">
+          <p>By accessing this website, you confirm that you understand and agree to comply with these terms and conditions. Do not continue to use Nothing Zones if you do not agree to all of the terms stated on this page.</p>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">1. INTELLECTUAL PROPERTY</h3>
+          <p>Unless otherwise stated, Nothing Zones and/or its licensors own the intellectual property rights for all original material on this website. All intellectual property rights are reserved.</p>
+          <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:5px;">
+            <li>You must not republish material from Nothing Zones.</li>
+            <li>You must not sell, rent, or sub-license material from Nothing Zones.</li>
+            <li>You must not reproduce, duplicate or copy material from Nothing Zones without permission.</li>
+          </ul>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">2. LIMITATION OF LIABILITY</h3>
+          <p>The content and tools on Nothing Zones are provided "as is". We make no warranties, expressed or implied.</p>
+          <p style="margin-top:10px;">
+            <b>Device Safety:</b> The firmware links, APKs, and guides provided are for educational and customization purposes. Modifying system software (Flashing OTA, Unlocking Bootloader) carries inherent risks. Nothing Zones and its developers are <b>NOT responsible</b> for any damage to your device, data loss, or voiding of warranty. Always backup your data.
+          </p>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">3. GOVERNING LAW</h3>
+          <p>These terms and conditions are governed by and construed in accordance with the laws of <b>India</b>. You irrevocably submit to the exclusive jurisdiction of the courts in the State of <b>Bihar</b> for the resolution of any disputes.</p>
         </div>
+      </div>
+    </div>
+
+    <div id="disclaimerScr" class="overlay">
+      <div class="modal-window">
+        <div class="modal-header"><h2>LEGAL DISCLAIMER</h2><button class="close-btn" onclick="closeScreen('disclaimerScr')">×</button></div>
+        <div class="modal-content">
+          <div style="border: 2px solid var(--text-main); padding: 15px; border-radius: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.05);">
+            <p style="margin:0; font-weight:bold; font-size:1.1rem; text-align:center;">
+                ⚠ UNOFFICIAL FAN PROJECT
+            </p>
+            <p style="margin-top:10px; font-size:0.95rem;">
+               Nothing Zones is an independent, community-run resource hub. We are <u>NOT</u> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>Nothing Technology Limited</b>, CMF, or any of their subsidiaries.
+            </p>
+          </div>
+
+          <h3 style="font-size:1.1rem;">TRADEMARKS</h3>
+          <p>
+            The names "Nothing", "Phone (1)", "Phone (2)", "Phone (2a)", "CMF" and related marks, emblems, and images are registered trademarks of their respective owners. We use these names solely for descriptive purposes to identify the devices our resources are intended for. This constitutes <b>"Fair Use"</b> under copyright law.
+          </p>
+
+          <h3 style="margin-top:20px; font-size:1.1rem;">CONTENT ACCURACY</h3>
+          <p>
+            While we strive to keep the information up to date and correct, we make no representations or warranties of any kind about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information contained on the website.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div id="contactScr" class="overlay">
-        <div class="modal-window">
-            <div class="modal-header"><h2>CONTACT US</h2><button class="close-btn" onclick="closeScreen('contactScr')">×</button></div>
-            <div class="modal-content">
-                <div class="feature-item" style="margin-bottom:20px;">
-                    <h4>Email Support</h4>
-                    <p>rkkiller298@gmail.com</p>
-                </div>
-                <div class="feature-item">
-                    <h4>Community Chat</h4>
-                    <a href="https://t.me/techiboy_discuss" target="_blank" style="color:var(--accent); font-weight:bold;">Join Telegram Group</a>
-                </div>
-            </div>
+      <div class="modal-window">
+        <div class="modal-header"><h2>GET IN TOUCH</h2><button class="close-btn" onclick="closeScreen('contactScr')">×</button></div>
+        <div class="modal-content">
+          <p style="text-align:center; margin-bottom:20px;">Have a suggestion for the site, found a broken link, or have a DMCA request? Choose a method below.</p>
+          
+          <div style="background:rgba(0, 136, 204, 0.1); border:1px solid #0088cc; padding:15px; border-radius:15px; text-align:center; margin-bottom:15px;">
+            <i class="fa-brands fa-telegram" style="font-size:2.5rem; color:#0088cc; display:block; margin-bottom:5px;"></i>
+            <p style="opacity:0.6; margin-bottom:5px; font-size:0.8rem;">JOIN OUR COMMUNITY CHANNEL</p>
+            <a href="https://t.me/techiboy_discuss" target="_blank" style="color:#fff; background:#0088cc; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold; display:inline-block;">OPEN TELEGRAM <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border); padding:15px; border-radius:15px; text-align:center;">
+            <i class="fa-solid fa-envelope" style="font-size:1.5rem; display:block; margin-bottom:5px;"></i>
+            <p style="opacity:0.6; margin-bottom:5px; font-size:0.8rem;">OFFICIAL SUPPORT EMAIL</p>
+            <a href="mailto:rkkiller298@gmail.com" style="color:var(--text-main); text-decoration:underline; font-size:1.2rem;">rkkiller298@gmail.com</a>
+          </div>
+
+          <h3 style="margin-top:20px; font-size:1.1rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">OPERATIONAL DETAILS</h3>
+          <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:10px;">
+            <li><b>Response Time:</b> Within 24-48 Hours</li>
+            <li><b>Region:</b> Bihar, India</li>
+            <li><b>Legal Contact:</b> Use the email above for takedown requests.</li>
+          </ul>
         </div>
+      </div>
     </div>
 
     <div id="mini-player" onclick="restorePlayer()" style="position:fixed; bottom:20px; right:20px; width:70px; height:70px; border-radius:50%; overflow:hidden; border:3px solid var(--accent); cursor:pointer; display:none; z-index:90; box-shadow: 0 5px 20px rgba(0,0,0,0.5);">
@@ -1588,4 +1693,157 @@
         }
     </script>
 </body>
-</html>
+</html><style>/* Dropdown Arrow Fix */
+select.input-box {
+    /* Default arrow ko chupana */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Custom Arrow lagana (Grey color ka taki Dark/Light dono pe dikhe) */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    
+    /* Arrow ki position (Right se 25px door = thoda left) */
+    background-position: right 25px center; 
+    
+    background-size: 18px;
+    padding-right: 50px; /* Text arrow ke upar na aaye */
+    cursor: pointer;
+}</style><script>/* ========================================
+   1. UPDATED DOWNLOAD HANDLER (Animation + Force Download Fix)
+========================================
+*/
+async function runDownload(btn, input) {
+    // Safety check: Agar button ke andar elements nahi mile toh crash nahi karega
+    let bar = btn.querySelector('.progress-bar');
+    let txt = btn.querySelector('.btn-text');
+    
+    // Agar simple text button hai (without animation structure), toh usse structure do
+    if (!bar || !txt) {
+        const originalText = btn.innerText;
+        btn.innerHTML = `<div class="progress-bar"></div><span class="btn-text">${originalText}</span>`;
+        bar = btn.querySelector('.progress-bar');
+        txt = btn.querySelector('.btn-text');
+    }
+
+    const oldTxt = txt.innerText;
+    
+    let finalUrl = "";
+    // Logic to select URL
+    if (input === 'BETA_TOOL') finalUrl = CONFIG.BETA_TOOL_URL;
+    else if (input === 'OTA_ZIP') {
+        const device = document.getElementById('swSelect').value;
+        if(!device) { alert("Please select a device first!"); return; }
+        finalUrl = CONFIG.SOFTWARE[device]?.url;
+    } else {
+        finalUrl = input;
+    }
+
+    if (!finalUrl || finalUrl === "#") { alert("Download link currently unavailable."); return; }
+
+    // --- ANIMATION START ---
+    btn.style.pointerEvents = 'none'; // Click disable karo
+    txt.innerText = 'Downloading...'; 
+    bar.style.transition = 'width 1.5s ease-in-out'; 
+    bar.style.width = '100%'; // Bar fill hoga
+
+    try {
+        // --- FORCE DOWNLOAD LOGIC ---
+        // Agar Image ya Wallpaper hai
+        if (finalUrl.match(/\.(jpeg|jpg|png|gif|webp)$/i)) {
+            const response = await fetch(finalUrl);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = "Nothing_Zone_" + Date.now() + ".jpg"; 
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+        } 
+        // Agar normal file hai (Zip/Apk)
+        else {
+            const link = document.createElement('a'); 
+            link.href = finalUrl;
+            link.target = "_blank"; 
+            link.setAttribute('download', '');
+            document.body.appendChild(link); 
+            link.click(); 
+            document.body.removeChild(link);
+        }
+
+        // --- SUCCESS STATE ---
+        txt.innerText = "Saved ✓"; 
+        
+    } catch (error) {
+        console.error("Download failed, trying fallback:", error);
+        window.open(finalUrl, '_blank'); // Fallback
+        txt.innerText = "Opened ↗";
+    }
+
+    // --- RESET BUTTON ---
+    setTimeout(() => { 
+        bar.style.transition = 'none'; 
+        bar.style.width = '0%'; 
+        txt.innerText = oldTxt; 
+        btn.style.pointerEvents = 'all'; 
+    }, 2500);
+}
+
+/* ========================================
+   2. UPDATED WALLPAPER LOADER (Button Structure Fix)
+========================================
+*/
+async function initWallpaperData() {
+    const g = document.getElementById('wallpaperGrid'); 
+    if(g.innerHTML) return;
+    g.innerHTML = "<p style='grid-column:span 2; text-align:center; padding:20px;'>Loading Gallery...</p>";
+    
+    try { 
+        const r = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
+        const d = await r.json(); 
+        const walls = Array.isArray(d) ? d : (d.wallpapers || []);
+
+        g.innerHTML = walls.map(w => `
+            <div class="wp-item">
+                <img src="${w.img}" loading="lazy">
+                <button class="wp-overlay-btn" onclick="runDownload(this, '${w.url || w.img}')">
+                    <div class="progress-bar"></div>
+                    <span class="btn-text">DOWNLOAD</span>
+                </button>
+            </div>`).join(''); 
+    } catch(e){
+        console.error(e);
+        g.innerHTML = "<p style='grid-column:span 2; text-align:center;'>Failed to load wallpapers.</p>";
+    }
+}
+
+/* ========================================
+   3. UPDATED PRESET LOADER (Button Structure Fix)
+========================================
+*/
+async function initPresetData() {
+    const g = document.getElementById('presetGrid'); 
+    if(g.innerHTML) return;
+    g.innerHTML = "<p style='grid-column:span 2; text-align:center; padding:20px;'>Loading Presets...</p>";
+
+    try { 
+        const r = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
+        const d = await r.json(); 
+        const presets = Array.isArray(d) ? d : (d.presets || []);
+
+        g.innerHTML = presets.map(p => `
+            <div class="wp-item">
+                <img src="${p.img}" loading="lazy">
+                <button class="wp-overlay-btn" onclick="runDownload(this, '${p.url}')">
+                    <div class="progress-bar"></div>
+                    <span class="btn-text">GET PRESET</span>
+                </button>
+            </div>`).join(''); 
+    } catch(e){
+        g.innerHTML = "<p style='grid-column:span 2; text-align:center;'>Failed to load presets.</p>";
+    }
+}</script>
