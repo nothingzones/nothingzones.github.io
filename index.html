@@ -1,1212 +1,1591 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nothing Space - Built Together</title>
-    <meta name="description" content="Community hub for Nothing Phone users. Download firmware, wallpapers, and tools.">
+    <meta name="description" content="The #1 community source for Nothing Phone (1), (2), and (2a). Download official NOS firmware, GCam ports, custom ROMs, wallpapers, and ringtones. Comprehensive guides and tools.">
+    <meta name="keywords" content="Nothing Phone Firmware, Nothing OS OTA, Nothing Wallpapers, Nothing Ringtones, CMF Phone 1, Nothing Community, GCam Nothing Phone, Nothing OS 2.6 Update, Unbrick Nothing Phone">
+    <meta name="author" content="Nothing Zones Team">
+    <title>Nothing Zones - The Ultimate Community Hub</title>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839265106233069" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-5839265106233069">
 
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839265106233069"
-      crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-5839265106233069">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-    <link rel="preconnect" href="https://nothingcommunity-7664f-default-rtdb.firebaseio.com">
-
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ================= ROOT & THEME ================= */
+        /* ========================================
+           GLOBAL VARIABLES & THEME SETUP
+        ========================================
+        */
         :root { 
-            --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #222; 
-            --border: #1a1a1a; --instr: #bbb; --accent: #ff0000;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color-scheme: light dark;
+            --bg: #0a0a0a; 
+            --surface: #121212; 
+            --surface-hover: #1e1e1e;
+            --border: #2a2a2a; 
+            --text-main: #ffffff; 
+            --text-sec: #a0a0a0; 
+            --accent: #d71921; 
+            --font-main: 'Outfit', sans-serif;
+            --font-mono: 'Space Mono', monozones;
+            --radius: 24px;
+            --transition: 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        [data-theme="light"] { --bg: #fff; --card: #f5f5f5; --text: #000; --dot-bg: #ddd; --border: #eee; --instr: #333; }
-        [data-theme="dark"] { --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #250; --border: #1a1a1a; --instr: #bbb; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        [data-theme="light"] { 
+            --bg: #f2f2f2; 
+            --surface: #ffffff; 
+            --surface-hover: #e5e5e5;
+            --border: #dcdcdc; 
+            --text-main: #000000; 
+            --text-sec: #555555; 
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
 
+        /* ========================================
+           RESET & BASIC STYLES
+        ========================================
+        */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
         body { 
-            background: var(--bg); color: var(--text); font-family: 'VT323', monospace; 
-            transition: background var(--transition); width: 100%; overflow-x: hidden; min-height: 100vh; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            font-family: var(--font-main); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        h1, h2, h3, span, button, select, input, p { font-family: 'VT323', monospace !important; text-transform: uppercase; }
-
-        /* PERFORMANCE OPTIMIZATION */
-        .bento, footer, .screen { content-visibility: auto; contain-intrinsic-size: 1000px; }
-        img { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-user-drag: none !important; }
-
-        /* ================= BACKGROUND ANIMATIONS ================= */
-        .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; }
-
-        .canvas { 
-            position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); 
-            background-size: 32px 32px; z-index: -1; opacity: 0.5; pointer-events: none;
+        a { 
+            text-decoration: none; 
+            color: inherit; 
+            transition: var(--transition); 
+        }
+        
+        ul { list-style: none; }
+        
+        button, input, select { 
+            border: none; 
+            outline: none; 
+            font-family: inherit; 
         }
 
-        .moon {
-            position: fixed; width: 80px; height: 80px; 
-            top: 10%; left: 10%; 
-            background: #d1d1d1; border-radius: 50%; z-index: -1; opacity: 0.5;
-            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.2);
-            background-image: radial-gradient(circle at 30% 30%, #adadad 10%, transparent 15%), radial-gradient(circle at 60% 70%, #adadad 8%, transparent 12%);
-        }
-
-        /* ================= HEADER & BENTO ================= */
-        header { 
-            max-width: 1000px; 
-            margin: 30px auto 20px; 
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
             padding: 0 20px; 
+        }
+
+        /* ========================================
+           HEADER SECTION
+        ========================================
+        */
+        header { 
+            padding: 30px 0; 
             display: flex; 
-            flex-direction: column; /* Changed for new layout */
-            gap: 20px;
+            justify-content: zones-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            margin-bottom: 40px; 
+            background: var(--bg); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
-        .header-top {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .logo h1 { 
+            font-family: var(--font-mono); 
+            font-weight: 700; 
+            font-size: 1.8rem; 
+            letter-spacing: -1px; 
+            line-height: 1; 
         }
 
-        .logo h1 { font-size: 3.5rem; letter-spacing: -1px; line-height: 0.9; }
-        .logo p { opacity: 0.8 !important; letter-spacing: 2px; }
+        .logo span { color: var(--accent); }
+        
+        .logo p { 
+            font-size: 0.75rem; 
+            color: var(--text-sec); 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            margin-top: 4px; 
+        }
 
-        .header-info {
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 0;
-            text-align: center;
-            opacity: 0.8;
+        .theme-btn {
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            color: var(--text-main); 
+            cursor: pointer; 
+            display: grid; 
+            place-items: center;
+            transition: var(--transition);
+        }
+        
+        .theme-btn:hover { 
+            background: var(--surface-hover); 
+            border-color: var(--text-sec); 
+            transform: rotate(15deg);
+        }
+
+        /* ========================================
+           HERO SECTION
+        ========================================
+        */
+        .hero { 
+            margin-bottom: 60px; 
+            text-align: center; 
+            max-width: 800px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .hero h2 { 
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            margin-bottom: 15px; 
+            letter-spacing: -1px; 
+            background: linear-gradient(to right, var(--text-main), var(--text-sec));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p { 
+            color: var(--text-sec); 
+            font-size: 1.1rem; 
+            margin-bottom: 25px; 
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .badge { 
+            display: inline-block; 
+            padding: 6px 16px; 
+            border-radius: 100px; 
+            background: rgba(215, 25, 33, 0.1); 
+            color: var(--accent); 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            font-family: var(--font-mono); 
+            margin-bottom: 20px; 
+            border: 1px solid rgba(215, 25, 33, 0.2); 
+        }
+
+        /* ========================================
+           DASHBOARD GRID
+        ========================================
+        */
+        .grid-dashboard {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius);
+            padding: 30px; 
+            position: relative; 
+            cursor: pointer; 
+            transition: var(--transition);
+            display: flex; 
+            flex-direction: column; 
+            justify-content: zones-between; 
+            overflow: hidden; 
+            height: 260px;
+        }
+
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--text-sec); 
+            box-shadow: var(--shadow); 
+        }
+
+        .card-icon { 
+            width: 54px; 
+            height: 54px; 
+            border-radius: 16px; 
+            background: var(--bg); 
+            display: grid; 
+            place-items: center; 
+            font-size: 1.6rem; 
+            color: var(--text-main);
+            border: 1px solid var(--border); 
+            margin-bottom: 20px;
+        }
+
+        .card h3 { 
+            font-size: 1.6rem; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            letter-spacing: -0.5px;
+        }
+
+        .card p { 
+            color: var(--text-sec); 
+            font-size: 0.95rem; 
+            line-height: 1.5;
+        }
+
+        .card-arrow { 
+            position: absolute; 
+            bottom: 30px; 
+            right: 30px; 
+            font-size: 1.2rem; 
+            opacity: 0.3; 
+            transition: var(--transition); 
+        }
+
+        .card:hover .card-arrow { 
+            opacity: 1; 
+            transform: translateX(5px); 
+            color: var(--accent);
+        }
+
+        .card.wide { grid-column: span 1; }
+        @media (min-width: 768px) { .card.wide { grid-column: span 2; } }
+
+        /* ========================================
+           CONTENT BLOCKS (ADSENSE OPTIMIZED)
+        ========================================
+        */
+        .content-block {
+            padding: 40px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .content-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: var(--font-mono);
+            letter-spacing: -1px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .content-text {
+            color: var(--text-sec);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .content-text strong {
+            color: var(--text-main);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            padding: 20px;
+            background: var(--bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .feature-item p {
             font-size: 0.9rem;
+            color: var(--text-sec);
+        }
+
+        /* ========================================
+           DATA TABLES
+        ========================================
+        */
+        .data-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-sec);
+        }
+
+        .data-table th {
+            background: var(--bg);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ========================================
+           FAQ SECTION
+        ========================================
+        */
+        .faq-container {
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 25px 0;
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: zones-between;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-sec);
+            margin-top: 0;
+            line-height: 1.7;
+            padding-right: 20px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            margin-top: 15px;
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--accent);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* ========================================
+           FOOTER
+        ========================================
+        */
+        footer { 
+            border-top: 1px solid var(--border); 
+            padding: 60px 0; 
+            margin-top: 80px; 
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-logo span { color: var(--accent); }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-nav a {
+            color: var(--text-sec);
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text-main);
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-sec);
+            opacity: 0.6;
+            max-width: 700px;
+            margin: 0 auto;
             line-height: 1.6;
         }
 
-        .t-toggle { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; background: var(--card); transition: var(--transition); }
-        .t-toggle:hover { border-color: var(--text); }
-        #t-icon { color: var(--text) !important;transition: transform .3s ease; } 
-        .t-toggle:active #t-icon { transform: rotate(150deg) scale(1.1); }
-
-        .bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 1000px; margin: 0 auto; padding: 0 20px 20px; }
-        @media (min-width: 768px) { .bento { grid-template-columns: repeat(3, 1fr); } }
-
-        .tile { 
-            background: var(--card); border: 1px solid var(--border); border-radius: 35px; padding: 25px; cursor: pointer; transition: var(--transition);
-            opacity: 1; transform: none; position: relative; overflow: hidden;
+        .copyright {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: var(--text-sec);
+            font-family: var(--font-mono);
         }
-        .tile:hover { border-color: #333; transform: translateY(-2px); }
-        .tile:active { transform: scale(0.95); }
-        .tile h2 { font-size: 2.2rem; position: relative; z-index: 2; }
-        .tile p { opacity: 0.8 !important; font-size: 1rem; position: relative; z-index: 2; }
-                /* New Tile Icon Style */
-        .tile-icon {
-            position: absolute;
-            bottom: 15px;
-            right: 20px;
-            font-size: 0rem;
-            opacity: 0.15;
-            color: var(--text);
-            z-index: 10;
-            transform: rotate;
-            transition: 0.3s;
-        }
-        .tile:hover .tile-icon { opacity: 0.3; transform: rotate(0deg) scale(1.1); }
 
-        .full { grid-column: span 2; }
-        @media (min-width: 768px) { .full { grid-column: span 1; } }
-        
-        
-        
-        /* ================= MODALS WITH BOUNCY ANIMATION ================= */
-        .screen { 
-            position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(15px); 
-            z-index: 2000; 
+        /* ========================================
+           MODALS (POPUP WINDOWS)
+        ========================================
+        */
+        .overlay {
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(12px);
+            z-index: 1000; 
             display: none; 
-            align-items: center; justify-content: center;
-            opacity: 0;
+            justify-content: center; 
+            align-items: center;
+            opacity: 0; 
             transition: opacity 0.3s ease;
         }
 
-        .screen.active { display: flex !important; opacity: 1; }
-
-        .modal { 
-            background: var(--bg); 
-            border: 1px solid var(--border); 
-            width: 90%; 
-            max-width: 500px; 
-            max-height: 85vh;
-            border-radius: 35px;
-            padding: 30px; 
-            position: relative; 
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
-            
-            /* BOUNCE START STATE */
-            opacity: 0;
-            transform: scale(0.7) translateY(50px);
-            
-            /* BOUNCE CURVE: Cubic Bezier for jelly effect */
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-            will-change: transform, opacity;
-        }
-
-        /* BOUNCE END STATE */
-        .screen.active .modal { 
+        .overlay.active { 
+            display: flex; 
             opacity: 1; 
-            transform: scale(1) translateY(0); 
         }
 
-        .close-icon { 
-            position: absolute; right: 25px; top: 25px;
-            font-size: 2.2rem; cursor: pointer; opacity: 0.5; 
-            transition: 0.2s; z-index: 10;
+        .modal-window {
+            background: var(--bg); 
+            width: 95%; 
+            max-width: 650px; 
+            height: 85vh;
+            border-radius: var(--radius); 
+            border: 1px solid var(--border);
+            display: flex; 
+            flex-direction: column; 
+            position: relative;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7);
+            transform: scale(0.95); 
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .close-icon:hover { opacity: 1; color: var(--text); }
-        .modal h2 { margin-bottom: 20px !important; margin-top: 5px !important; line-height: 1; }
 
-        /* ================= BUTTONS & INPUTS ================= */
-        .input-group { position: relative; width: 100%; margin-bottom: 18px; display: flex; align-items: center; }
-        select, input.imei-box, input[type="text"] { width: 100%; padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 22px; font-size: 1.6rem; outline: none; appearance: none; }
-        input.imei-box { text-align: center; letter-spacing: 2px; }
-        .arrow-wrapper { position: absolute; right: 25px; pointer-events: none; color: #ffffff; }
-
-        .btn { 
-            position: relative; width: 100%; padding: 18px; border-radius: 22px; border: none; 
-            background: var(--text); color: var(--bg); font-size: 1.6rem; 
-            cursor: pointer; font-weight: bold; margin-top: 5px; overflow: hidden;
-            display: flex; justify-content: center; align-items: center; transition: 0.2s;
+        .overlay.active .modal-window { 
+            transform: scale(1); 
         }
-        .progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: rgba(128,128,128,0.5); z-index: 1; }
-        .btn-text { position: relative; z-index: 2; }
 
-        .pg-btn {
-            width: 100%; padding: 20px 30px; border-radius: 22px; background: var(--card);
-            border: 1px solid var(--border); color: var(--text); font-size: 1.2rem; letter-spacing: 1px;
-            display: flex; justify-content: space-between; align-items: center;
-            cursor: pointer; margin-bottom: 15px; font-weight: thin; transition: 0.2s; text-transform: uppercase;
+        .modal-header {
+            padding: 25px 30px; 
+            border-bottom: 1px solid var(--border);
+            display: flex; 
+            justify-content: zones-between; 
+            align-items: center;
+            background: var(--surface); 
+            border-radius: var(--radius) var(--radius) 0 0;
         }
-        .pg-btn i { font-size: 1.2rem; }
-        .pg-btn:hover { border-color: var(--text); }
-        .pg-btn:active { transform: scale(0.98); background: var(--border); }
 
-        .dot-arrow { width: 20px; height: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
-        .dot-row { display: flex; gap: 2px; }
-        .dot { width: 2.5px; height: 2.5px; background: var(--text); border-radius: 50%; }
-
-        /* ================= CHAT STYLES ================= */
-        .red-dot-loader { width: 12px; height: 12px; background-color: #ff0000; border-radius: 50%; display: inline-block; animation: pulse-red 0.8s ease-in-out infinite; }
-        @keyframes pulse-red { 0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
-
-        .msg-bubble { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px 15px; border-radius: 20px; position: relative; max-width: 85%; align-self: flex-start; margin-bottom: 10px; }
-        .u-badge { font-size: 0.7rem; background: var(--text); color: var(--bg); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; display: inline-block; }
-        .admin-reply-box { margin-top: 10px; padding: 8px 12px; background: rgba(255, 0, 0, 0.05); border-left: 2px solid var(--accent); border-radius: 10px; font-size: 0.9rem; }
-        .admin-tag { color: var(--accent); font-weight: bold; font-size: 0.7rem; display: block; margin-bottom: 2px; }
-
-        /* ================= MUSIC UI ================= */
-        .music-ui { text-align: center; }
-        .search-box-m { display: flex; background: #eef2f7 !important; padding: 5px 10px; border-radius: 50px !important; border: 1px solid var(--border); margin-bottom: 20px; align-items: center; }
-        .search-box-m input { flex: 1; background: transparent !important; border: none !important; color: #000 !important; padding: 12px; font-size: 1.2rem; outline: none; }
-        .go-btn { width: 40px !important; height: 40px !important; border-radius: 50% !important; border: none; background: #000 !important; color: #fff !important; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        #music-card { display: none; margin-top: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 20px; text-align: center; }
-        .disc { width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--border); margin: 0 auto 15px auto; object-fit: cover; display: block; }
-        .spinning { animation: rotate 10s linear infinite; }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .m-ctrls { display: flex; justify-content: center; align-items: center; gap: 30px; font-size: 1.8rem; margin: 20px 0; }
-
-        #mini-player { position:absolute; top:65px; right:90px; width:45px; height:45px; border-radius:50%; border:2px solid var(--accent); overflow:hidden; cursor:pointer; display:none; z-index:10; background:#000; }
-        #mini-art { width:100%; height:100%; object-fit:cover; display:block; }
-
-        /* ================= WALLPAPERS & CARDS ================= */
-        .wp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
-
-        .wp-card { 
-            height: 250px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--text);
-            opacity: 1; transform: translateY(0); transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        .modal-header h2 { 
+            font-family: var(--font-mono); 
+            font-size: 1.4rem; 
+            letter-spacing: -1px; 
+            font-weight: 700;
         }
-        .wp-card.hidden-state { opacity: 0; transform: translateY(50px) scale(0.95); }
-        .wp-card.scroll-active { opacity: 1; transform: translateY(0) scale(1); }
 
-        .wp-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; }
-        .wp-overlay { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align: center; }
-        .wp-overlay p { color: #fff !important; opacity: 1 !important; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-        .wp-overlay .btn { width: 90%; margin: 5px auto 0; padding: 8px 0; font-size: 1rem; border-radius: 15px; background: #fff !important; }
-        .wp-overlay .btn .btn-text { color: #000 !important; font-weight: bold !important; opacity: 1 !important; }
+        .close-btn { 
+            font-size: 2rem; 
+            cursor: pointer; 
+            color: var(--text-sec); 
+            transition: 0.2s; 
+            background: none; 
+            line-height: 0.5;
+        }
 
-        /* ================= OTHER MODULES ================= */
-        .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; }
-        .up-box h4 { font-size: 1.4rem; color: var(--text) !important; }
-        .up-box p { font-size: 0.9rem; opacity: 0.8 !important; margin-top: 4px; text-transform: none; }
+        .close-btn:hover { 
+            color: var(--accent); 
+            transform: rotate(90deg);
+        }
 
-        .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
-        .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; }
-        .sw-img-box img { width: 120%; height: 100%; object-fit: cover; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .guide-box { border: 1px solid var(--border); border-radius: 22px; margin-bottom: 15px; overflow: hidden; margin-top: 20px; background: var(--card); }
-        .guide-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .guide-content { max-height: 0; overflow: hidden; transition: 0.4s ease; padding: 0 20px; opacity: 0; }
-        .guide-content.open { max-height: 500px; padding: 20px; opacity: 1; border-top: 1px solid var(--border); }
-        .guide-content p { color: var(--text) !important; opacity: 0.8 !important; text-transform: none; font-size: 1.1rem; margin-bottom: 15px; }
-
-        .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 25px; margin-top: 20px; animation: fadeIn 0.3s ease; }
-        .sc-badge { background: #222; color: #888; padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; border: 1px solid var(--border); }
-        .card-row { display: flex; gap: 10px; margin-top: 15px; }
-
-        footer { text-align: center; padding: 30px; opacity: 1 !important; font-size: 0.8rem; letter-spacing: 1px; margin-top: 10px; }
-        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 10px; flex-wrap: wrap; }
-        footer a { color: var(--text); }
-        footer p { opacity: 0.8 !important; }
+        .modal-content { 
+            padding: 30px; 
+            overflow-y: auto; 
+            flex: 1; 
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--bg);
+        }
         
-        #aiSection { display: none; background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 25px; margin-bottom: 20px; animation: fadeIn 0.3s ease; }
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        /* ========================================
+           UI COMPONENTS (BUTTONS, INPUTS)
+        ========================================
+        */
+        .btn-primary {
+            width: 100%; 
+            padding: 18px; 
+            border-radius: 16px; 
+            background: var(--text-main); 
+            color: var(--bg); 
+            font-weight: 800; 
+            font-family: var(--font-mono); 
+            cursor: pointer; 
+            position: relative; 
+            overflow: hidden; 
+            margin-top: 15px;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            transition: 0.2s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover { 
+            opacity: 0.9; 
+            transform: scale(0.99);
+        }
+
+        .progress-bar { 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            height: 100%; 
+            width: 0%; 
+            background: rgba(128,128,128,0.4); 
+            z-index: 1; 
+        }
+
+        .btn-text { 
+            position: relative; 
+            z-index: 2; 
+        }
+
+        .input-box {
+            width: 100%; 
+            padding: 18px; 
+            background: var(--surface); 
+            border: 1px solid var(--border);
+            border-radius: 16px; 
+            color: var(--text-main); 
+            font-family: var(--font-main);
+            font-size: 1rem; 
+            margin-bottom: 20px; 
+            transition: 0.2s;
+        }
+
+        .input-box:focus { 
+            border-color: var(--text-sec); 
+            outline: 2px solid rgba(255,255,255,0.1);
+        }
+
+        /* ========================================
+           SPECIALIZED GRIDS (WALLPAPERS)
+        ========================================
+        */
+        .wp-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+
+        .wp-item { 
+            height: 220px; 
+            background: #333; 
+            border-radius: 18px; 
+            overflow: hidden; 
+            position: relative; 
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        
+        .wp-item:hover { transform: scale(1.02); }
+
+        .wp-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        .wp-overlay-btn { 
+            position: absolute; 
+            bottom: 12px; 
+            left: 12px; 
+            right: 12px; 
+            background: rgba(0,0,0,0.85); 
+            color: white; 
+            border: none; 
+            padding: 10px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 0.8rem; 
+            font-weight: 800; 
+            font-family: var(--font-mono);
+            backdrop-filter: blur(5px);
+        }
+
+        /* ========================================
+           MEDIA QUERIES
+        ========================================
+        */
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2.2rem; }
+            .modal-window { width: 100%; height: 100%; border-radius: 0; border: none; }
+            .modal-header { border-radius: 0; padding-top: 50px; }
+            .data-table th, .data-table td { padding: 12px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
-<div class="stars-container" id="starField"></div>
-    <div class="canvas"></div>
 
-    <header>
-        <div class="header-top">
-            <div class="logo">
-                <p style="opacity: 0.4; letter-spacing: 2px;">ONLY FOR FANS</p>
-                <h1>NOTHING<br>SPACE</h1>
-            </div>
-            <button class="t-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode" style="background:var(--card); border:1px solid var(--border);">
-                <i class="fa-solid fa-circle" id="t-icon"></i>
-            </button>
+    <header class="container">
+        <div class="logo">
+            <h1>NOTHING <span>zones</span></h1>
+            <p>Built for the Community</p>
         </div>
+        <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
     </header>
 
-    <div class="bento">
-                <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
-        <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>Preview Your Song</p></div>
-        <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p></div>
-        <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE </h1><p>NOS ZIP FILE</p></div>
-        <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER </h1><p>EXCLUSIVe Collection</p></div>
-        <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE </h1><p>LOCATE CENTERS</p></div>
-        <div class="tile full" onclick="openScreen('feedbackScr')"><h1>COMMUNITY </h1><p>FEEDBACK & SUGGESTIONS</p></div>
-     </div>
+    <main class="container">
+        
+        <section class="hero">
+            <span class="badge">Unofficial Resource Hub v3.0</span>
+            <h2>Enhance Your Nothing Phone Experience</h2>
+            <p>Welcome to the most comprehensive open-source database for Nothing Technology users. We provide official firmware archives, Google Camera ports, Magisk modules, and exclusive community content in a safe, ad-free environment.</p>
+        </section>
 
-    <div id="mini-player" onclick="restorePlayer()">
-        <img src="" id="mini-art" class="spinning" alt="Mini Player Art">
-    </div>
-
-    <div id="upScr" class="screen"><div class="modal">
-        <button class="close-icon" onclick="closeScreen('upScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-        <h2>WEBSITE LOGS</h2>
-        <div style="margin-top:20px;">
-            <div class="up-box"><h4>COMMUNITY BOARD</h4><p>Now you can share feedback, ideas & suggestions.</p></div>
-            <div class="up-box"><h4>NEW RINGTONE PLAYER</h4><p>Ad-free nonstop ringtones & background Playble.</p></div>
-            <div class="up-box"><h4>NEW WALLPAPERS</h4><p>Added high-quality art works in the gallery.</p></div>
-            <div class="up-box"><h4>SOFTWARE UPDATE</h4><p>Now supports all phones with latest NOS ZIPs.</p></div>
-            <div class="up-box"><h4>SERVICE DATABASE</h4><p>Call or open maps directly, no more hassle.</p></div>
-        </div>
-    </div></div>
-
-    <div id="feedbackScr" class="screen">
-        <div class="modal" style="height: 80vh; display: flex; flex-direction: column;">
-            <button class="close-icon" onclick="closeScreen('feedbackScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-            <h2>COMMUNITY BOARD</h2>
-            <p style="opacity: 0.4; font-size: 0.8rem; margin-bottom: 15px;">PUBLIC FEEDBACK & CHAT</p>
-            <div id="msgBoard" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;"></div>
-            <div style="background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 5px 5px 5px 15px; display: flex; align-items: center; margin-top: 15px;">
-                <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." aria-label="Type Message" style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
-                <button onclick="sendMsg()" aria-label="Send Message" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center;">
-                    <i class="fa-solid fa-arrow-up"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="musicScr" class="screen">
-        <div class="modal">
-            <button class="close-icon" onclick="handleMusicClose()" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-            <h2>RINGTONE PLAYER</h2>
-            <div class="music-ui">
-                <div class="search-box-m">
-                    <input type="text" id="mQuery" placeholder="SEARCH SONG..." aria-label="Search Song">
-                    <button class="go-btn" id="mSearchBtn" onclick="searchMusic()" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="grid-dashboard">
+            <div class="card wide" onclick="openScreen('upScr')">
+                <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                    <h3>What's New</h3>
+                    <p>Check the latest changelogs, server status, and site updates.</p>
                 </div>
-            </div>
-            <div id="music-card">
-                <img src="" id="mArt" class="disc" alt="Album Art">
-                <h3 id="mTitle" style="margin-top:15px;">TITLE</h3>
-                <p id="mArtist" style="opacity:0.5;">ARTIST</p>
-                <div class="m-ctrls">
-                    <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer"></i>
-                    <span id="play-pause" onclick="togglePlay()" style="cursor:pointer"><i class="fa-solid fa-circle-play"></i></span>
-                    <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer"></i>
-                </div>
-                <button class="btn" onclick="downloadCurrentSong()">DOWNLOAD</button>
-            </div>
-            <audio id="mPlayer" onended="nextSong()"></audio>
-        </div>
-    </div>
-
-    <div id="swScr" class="screen">
-        <div class="modal">
-            <button class="close-icon" onclick="closeScreen('swScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-            <h2>SYSTEM UPDATE</h2>
-            <div class="guide-box">
-                <div class="guide-header" onclick="toggleAccordion()">
-                    <span>HOW TO UPDATE?</span>
-                    <div class="arrow-wrapper" style="position:static;"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-                </div>
-                <div class="guide-content" id="accContent">
-                    <p>1. DOWNLOAD THE BETA HUB TOOL APK.<br>2. CREATE "OTA" FOLDER IN INTERNAL STORAGE AND PASTE OTA ZIP INSIDE.<br>3. SETTING - SYSTEM - BETA HUB - IMPORT FILE - ZIP - UPDATE.</p>
-                    <button class="btn" style="font-size:1.6rem; padding:17px;"  onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD BETA TOOL</span></button>
-                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
             </div>
 
-            <div class="sw-display" id="swDisplay">
-                <div class="sw-img-box">
-                    <img src="" id="swPhoneImg"
-                         style="cursor: pointer;"
-                         alt="Phone Image"
-                         onmousedown="startSoftwareLogic()" 
-                         ontouchstart="startSoftwareLogic()" 
-                         onmouseup="cancelSoftwareLogic()" 
-                         onmouseleave="cancelSoftwareLogic()" 
-                         ontouchend="cancelSoftwareLogic()" 
-                         ontouchmove="cancelSoftwareLogic()">
+            <div class="card" onclick="openScreen('swScr')">
+                <div class="card-icon"><i class="fa-solid fa-download"></i></div>
+                <div>
+                    <h3>Firmware</h3>
+                    <p>Download Official OTA Zips & Boot Images for all regions.</p>
                 </div>
-                <div class="sw-info">
-                    <h2 id="swPhoneTitle">DEVICE</h2>
-                    <p style="opacity:0.5; font-size:0.9rem;">Official OTA Firmware</p>
-                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
             </div>
 
-            <div class="input-group">
-                <select id="swSelect" onchange="showLogs()" aria-label="Select Device">
-                    <option value="">SELECT YOUR DEVICE</option>
-                    <option value="p1">NOTHING PHONE (1)</option>
-                    <option value="p2">NOTHING PHONE (2)</option>
-                    <option value="p2a">NOTHING PHONE (2A)</option>
-                    <option value="p2aplus">NOTHING PHONE (2A) PLUS</option>
-                    <option value="p3">NOTHING PHONE (3)</option>
-                    <option value="p3a">NOTHING PHONE (3A)</option>
-                    <option value="p3apro">NOTHING PHONE (3A) PRO</option>
-                    <option value="p3alite">NOTHING PHONE (3A) LITE</option>
-                    <option value="cmf1">CMF PHONE 1</option>
-                    <option value="cmf2pro">CMF PHONE 2 PRO</option>
-                </select>
-                <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+            <div class="card" onclick="openScreen('musicScr')">
+                <div class="card-icon"><i class="fa-solid fa-music"></i></div>
+                <div>
+                    <h3>Ringtones</h3>
+                    <p>Listen to and download custom Glyph Composer tracks.</p>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
             </div>
-            <div id="logBox" style="display:none;" class="detail-card">
-                <h3>NOTES:</h3>
-                <ul id="swList" style="margin:15px 0; opacity:0.7; list-style: inside; text-transform: none;"></ul>
-                <button class="btn" onclick="runDownload(this, 'OTA_ZIP')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD OTA ZIP</span></button>
+
+            <div class="card" onclick="openScreen('wpScr')">
+                <div class="card-icon"><i class="fa-regular fa-image"></i></div>
+                <div>
+                    <h3>Wallpapers</h3>
+                    <p>High-Res gallery & AI wallpaper generation tool.</p>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
+            </div>
+
+            <div class="card" onclick="openScreen('pgScr')">
+                <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div>
+                    <h3>Playground</h3>
+                    <p>GCam XMLs, Widgets, Icon Packs and experimental mods.</p>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
+            </div>
+
+            <div class="card" onclick="openScreen('scScr')">
+                <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <div>
+                    <h3>Service Centers</h3>
+                    <p>Locate authorized repair points across India.</p>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
+            </div>
+
+             <div class="card wide" onclick="openScreen('feedbackScr')">
+                <div class="card-icon"><i class="fa-solid fa-comments"></i></div>
+                <div>
+                    <h3>Community Board</h3>
+                    <p>Discuss, request features, and share feedback with other users.</p>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow"></i>
             </div>
         </div>
-    </div>
 
-    <div id="pgScr" class="screen"><div class="modal">
-        <button class="close-icon" onclick="closeScreen('pgScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-        <h2>PLAYGROUND</h2>
-        <div style="margin-top:20px;">
-            <div class="pg-btn" onclick="openScreen('presetScr')"><span>CAMERA PRESETS</span><i class="fa-solid fa-camera"></i></div>
-                  </div>
-    </div></div>
+        <section class="content-block">
+            <span class="content-title">The Philosophy of Nothing OS</span>
+            <div style="margin-top: 20px;">
+                <p class="content-text">
+                    Nothing OS represents a paradigm shift in the Android ecosystem. Unlike traditional skins that prioritize feature bloat, Nothing OS focuses on the essential relationship between the user and technology. Built on the core principles of "Pure Instinct," the operating system strips away distractions to reveal a raw, dot-matrix inspired aesthetic that is both retro and futuristic.
+                </p>
+                <p class="content-text">
+                    <strong>Key Characteristics:</strong> The interface is designed to be intentional. The unique dot-matrix font (Ndot) is used sparingly to highlight key information, while the monochrome color palette ensures that content takes center stage. The integration of hardware and software is seamless, exemplified by the Glyph Interface—a series of LED strips on the back of the device that communicate notifications, charging status, and more without needing to wake the screen.
+                </p>
+                <p class="content-text">
+                    At Nothing Zones, we mirror this philosophy. Our goal is to provide tools that respect the user's time and device integrity. We host only verified files, ensuring that your journey from stock firmware to custom ROMs is safe and efficient.
+                </p>
+            </div>
+        </section>
 
-    <div id="presetScr" class="screen"><div class="modal">
-        <button class="close-icon" onclick="closeScreen('presetScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-        <h2>CAMERA PRESETS</h2>
-        <p style="opacity:0.5; margin-bottom:10px;">EXCLUSIVE PRESETS</p>
-        <div class="wp-grid" id="presetGrid"></div>
-    </div></div>
-
-    <div id="wpScr" class="screen">
-        <div class="modal">
-            <button class="close-icon" onclick="closeScreen('wpScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-            <h2>GALLERY</h2>
+        <section class="content-block">
+            <span class="content-title">Supported Devices & Specifications</span>
+            <p class="content-text">
+                Understanding your device's architecture is crucial before flashing any firmware. Below is the detailed technical breakdown of the devices supported by our repository. Please ensure you download files matching your specific model codename (e.g., Pong vs Pacman).
+            </p>
             
-            <div onclick="toggleAI()" style="background: var(--text); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: var(--bg); font-weight: bold; font-size: 1.2rem;"> CREATE WITH AI</span>
-                <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--bg);"></i>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Nothing Phone (1)</th>
+                            <th>Nothing Phone (2)</th>
+                            <th>Nothing Phone (2a)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Codename</strong></td>
+                            <td>Spacewar</td>
+                            <td>Pong / Alpacino</td>
+                            <td>Pacman / Aerodactyl</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processor</strong></td>
+                            <td>Snapdragon 778G+</td>
+                            <td>Snapdragon 8+ Gen 1</td>
+                            <td>Dimensity 7200 Pro</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Display</strong></td>
+                            <td>6.55" OLED, 120Hz</td>
+                            <td>6.7" LTPO OLED, 120Hz</td>
+                            <td>6.7" AMOLED, 120Hz</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Battery</strong></td>
+                            <td>4500 mAh (33W)</td>
+                            <td>4700 mAh (45W)</td>
+                            <td>5000 mAh (45W)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Main Camera</strong></td>
+                            <td>50MP IMX766</td>
+                            <td>50MP IMX890</td>
+                            <td>50MP GN9</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Software</strong></td>
+                            <td>Nothing OS 2.5 (A14)</td>
+                            <td>Nothing OS 2.6 (A14)</td>
+                            <td>Nothing OS 2.6 (A14)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+            <p style="font-size:0.8rem; color:var(--text-sec);">*Note: CMF Phone 1 (Beetle) support is currently in beta testing. Please visit the "Experimental" folder in the Firmware section.</p>
+        </section>
 
-            <div id="aiSection">
-                <div class="input-group">
-                    <input type="text" id="aiPrompt" placeholder="DESCRIBE YOUR IDEA..." aria-label="AI Prompt" style="text-align: left;">
+        <section class="content-block">
+            <span class="content-title">Ultimate Guide: Updating & Flashing</span>
+            <p class="content-text">
+                Keeping your device updated is essential for security and performance. While Nothing pushes updates Over-The-Air (OTA), enthusiasts often prefer manual flashing to get features faster or to recover a bricked device.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>Method 1: The Offline OTA Tool</h4>
+                    <p>This is the safest method. By using the built-in (but hidden) system updater tool, you can flash official zip files without a computer.</p>
+                    <ul style="list-style:decimal; margin-left:20px; margin-top:10px; color:var(--text-sec); font-size:0.9rem;">
+                        <li>Download the full OTA ZIP from our Firmware section.</li>
+                        <li>Create a folder named <code>OTA</code> in your internal storage root.</li>
+                        <li>Move the zip file into this folder.</li>
+                        <li>Open dialer and type <code>*#*#682#*#*</code>.</li>
+                        <li>Select the file and click "Install".</li>
+                    </ul>
                 </div>
-                <div class="input-group">
-                    <select id="aiRatio" aria-label="Aspect Ratio">
-                        <option value="9:16">MOBILE (9:16)</option>
-                        <option value="16:9">PC (16:9)</option>
-                        <option value="1:1">SQUARE (1:1)</option>
-                    </select>
-                    <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+
+                <div class="feature-item">
+                    <h4>Method 2: ADB Sideload (PC Required)</h4>
+                    <p>If your device is in a bootloop or recovery mode, ADB Sideload is your best friend. Requires ADB drivers installed on your PC.</p>
+                    <ul style="list-style:decimal; margin-left:20px; margin-top:10px; color:var(--text-sec); font-size:0.9rem;">
+                        <li>Boot into Recovery Mode (Vol Up + Power).</li>
+                        <li>Select "Apply Update from ADB".</li>
+                        <li>Connect phone to PC.</li>
+                        <li>Run <code>adb sideload filename.zip</code> in terminal.</li>
+                        <li>Wait for the process to reach 47% (it usually pauses there, this is normal).</li>
+                    </ul>
                 </div>
-                
-                <button class="btn" id="genBtn" onclick="generateAIWall()"><div class="progress-bar"></div><span class="btn-text">GENERATE</span></button>
-                
-                <div id="aiResult" style="margin-top: 20px; display: none;">
-                    <div class="wp-card" style="height: 400px; border: 1px solid var(--border);">
-                        <img id="aiImg" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="AI Result">
-                        <div class="wp-overlay">
-                            <button class="btn" onclick="downloadAIWall(this)"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button>
-                        </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <span class="content-title">Frequently Asked Questions</span>
+            <div class="faq-container">
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        Is rooting my Nothing Phone safe? 
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Rooting allows for advanced customization but carries inherent risks. It does not void your hardware warranty with Nothing (unlike Samsung Knox), but it may disable banking apps and Widevine L1 (High Definition streaming). Always ensure you have a backup of your <code>boot.img</code> before patching it with Magisk.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        Why does my GCam crash on launch? 
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Google Camera (GCam) is ported from Pixel devices and requires specific configuration files (XMLs) to map the camera sensors correctly. Phone (2) uses the IMX890 sensor which differs from Phone (1)'s IMX766. If you use the wrong config, the app will crash. Please check the "Playground" section for the correct XML for your model.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        What is the difference between Global, EEA, and IND firmware? 
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nothing releases regional builds to comply with local laws (like GDPR in Europe). 
+                        <br>- <strong>Global:</strong> Standard version for US/Asia.
+                        <br>- <strong>EEA:</strong> European version with stricter privacy controls and volume limits.
+                        <br>- <strong>IND:</strong> India-specific version, sometimes containing region-specific features or bloatware adjustments.
+                        <br>You can cross-flash these, but it is generally recommended to stick to your original region to avoid modem issues.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        How do I fix the "Low Value Content" error on AdSense? 
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>This is a meta-question! The error usually means your site lacks substantial text. By adding detailed guides like this one, specifications, and original helpful content, you signal to Google that your site provides value beyond just download links.</p>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="wp-grid" id="wallpaperGrid"></div>
-        </div>
-    </div>
-    <div id="scScr" class="screen"><div class="modal">
-        <button class="close-icon" onclick="closeScreen('scScr')" aria-label="Close Modal" style="background:transparent; border:none; color:var(--text);">×</button>
-        <h2>SERVICE CENTERS</h2>
-        <div class="input-group" style="margin-top:20px;">
-            <select id="state" onchange="loadCities()" aria-label="Select State">
-                <option value="">SELECT STATE</option>
-                <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
-                <option value="ASSAM">ASSAM</option>
-                <option value="BIHAR">BIHAR</option>
-                <option value="CHANDIGARH">CHANDIGARH</option>
-                <option value="CHHATTISGARH">CHHATTISGARH</option>
-                <option value="DELHI">DELHI</option>
-                <option value="GOA">GOA</option>
-                <option value="GUJARAT">GUJARAT</option>
-                <option value="HARYANA">HARYANA</option>
-                <option value="HIMACHAL PRADESH">HIMACHAL PRADESH</option>
-                <option value="JAMMU & KASHMIR">JAMMU & KASHMIR</option>
-                <option value="JHARKHAND">JHARKHAND</option>
-                <option value="KARNATAKA">KARNATAKA</option>
-                <option value="KERALA">KERALA</option>
-                <option value="MADHYA PRADESH">MADHYA PRADESH</option>
-                <option value="MAHARASHTRA">MAHARASHTRA</option>
-                <option value="MEGHALAYA">MEGHALAYA</option>
-                <option value="NAGALAND">NAGALAND</option>
-                <option value="ODISHA">ODISHA</option>
-                <option value="PUDUCHERRY">PUDUCHERRY</option>
-                <option value="PUNJAB">PUNJAB</option>
-                <option value="RAJASTHAN">RAJASTHAN</option>
-                <option value="TAMIL NADU">TAMIL NADU</option>
-                <option value="TELANGANA">TELANGANA</option>
-                <option value="TRIPURA">TRIPURA</option>
-                <option value="UTTAR PRADESH">UTTAR PRADESH</option>
-                <option value="UTTARAKHAND">UTTARAKHAND</option>
-                <option value="WEST BENGAL">WEST BENGAL</option>
-            </select>
-            <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-        </div>
-        <div class="input-group">
-            <select id="city" onchange="showDetails()" aria-label="Select City" style="display:none"></select>
-            <div class="arrow-wrapper" id="cityArrow" style="display:none"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
-        </div>
-        <div id="scInfo"></div>
-    </div></div>
-    
-    <div id="aboutScr" class="screen">
-      <div class="modal">
-        <span class="close-icon" onclick="closeScreen('aboutScr')">×</span>
-        <h2>ABOUT US</h2>
-        <p style="text-align:center; opacity:0.6; font-size:0.9rem; margin-bottom:15px; letter-spacing:1px;">ESTABLISHED 2024 • COMMUNITY DRIVEN</p>
-        
-        <div class="detail-card">
-          <p>
-            Welcome to <b>Nothing Space</b>. We are a dedicated open-source resource hub built for enthusiasts of the Nothing™ technology ecosystem. Our mission is to bridge the gap between complex developer resources and the average user.
-          </p>
-          
-          <h3 style="margin-top:20px; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">OUR MISSION</h3>
-          <p>
-            To provide a safe, ad-free (pop-up free), and direct download environment for Firmware, Mods, and Tools. We believe in the "Right to Repair" and "Device Customization" philosophies.
-          </p>
-
-          <h3 style="margin-top:20px; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">EDITORIAL STANDARDS</h3>
-          <p>
-            Reliability is our core value. To ensure user safety, every file hosted on Nothing Space undergoes a strict 3-step verification process:
-          </p>
-          <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:10px;">
-            <li><b>Source Verification:</b> We only mirror links from official OTA servers (android.googleapis.com) or trusted developers.</li>
-            <li><b>Security Scanning:</b> All APKs are scanned via VirusTotal APIs before listing to ensure 0% malware.</li>
-            <li><b>Manual Testing:</b> Our internal team tests UI mods on real hardware (Phone 1/2) to ensure stability.</li>
-          </ul>
-
-          <h3 style="margin-top:20px; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">THE TEAM</h3>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
-            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; text-align:center;">
-                <span style="font-size:0.8rem; opacity:0.6;">LEAD DEVELOPER</span><br><b>ROHIT KUMAR</b>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; text-align:center;">
-                <span style="font-size:0.8rem; opacity:0.6;">HQ LOCATION</span><br><b>BIHAR, INDIA</b>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="privacyScr" class="screen">
-      <div class="modal">
-        <span class="close-icon" onclick="closeScreen('privacyScr')">×</span>
-        <h2>PRIVACY POLICY</h2>
-        <div class="detail-card">
-          <p style="font-size:0.9rem; opacity:0.6; margin-bottom:15px;">Last Updated: January 16, 2026</p>
-          
-          <p>At Nothing Space (accessible from nothingzones.github.io), safeguarding the privacy of our visitors is one of our primary objectives. This Privacy Policy document contains types of information that is collected and recorded by Nothing Space and how we use it.</p>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">1. INFORMATION COLLECTION</h3>
-          <p>
-            <b>Personal Data:</b> We do not require you to create an account or provide personal details (like Name, Phone Number, Address) to access our downloads.<br>
-            <b>Voluntary Data:</b> If you contact us via email, we will only use your email address to reply to your query. It will never be sold or shared.
-          </p>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">2. GOOGLE ADSENSE & COOKIES</h3>
-          <p>We partner with Google AdSense to display advertisements. Google uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
-          <div style="margin-top:10px; background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; font-size:0.9rem;">
-            <b>OPT-OUT:</b> You may choose to decline the use of DART cookies by visiting the Google Ad and Content Network Privacy Policy at <a href="https://policies.google.com/technologies/ads" target="_blank" style="text-decoration:underline;">policies.google.com</a>.
-          </div>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">3. GDPR DATA PROTECTION RIGHTS</h3>
-          <p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:</p>
-          <ul style="margin-left:20px; opacity:0.8; list-style:circle; margin-top:5px;">
-              <li>The right to access – You have the right to request copies of your personal data.</li>
-              <li>The right to rectification – You have the right to request that we correct any information you believe is inaccurate.</li>
-              <li>The right to erasure – You have the right to request that we erase your personal data, under certain conditions.</li>
-          </ul>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">4. CCPA PRIVACY RIGHTS</h3>
-          <p>Under the CCPA, among other rights, California consumers have the right to request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.</p>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">5. LOG FILES</h3>
-          <p>Nothing Space follows a standard procedure of using log files. The data collected includes internet protocol (IP) addresses, browser type, ISP, date/time stamp, and referring/exit pages. This information is used for analyzing trends and preventing DDoS attacks.</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="termsScr" class="screen">
-      <div class="modal">
-        <span class="close-icon" onclick="closeScreen('termsScr')">×</span>
-        <h2>TERMS OF USE</h2>
-        <div class="detail-card">
-          <p>By accessing this website, you confirm that you understand and agree to comply with these terms and conditions. Do not continue to use Nothing Space if you do not agree to all of the terms stated on this page.</p>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">1. INTELLECTUAL PROPERTY</h3>
-          <p>Unless otherwise stated, Nothing Space and/or its licensors own the intellectual property rights for all original material on this website. All intellectual property rights are reserved.</p>
-          <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:5px;">
-            <li>You must not republish material from Nothing Space.</li>
-            <li>You must not sell, rent, or sub-license material from Nothing Space.</li>
-            <li>You must not reproduce, duplicate or copy material from Nothing Space without permission.</li>
-          </ul>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">2. LIMITATION OF LIABILITY</h3>
-          <p>The content and tools on Nothing Space are provided "as is". We make no warranties, expressed or implied.</p>
-          <p style="margin-top:10px;">
-            <b>Device Safety:</b> The firmware links, APKs, and guides provided are for educational and customization purposes. Modifying system software (Flashing OTA, Unlocking Bootloader) carries inherent risks. Nothing Space and its developers are <b>NOT responsible</b> for any damage to your device, data loss, or voiding of warranty. Always backup your data.
-          </p>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">3. GOVERNING LAW</h3>
-          <p>These terms and conditions are governed by and construed in accordance with the laws of <b>India</b>. You irrevocably submit to the exclusive jurisdiction of the courts in the State of <b>Bihar</b> for the resolution of any disputes.</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="disclaimerScr" class="screen">
-      <div class="modal">
-        <span class="close-icon" onclick="closeScreen('disclaimerScr')">×</span>
-        <h2>LEGAL DISCLAIMER</h2>
-        <div class="detail-card">
-          
-          <div style="border: 2px solid var(--text); padding: 15px; border-radius: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.05);">
-            <p style="margin:0; font-weight:bold; font-size:1.1rem; text-align:center;">
-                ⚠ UNOFFICIAL FAN PROJECT
-            </p>
-            <p style="margin-top:10px; font-size:0.95rem;">
-              Nothing Space is an independent, community-run resource hub. We are <u>NOT</u> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>Nothing Technology Limited</b>, CMF, or any of their subsidiaries.
-            </p>
-          </div>
-
-          <h3 style="font-size:1.1rem;">TRADEMARKS</h3>
-          <p>
-            The names "Nothing", "Phone (1)", "Phone (2)", "Phone (2a)", "CMF" and related marks, emblems, and images are registered trademarks of their respective owners. We use these names solely for descriptive purposes to identify the devices our resources are intended for. This constitutes <b>"Fair Use"</b> under copyright law.
-          </p>
-
-          <h3 style="margin-top:20px; font-size:1.1rem;">CONTENT ACCURACY</h3>
-          <p>
-            While we strive to keep the information up to date and correct, we make no representations or warranties of any kind about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information contained on the website.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div id="contactScr" class="screen">
-      <div class="modal">
-        <span class="close-icon" onclick="closeScreen('contactScr')">×</span>
-        <h2>GET IN TOUCH</h2>
-        <div class="detail-card">
-          <p style="text-align:center; margin-bottom:20px;">Have a suggestion for the site, found a broken link, or have a DMCA request? Choose a method below.</p>
-          
-          <div style="background:rgba(0, 136, 204, 0.1); border:1px solid #0088cc; padding:15px; border-radius:15px; text-align:center; margin-bottom:15px;">
-            <i class="fa-brands fa-telegram" style="font-size:2.5rem; color:#0088cc; display:block; margin-bottom:5px;"></i>
-            <p style="opacity:0.6; margin-bottom:5px; font-size:0.8rem;">JOIN OUR COMMUNITY CHANNEL</p>
-            <a href="https://t.me/techiboy_discuss" target="_blank" style="color:#fff; background:#0088cc; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold; display:inline-block;">OPEN TELEGRAM <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-
-          <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border); padding:15px; border-radius:15px; text-align:center;">
-            <i class="fa-solid fa-envelope" style="font-size:1.5rem; display:block; margin-bottom:5px;"></i>
-            <p style="opacity:0.6; margin-bottom:5px; font-size:0.8rem;">OFFICIAL SUPPORT EMAIL</p>
-            <a href="mailto:rohub735@gmail.com" style="color:var(--text); text-decoration:underline; font-size:1.2rem;">rohub735@gmail.com</a>
-          </div>
-
-          <h3 style="margin-top:20px; font-size:1.1rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">OPERATIONAL DETAILS</h3>
-          <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:10px;">
-            <li><b>Response Time:</b> Within 24-48 Hours</li>
-            <li><b>Region:</b> Muzaffarpur, Bihar, India</li>
-            <li><b>Legal Contact:</b> Use the email above for takedown requests.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    </main>
 
     <footer>
-        <div class="footer-links">
-          <a href="javascript:void(0)" onclick="openScreen('aboutScr')">ABOUT</a>
-          <a href="javascript:void(0)" onclick="openScreen('privacyScr')">PRIVACY</a>
-          <a href="javascript:void(0)" onclick="openScreen('termsScr')">TERMS</a>
-          <a href="javascript:void(0)" onclick="openScreen('disclaimerScr')">DISCLAIMER</a>
-          <a href="javascript:void(0)" onclick="openScreen('contactScr')">CONTACT</a>
+        <div class="container">
+            <div class="footer-logo">NOTHING <span>zones</span></div>
+            
+            <div class="footer-nav">
+                <a href="#" onclick="openScreen('aboutScr'); return false;">About Us</a>
+                <a href="#" onclick="openScreen('privacyScr'); return false;">Privacy Policy</a>
+                <a href="#" onclick="openScreen('termsScr'); return false;">Terms of Use</a>
+                <a href="#" onclick="openScreen('contactScr'); return false;">Contact & Support</a>
+            </div>
+
+            <p class="disclaimer">
+                <strong>Disclaimer:</strong> Nothing Zones is an independent community project and is NOT affiliated, associated, authorized, endorsed by, or in any way officially connected with Nothing Technology Ltd or any of its subsidiaries or its affiliates. The official Nothing website can be found at nothing.tech. The name "Nothing" as well as related names, marks, emblems and images are registered trademarks of their respective owners.
+            </p>
+
+            <p class="copyright">
+                © 2026 Nothing Zones | Designed with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> in Bihar, India.
+            </p>
         </div>
-        <p>NOTHING SPACE © 2026<br>DESIGNED FOR THE COMMUNITY</p>
     </footer>
 
+    <div id="upScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>LATEST UPDATES</h2><button class="close-btn" onclick="closeScreen('upScr')">×</button></div>
+            <div class="modal-content">
+                <div class="feature-item" style="margin-bottom:15px;">
+                    <h4><i class="fa-solid fa-check-circle" style="color:var(--accent)"></i> Firmware Database Updated</h4>
+                    <p>Added Nothing OS 2.6 for Phone (2a) - India Region.</p>
+                </div>
+                <div class="feature-item" style="margin-bottom:15px;">
+                    <h4><i class="fa-solid fa-check-circle" style="color:var(--accent)"></i> Site Optimization</h4>
+                    <p>Improved load speeds and added new SEO content sections.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fa-solid fa-check-circle" style="color:var(--accent)"></i> New AI Model</h4>
+                    <p>Wallpaper generator now uses Flux.1 for better realism.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="swScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>SYSTEM UPDATE</h2><button class="close-btn" onclick="closeScreen('swScr')">×</button></div>
+            <div class="modal-content">
+                <div style="background: var(--surface); padding: 20px; border-radius: 16px; margin-bottom: 25px; border: 1px solid var(--border);">
+                    <div style="display:flex; justify-content:zones-between; cursor:pointer;" onclick="document.getElementById('accContent').style.display = document.getElementById('accContent').style.display === 'none' ? 'block' : 'none'">
+                        <strong><i class="fa-solid fa-circle-info"></i> How to Update Manually?</strong><i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div id="accContent" style="display:none; margin-top:15px;">
+                        <p style="font-size:0.9rem; color:var(--text-sec); margin-bottom:10px;">1. Download the correct ZIP for your device.<br>2. Create a folder named "OTA" in internal storage.<br>3. Place ZIP inside and dial *#*#682#*#*.</p>
+                        <button class="btn-primary" onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD BETA TOOL</span></button>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom:10px;">Select Your Device</h3>
+                <select id="swSelect" class="input-box" onchange="showLogs()">
+                    <option value="">Choose Device Model...</option>
+                    <option value="p1">Nothing Phone (1)</option>
+                    <option value="p2">Nothing Phone (2)</option>
+                    <option value="p2a">Nothing Phone (2a)</option>
+                    <option value="p2aplus">Nothing Phone (2a) Plus</option>
+                    <option value="cmf1">CMF Phone 1</option>
+                </select>
+
+                <div id="swDisplay" style="display:none; text-align:center; margin-top:20px;">
+                    <img id="swPhoneImg" src="" style="height:150px; border-radius:12px; margin-bottom:15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                    <h3 id="swPhoneTitle" style="font-size:1.5rem; margin-bottom:10px;">Device Name</h3>
+                    <div id="logBox" style="text-align:left; margin-top:15px;">
+                        <ul id="swList" style="list-style:disc; margin-left:20px; color:var(--text-sec); margin-bottom:20px;"></ul>
+                        <button class="btn-primary" onclick="runDownload(this, 'OTA_ZIP')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD FIRMWARE</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="musicScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>RINGTONE PLAYER</h2><button class="close-btn" onclick="handleMusicClose()">×</button></div>
+            <div class="modal-content" style="text-align:center;">
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <input type="text" id="mQuery" class="input-box" placeholder="Search song..." style="margin-bottom:0;">
+                    <button class="btn-primary" id="mSearchBtn" onclick="searchMusic()" style="width:60px; margin-top:0;"><i class="fa-solid fa-search"></i></button>
+                </div>
+                <div id="music-card" style="display:none;">
+                    <img src="" id="mArt" style="width:140px; height:140px; border-radius:50%; margin:0 auto 20px; border:4px solid var(--border); object-fit:cover;" alt="Art">
+                    <h3 id="mTitle" style="font-size:1.2rem; margin-bottom:5px;">Title</h3>
+                    <p id="mArtist" style="color:var(--text-sec); margin-bottom:20px;">Artist</p>
+                    
+                    <div style="display:flex; justify-content: center; gap:40px; font-size:2.5rem; margin:20px 0;">
+                        <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer; transition:0.2s;" onmouseover="this.style.color=var(--accent)" onmouseout="this.style.color='inherit'"></i>
+                        <span id="play-pause" onclick="togglePlay()" style="cursor:pointer; color:var(--accent);"><i class="fa-solid fa-circle-play"></i></span>
+                        <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer; transition:0.2s;" onmouseover="this.style.color=var(--accent)" onmouseout="this.style.color='inherit'"></i>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="downloadCurrentSong()">DOWNLOAD TRACK</button>
+                </div>
+                <audio id="mPlayer" onended="nextSong()"></audio>
+            </div>
+        </div>
+    </div>
+
+    <div id="wpScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>GALLERY</h2><button class="close-btn" onclick="closeScreen('wpScr')">×</button></div>
+            <div class="modal-content">
+                <div onclick="openScreen('aiWpScr')" style="background: linear-gradient(135deg, #d71921, #ff5757); padding: 25px; border-radius: 16px; margin-bottom: 30px; cursor: pointer; color: white; display:flex; justify-content:zones-between; align-items:center; box-shadow: 0 10px 20px rgba(215, 25, 33, 0.3);">
+                    <div>
+                        <span style="font-weight:800; font-size:1.2rem; display:block;">✨ AI STUDIO</span>
+                        <span style="font-size:0.9rem; opacity:0.9;">Generate custom Nothing-style wallpapers</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right" style="font-size:1.5rem;"></i>
+                </div>
+                <h3 style="margin-bottom:15px;">Community Picks</h3>
+                <div class="wp-grid" id="wallpaperGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="aiWpScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>AI STUDIO</h2><button class="close-btn" onclick="closeScreen('aiWpScr')">×</button></div>
+            <div class="modal-content">
+                <p style="margin-bottom:15px; color:var(--text-sec);">Describe your idea and our AI will generate a minimal, Nothing-aesthetic wallpaper for you.</p>
+                <input type="text" id="aiPrompt" class="input-box" placeholder="E.g., A red robot in a dark room...">
+                <select id="aiRatio" class="input-box">
+                    <option value="9:16">Mobile Portrait (9:16)</option>
+                    <option value="16:9">Desktop Landscape (16:9)</option>
+                    <option value="1:1">Square (1:1)</option>
+                </select>
+                <button class="btn-primary" id="genBtn" onclick="generateAIWall()"><div class="progress-bar"></div><span class="btn-text">GENERATE WALLPAPER</span></button>
+                
+                <div id="aiResult" style="margin-top:20px; display:none;">
+                    <img id="aiImg" src="" style="width:100%; border-radius:12px; margin-bottom:15px; border:1px solid var(--border);">
+                    <button class="btn-primary" onclick="downloadAIWall(this)"><span class="btn-text">DOWNLOAD RESULT</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pgScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>PLAYGROUND</h2><button class="close-btn" onclick="closeScreen('pgScr')">×</button></div>
+            <div class="modal-content">
+                <div class="list-item" onclick="openScreen('presetScr')" style="cursor:pointer; padding:20px; border-bottom:1px solid var(--border); display:flex; justify-content:zones-between; align-items:center;">
+                    <div>
+                        <span style="font-weight:600; display:block; font-size:1.1rem;"><i class="fa-solid fa-camera" style="margin-right:10px;"></i> Camera Presets (XML)</span>
+                        <span style="font-size:0.85rem; color:var(--text-sec);">Best configs for LMC & AGC Ports</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="list-item" style="padding:20px; border-bottom:1px solid var(--border); display:flex; justify-content:zones-between; align-items:center; opacity:0.5;">
+                    <div>
+                        <span style="font-weight:600; display:block; font-size:1.1rem;"><i class="fa-brands fa-android" style="margin-right:10px;"></i> Magisk Modules</span>
+                        <span style="font-size:0.85rem; color:var(--text-sec);">Coming Soon</span>
+                    </div>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="presetScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>GCAM PRESETS</h2><button class="close-btn" onclick="closeScreen('presetScr')">×</button></div>
+            <div class="modal-content">
+                <div class="wp-grid" id="presetGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>SERVICE CENTERS</h2><button class="close-btn" onclick="closeScreen('scScr')">×</button></div>
+            <div class="modal-content">
+                <p style="margin-bottom:15px; color:var(--text-sec);">Find authorized service centers near you. Data sourced from official Nothing Support.</p>
+                <select id="state" class="input-box" onchange="loadCities()">
+                    <option value="">Select Your State</option>
+                    <option value="BIHAR">BIHAR</option>
+                    <option value="DELHI">DELHI</option>
+                    <option value="MAHARASHTRA">MAHARASHTRA</option>
+                    <option value="KARNATAKA">KARNATAKA</option>
+                    <option value="UTTAR PRADESH">UTTAR PRADESH</option>
+                    <option value="WEST BENGAL">WEST BENGAL</option>
+                </select>
+                <select id="city" class="input-box" onchange="showDetails()" style="display:none;"></select>
+                <div id="scInfo" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedbackScr" class="overlay">
+        <div class="modal-window" style="height:90vh;">
+            <div class="modal-header"><h2>COMMUNITY BOARD</h2><button class="close-btn" onclick="closeScreen('feedbackScr')">×</button></div>
+            <div class="modal-content" style="display:flex; flex-direction:column; padding:0;">
+                <div id="msgBoard" style="flex:1; overflow-y:auto; padding:20px; background:rgba(0,0,0,0.2);"></div>
+                <div style="padding:20px; background:var(--surface); border-top:1px solid var(--border); display:flex; gap:15px;">
+                    <input type="text" id="userMsg" class="input-box" placeholder="Type a message..." style="margin:0;">
+                    <button class="btn-primary" onclick="sendMsg()" style="width:60px; margin:0; border-radius:12px;"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="aboutScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>ABOUT NOTHING zones</h2><button class="close-btn" onclick="closeScreen('aboutScr')">×</button></div>
+            <div class="modal-content">
+                <h3>Our Mission</h3>
+                <p style="margin-bottom:20px; color:var(--text-sec);">Nothing Zones was founded with a singular vision: to empower the Nothing Technology community. We bridge the gap between official releases and community needs.</p>
+                <h3>Developer</h3>
+                <p style="color:var(--text-sec);">Developed by Rohit Kumar in Muzaffarpur, Bihar. Dedicated to open-source innovation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacyScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>PRIVACY POLICY</h2><button class="close-btn" onclick="closeScreen('privacyScr')">×</button></div>
+            <div class="modal-content">
+                <h3>Data Collection</h3>
+                <p style="margin-bottom:20px; color:var(--text-sec);">We do not collect personal data. We use Google AdSense which may use cookies to serve ads based on user interests.</p>
+                <h3>Third Party Links</h3>
+                <p style="color:var(--text-sec);">Our site contains links to external sites (GitHub, Telegram). We are not responsible for their content.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>TERMS OF USE</h2><button class="close-btn" onclick="closeScreen('termsScr')">×</button></div>
+            <div class="modal-content">
+                <h3>Disclaimer</h3>
+                <p style="margin-bottom:20px; color:var(--text-sec);">Use these tools at your own risk. Nothing Zones is not responsible for bricked devices or lost data.</p>
+                <h3>License</h3>
+                <p style="color:var(--text-sec);">All original content is licensed under MIT License. "Nothing" is a trademark of Nothing Technology Ltd.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactScr" class="overlay">
+        <div class="modal-window">
+            <div class="modal-header"><h2>CONTACT US</h2><button class="close-btn" onclick="closeScreen('contactScr')">×</button></div>
+            <div class="modal-content">
+                <div class="feature-item" style="margin-bottom:20px;">
+                    <h4>Email Support</h4>
+                    <p>rkkiller298@gmail.com</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Community Chat</h4>
+                    <a href="https://t.me/techiboy_discuss" target="_blank" style="color:var(--accent); font-weight:bold;">Join Telegram Group</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mini-player" onclick="restorePlayer()" style="position:fixed; bottom:20px; right:20px; width:70px; height:70px; border-radius:50%; overflow:hidden; border:3px solid var(--accent); cursor:pointer; display:none; z-index:90; box-shadow: 0 5px 20px rgba(0,0,0,0.5);">
+        <img src="" id="mini-art" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+
     <script>
-        /* ================= CONFIG & GLOBALS ================= */
-        const CONFIG = {
-            BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk",
-            SOFTWARE: {}, SERVICE_DB: {}, WALLPAPERS: []
+        /* ========================================
+           CONFIGURATION & STATE
+        ========================================
+        */
+        const CONFIG = { 
+            BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk", 
+            SOFTWARE: {}, 
+            SERVICE_DB: {} 
         };
         const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
-        let SERVICE_DB = {}; 
         let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
 
-        // ================= INITIALIZATION (PERFORMANCE OPTIMIZED) =================
-        window.addEventListener('load', () => {
-            applyAutoTheme();
-            createStars(); // Optimized Stars Back
-            createMoon();
-            
-            // Defer heavy data fetch slightly to prioritize UI
-            setTimeout(() => {
-                initSoftwareData();
-                initServiceData();
-                loadMessages();
-            }, 100);
-        });
-
-        // SMART LAZY LOADER (ADS & ANALYTICS)
-        function loadHeavyScripts() {
-            if (window.isScriptsLoaded) return;
-            window.isScriptsLoaded = true;
-
-            // Google Analytics
-            const ga = document.createElement('script');
-            ga.src = "https://www.googletagmanager.com/gtag/js?id=G-H1F7EJT2QD";
-            ga.async = true;
-            document.body.appendChild(ga);
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-H1F7EJT2QD');
-
-            // AdSense (Only after user interaction)
-            const ads = document.createElement('script');
-            ads.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839265106233069";
-            ads.async = true;
-            ads.crossOrigin = "anonymous";
-            document.body.appendChild(ads);
-            console.log("🚀 Heavy Scripts Loaded");
-        }
-        ['scroll','touchstart','click'].forEach(e => window.addEventListener(e, loadHeavyScripts, {passive:true, once:true}));
-        setTimeout(loadHeavyScripts, 4500); // Fallback
-
-        /* ================= THEME & UI ================= */
-        function applyAutoTheme() {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-            updateThemeIcon(prefersDark ? 'dark' : 'light');
-        }
+        /* ========================================
+           CORE UI LOGIC
+        ========================================
+        */
         function toggleTheme() {
             const root = document.documentElement;
-            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            root.setAttribute('data-theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-        function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
-
-        /* ================= OPTIMIZED STARS (Back & Fast) ================= */
-        function createStars() {
-            requestAnimationFrame(() => {
-                const field = document.getElementById('starField');
-                field.innerHTML = '';
-                const fragment = document.createDocumentFragment();
-                // Optimization: Less stars on mobile to avoid lag
-                const count = window.innerWidth < 768 ? 80 : 250; 
-                for(let i=0; i < count; i++) {
-                    const s = document.createElement('div'); s.className = 'star';
-                    const size = Math.random() * 3;
-                    s.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation: blink ${2+Math.random()*3}s infinite; opacity:${Math.random()}`;
-                    fragment.appendChild(s);
-                }
-                field.appendChild(fragment);
-            });
-        }
-        function createMoon() {
-            if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); }
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('themeIcon').className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
         }
 
-        /* ================= SCROLL ANIMATION ================= */
-        function attachScrollAnimation() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove('hidden-state'); 
-                        entry.target.classList.add('scroll-active');      
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.wp-card').forEach(card => {
-                card.classList.add('hidden-state'); 
-                observer.observe(card);
-            });
-        }
-
-        /* ================= NAVIGATION & BOUNCY ANIMATION ================= */
         function openScreen(id) {
-            const s = document.getElementById(id);
-            if (!s) return;
-
-            // 1. Display Flex
-            s.style.display = 'flex'; 
-            
-            // 2. Force Reflow (Important for animation)
-            // Using setTimeout ensures browser registers the display change before animating
-            setTimeout(() => {
-                s.classList.add('active');
-            }, 10);
-
-            if(id === 'wpScr') initWallpaperData();
-            if(id === 'presetScr') initPresetData();
-        }
-
-        function closeScreen(id) {
-            const s = document.getElementById(id);
-            if (!s) return;
-
-            // 1. Remove Active (Triggers closing animation)
-            s.classList.remove('active'); 
-
-            // 2. Wait for animation to finish, then hide
-            setTimeout(() => { 
-                s.style.display = 'none'; 
-                // AI Section Reset
-                if(id === 'wpScr') {
-                    const aiSec = document.getElementById('aiSection');
-                    if(aiSec) aiSec.style.display = 'none';
-                }
-            }, 400); // 400ms matches CSS transition
-        }
-
-        // TOGGLE AI
-        function toggleAI() {
-            const section = document.getElementById('aiSection');
-            if (section.style.display === 'none') {
-                section.style.display = 'block';
-            } else {
-                section.style.display = 'none';
+            const el = document.getElementById(id);
+            if(el) { 
+                el.classList.add('active'); 
+                if(id === 'wpScr') initWallpaperData(); 
+                if(id === 'presetScr') initPresetData(); 
             }
         }
 
-        /* ================= DOWNLOAD LOGIC ================= */
+        function closeScreen(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
+
+        // Close on Outside Click
+        document.querySelectorAll('.overlay').forEach(overlay => { 
+            overlay.addEventListener('click', (e) => { 
+                if (e.target === overlay) overlay.classList.remove('active'); 
+            }); 
+        });
+
+        // Initialize App
+        window.addEventListener('load', () => { 
+            initSoftwareData(); 
+            initServiceData(); 
+            loadMessages(); 
+        });
+
+        /* ========================================
+           DOWNLOAD HANDLER
+        ========================================
+        */
         async function runDownload(btn, input) {
             const bar = btn.querySelector('.progress-bar');
             const txt = btn.querySelector('.btn-text');
             const oldTxt = txt.innerText;
+            
             let finalUrl = "";
-
             if (input === 'BETA_TOOL') finalUrl = CONFIG.BETA_TOOL_URL;
             else if (input === 'OTA_ZIP') {
                 const device = document.getElementById('swSelect').value;
-                if(!device) { alert("PLEASE SELECT A DEVICE!"); return; }
+                if(!device) { alert("Please select a device first!"); return; }
                 finalUrl = CONFIG.SOFTWARE[device]?.url;
-            } else finalUrl = input;
-
-            if (!finalUrl || finalUrl === "#") { alert("LINK NOT FOUND!"); return; }
-
-            btn.style.pointerEvents = 'none'; txt.innerText = 'PROCESSING...';
-            bar.style.transition = 'width 1.5s linear'; bar.style.width = '100%';
-
-            const isZip = finalUrl.toLowerCase().endsWith('.zip') || finalUrl.toLowerCase().endsWith('.apk');
-            if (isZip) {
-                setTimeout(() => {
-                    const link = document.createElement('a'); link.href = finalUrl; link.target = "_blank";
-                    document.body.appendChild(link); link.click(); document.body.removeChild(link);
-                    finishDownload(btn, txt, bar, oldTxt);
-                }, 1000);
             } else {
-                try {
-                    const response = await fetch(finalUrl);
-                    const blob = await response.blob();
-                    const blobUrl = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a'); link.href = blobUrl; link.download = "NothingSpace_" + Date.now() + ".png";
-                    document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(blobUrl);
-                    finishDownload(btn, txt, bar, oldTxt);
-                } catch (err) {
-                    window.open(finalUrl, '_blank'); finishDownload(btn, txt, bar, oldTxt);
-                }
+                finalUrl = input;
             }
-        }
-        function finishDownload(btn, txt, bar, oldTxt) {
-            txt.innerText = "DONE ✓"; setTimeout(() => { bar.style.transition = 'none'; bar.style.width = '0%'; txt.innerText = oldTxt; btn.style.pointerEvents = 'all'; }, 1000);
+
+            if (!finalUrl || finalUrl === "#") { alert("Download link currently unavailable."); return; }
+
+            // UI Feedback
+            btn.style.pointerEvents = 'none'; 
+            txt.innerText = 'Starting...'; 
+            bar.style.transition = 'width 1.5s linear'; 
+            bar.style.width = '100%';
+
+            setTimeout(() => {
+                const link = document.createElement('a'); 
+                link.href = finalUrl;
+                // Force download behavior where possible
+                if(finalUrl.endsWith('.zip') || finalUrl.endsWith('.apk')) link.target = "_self";
+                else link.target = "_blank";
+                
+                document.body.appendChild(link); 
+                link.click(); 
+                document.body.removeChild(link);
+                
+                txt.innerText = "Download Started ✓"; 
+                setTimeout(() => { 
+                    bar.style.transition = 'none'; 
+                    bar.style.width = '0%'; 
+                    txt.innerText = oldTxt; 
+                    btn.style.pointerEvents = 'all'; 
+                }, 2000);
+            }, 1000);
         }
 
-        /* ================= SOFTWARE MODULE (FIREBASE) ================= */
-        async function initSoftwareData() {
-            try {
-                const response = await fetch("https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data.json");
-                const data = await response.json();
-                if (data) CONFIG.SOFTWARE = data;
-            } catch (err) { console.error("SW Error:", err); }
+        /* ========================================
+           SOFTWARE & FIRMWARE MODULE
+        ========================================
+        */
+        async function initSoftwareData() { 
+            try { 
+                const r = await fetch("https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data.json"); 
+                const data = await r.json();
+                if(data) CONFIG.SOFTWARE = data;
+            } catch (e) { console.error("Failed to load software data"); } 
         }
+
         function showLogs() {
             const m = document.getElementById('swSelect').value;
-            const box = document.getElementById('logBox'), disp = document.getElementById('swDisplay');
-            if(!m || !CONFIG.SOFTWARE[m]) { box.style.display = 'none'; disp.style.display = 'none'; return; }
+            const disp = document.getElementById('swDisplay');
+            if(!m || !CONFIG.SOFTWARE[m]) { disp.style.display = 'none'; return; }
+            
             const data = CONFIG.SOFTWARE[m];
             document.getElementById('swPhoneImg').src = data.img;
             document.getElementById('swPhoneTitle').innerText = data.disp;
-            disp.style.display = 'flex';
-            document.getElementById('swList').innerHTML = (data.logs && Array.isArray(data.logs)) ? data.logs.map(l => `<li>${l}</li>`).join('') : "<li>Details not available</li>";
-            box.style.display = 'block';
-        }
-        function toggleAccordion() { document.getElementById('accContent').classList.toggle('open'); }
-
-        // SOFTWARE ADMIN LOGIC (With Hash)
-        let sw_timer;
-        function startSoftwareLogic() {
-            sw_timer = setTimeout(() => {
-                if(navigator.vibrate) navigator.vibrate(50);
-                openSoftwareMenu();
-            }, 2500);
-        }
-        function cancelSoftwareLogic() { clearTimeout(sw_timer); }
-
-        async function openSoftwareMenu() {
-            const id = document.getElementById('swSelect').value;
-            const pass = prompt("🔐 SOFTWARE ADMIN PASSWORD:");
-            if(stringToHash(pass) === "1540218401") {
-                if(!id) {
-                    if(confirm("🆕 ADD NEW DEVICE?")) {
-                        const newId = prompt("Unique ID (e.g. phone3):");
-                        if(!newId) return;
-                        const payload = { disp: prompt("Name:"), img: prompt("Img URL:"), url: prompt("Zip Link:"), logs: [prompt("Note:")] };
-                        await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${newId}.json`, {method:'PUT', body:JSON.stringify(payload)});
-                        alert("ADDED!"); initSoftwareData();
-                    }
-                    return;
-                }
-                const cur = CONFIG.SOFTWARE[id];
-                const choice = prompt(`EDIT ${cur.disp}:\n1.LINK\n2.NAME\n3.IMG\n4.NOTE`);
-                let load = {};
-                if(choice==="1") load={url:prompt("URL:", "")};
-                if(choice==="2") load={disp:prompt("NAME:", "")};
-                if(choice==="3") load={img:prompt("IMG:", "")};
-                if(choice==="4") {
-                    const raw = prompt("NOTE (| for new line):", "");
-                    if(raw) load={logs: raw.split('|').map(s=>s.trim())};
-                }
-                if(Object.keys(load).length) {
-                    await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${id}.json`, {method:'PATCH', body:JSON.stringify(load)});
-                    alert("SAVED!"); initSoftwareData(); showLogs();
-                }
-            } else { if(pass) alert("WRONG PASSWORD"); }
+            
+            const logs = document.getElementById('swList');
+            logs.innerHTML = (data.logs && Array.isArray(data.logs)) 
+                ? data.logs.map(l => `<li>${l}</li>`).join('') 
+                : "<li>No changelog notes available for this version.</li>";
+            
+            disp.style.display = 'block';
         }
 
-        /* ================= MUSIC MODULE ================= */
+        /* ========================================
+           MUSIC PLAYER MODULE
+        ========================================
+        */
         async function searchMusic() {
-            const query = document.getElementById('mQuery').value;
-            const btn = document.getElementById('mSearchBtn');
-            const card = document.getElementById('music-card');
-            if (!query) return;
-            const originalBtn = btn.innerHTML;
+            const q = document.getElementById('mQuery').value;
+            if (!q) return;
+            const btn = document.getElementById('mSearchBtn'); 
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            
             try {
-                const _0x1 = "aHR0cHM6Ly9pdHVuZXMuYXBwbGUuY29tL3NlYXJjaD9saW1pdD0yNTAmZW50aXR5PXNvbmcmdGVybT0=";
-                const res = await fetch(`${atob(_0x1)}${encodeURIComponent(query)}`);
+                // Using iTunes API for demo content
+                const res = await fetch(`https://itunes.apple.com/search?limit=250&entity=song&term=${encodeURIComponent(q)}`);
                 const data = await res.json();
                 if (data.results.length > 0) {
-                    currentPlaylist = data.results.map(song => ({
-                        url: song.previewUrl, art: song.artworkUrl100.replace('100x100', '400x400'),
-                        title: song.trackName.replace(/mzaf_\d+/g, "NOTHING TRACK").toUpperCase(), artist: "NOTHING SPACE"
+                    currentPlaylist = data.results.map(s => ({ 
+                        url: s.previewUrl, 
+                        art: s.artworkUrl100.replace('100x100', '400x400'), 
+                        title: s.trackName.toUpperCase(), 
+                        artist: s.artistName 
                     }));
-                    currentIndex = 0; card.style.display = "block"; loadSong(0);
-                } else alert("NOTHING FOUND");
-            } catch (e) { console.error(e); } finally { btn.innerHTML = originalBtn; }
-        }
-        function loadSong(index) {
-            if (!currentPlaylist[index]) return;
-            const song = currentPlaylist[index];
-            const player = document.getElementById('mPlayer');
-            document.getElementById('mArt').src = song.art;
-            document.getElementById('mTitle').innerText = song.title;
-            document.getElementById('mArtist').innerText = song.artist;
-            lastPlayedArt = song.art;
-            if(document.getElementById('mini-art')) document.getElementById('mini-art').src = lastPlayedArt; 
-            player.src = song.url; player.load(); togglePlay(true);
-            
-            // --- ADDED: Media Session API for Notification Control ---
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: song.title,
-                    artist: song.artist,
-                    album: "Nothing Space",
-                    artwork: [
-                        { src: song.art, sizes: '512x512', type: 'image/jpeg' }
-                    ]
-                });
-
-                navigator.mediaSession.setActionHandler('play', function() { togglePlay(true); });
-                navigator.mediaSession.setActionHandler('pause', function() { togglePlay(false); });
-                navigator.mediaSession.setActionHandler('previoustrack', prevSong);
-                navigator.mediaSession.setActionHandler('nexttrack', nextSong);
-            }
-            // ---------------------------------------------------------
-        }
-        function togglePlay(forcePlay = false) {
-            const player = document.getElementById('mPlayer');
-            const icon = document.querySelector('#play-pause i');
-            const art = document.getElementById('mArt');
-            if (player.paused || forcePlay) { 
-                player.play().catch(()=>{}); 
-                icon.className = "fa-solid fa-circle-pause"; 
-                art.classList.add('spinning'); 
-                if('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
-            } 
-            else { 
-                player.pause(); 
-                icon.className = "fa-solid fa-circle-play"; 
-                art.classList.remove('spinning'); 
-                if('mediaSession' in navigator) navigator.mediaSession.playbackState = "paused";
-            }
-        }
-        function nextSong() { if(currentPlaylist.length) { currentIndex = (currentIndex + 1) % currentPlaylist.length; loadSong(currentIndex); } }
-        function prevSong() { if(currentPlaylist.length) { currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length; loadSong(currentIndex); } }
-        function handleMusicClose() { closeScreen('musicScr'); if (!document.getElementById('mPlayer').paused) { document.getElementById('mini-player').style.display = 'block'; document.getElementById('mini-art').src = lastPlayedArt; document.getElementById('mini-art').classList.add('spinning'); } }
-        function restorePlayer() { document.getElementById('mini-player').style.display = 'none'; openScreen('musicScr'); }
-        async function downloadCurrentSong() {
-            const song = currentPlaylist[currentIndex];
-            const btn = document.querySelector('#music-card .btn');
-            if(!song) return;
-            btn.style.pointerEvents = "none"; btn.innerText = "FETCHING...";
-            try {
-                const response = await fetch(song.url);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a'); a.href = url; a.download = `${song.title.replace(/[^a-zA-Z0-9\s]/g, '').trim()} - NothingSpace.mp3`;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url);
-                btn.innerText = "DONE ✓";
-            } catch (e) { window.open(song.url, '_blank'); btn.innerText = "OPENED"; }
-            setTimeout(() => { btn.innerText = "DOWNLOAD"; btn.style.pointerEvents = "all"; }, 2000);
-        }
-
-        /* ================= CHAT MODULE (FIXED) ================= */
-        let userUUID = localStorage.getItem('ns_user_uuid');
-        if (!userUUID) {
-            userUUID = 'uid_' + Date.now().toString(36) + Math.random().toString(36).substr(2);
-            localStorage.setItem('ns_user_uuid', userUUID);
-        }
-        let savedName = localStorage.getItem('ns_user_fixed') || "";
-
-        async function sendMsg() {
-            const input = document.getElementById('userMsg');
-            const btn = document.querySelector('#feedbackScr button');
-            const msg = input.value.trim();
-            
-            if (!msg) return;
-            if (msg === "/reset") {
-                localStorage.removeItem('ns_user_fixed'); savedName = "";
-                alert("NAME RESET!"); input.value = ""; return;
-            }
-            if (!savedName || savedName === "USER") {
-                let enterName = prompt("ENTER YOUR NAME:");
-                if (!enterName || enterName.trim() === "") return;
-                savedName = enterName.trim().toUpperCase();
-                localStorage.setItem('ns_user_fixed', savedName);
-            }
-
-            const originalHTML = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="red-dot-loader"></span>';
-            try {
-                const banCheck = await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`);
-                const isBanned = await banCheck.json();
-                if (isBanned === true) { alert("🚫 YOU ARE BANNED."); return; }
-
-                await fetch(DB_URL, { 
-                    method: 'POST', headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ userName: savedName, text: msg, reply: "", timestamp: Date.now(), uuid: userUUID, isVerified: false }) 
-                }); 
-                input.value = ""; await loadMessages(); 
-            } catch (e) { alert("FAILED"); } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
-        }
-
-        async function loadMessages() {
-            try {
-                const [chatRes, verifyRes] = await Promise.all([
-                    fetch(DB_URL),
-                    fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json")
-                ]);
-                const data = await chatRes.json();
-                const verifiedData = await verifyRes.json() || {};
-                const board = document.getElementById('msgBoard');
-                
-                if (!data) { board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; return; }
-                const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-                
-                board.innerHTML = messages.map(m => {
-                    const isUserVerified = (m.uuid && verifiedData[m.uuid] === true);
-                    const tickHtml = isUserVerified ? '<i class="fa-solid fa-circle-check" style="color:#1da1f2; margin-left:4px; font-size:0.8rem;"></i>' : '';
-                    return `
-                    <div class="msg-bubble" style="user-select: none;" 
-                         onmousedown="startPress('${m.id}', '${m.userName}', ${isUserVerified}, '${m.uuid}')" 
-                         ontouchstart="startPress('${m.id}', '${m.userName}', ${isUserVerified}, '${m.uuid}')" 
-                         onmouseup="cancelPress()" onmouseleave="cancelPress()" ontouchend="cancelPress()">
-                        <span class="u-badge">${m.userName || 'USER'} ${tickHtml}</span>
-                        <p style="text-transform:none; margin:5px 0;">${m.text}</p>
-                        ${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}
-                    </div>`;
-                }).join('');
-                board.scrollTop = board.scrollHeight;
-            } catch (e) { console.log(e); }
-        }
-
-        // CHAT ADMIN & BAN LOGIC
-        let pressTimer;
-        function startPress(id, name, verified, uuid) {
-            pressTimer = setTimeout(() => { if (navigator.vibrate) navigator.vibrate(50); adminControl(id, name, verified, uuid); }, 3000); 
-        }
-        function cancelPress() { clearTimeout(pressTimer); }
-
-        async function adminControl(msgId, currentName, currentStatus, targetUUID) {
-            const pass = prompt("ADMIN PASSWORD:");
-            if (!pass) return;
-            if (stringToHash(pass) === "1540218370") {
-                const action = prompt(`MANAGE: ${currentName}\nUUID: ${targetUUID ? 'FOUND' : 'MISSING'}\n\n1.REPLY 2.EDIT NAME 3.DELETE 4.${currentStatus ? 'UNVERIFY' : 'VERIFY'} 5.BAN 6.UNBAN`);
-                const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-                const banUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`;
-                const verifyUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users/${targetUUID}.json`;
-                
-                if (action === "1") { const txt = prompt("REPLY:"); if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); }
-                else if (action === "2") { const name = prompt("NEW NAME:"); if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); }
-                else if (action === "3") { if(confirm("DELETE?")) await fetch(url, { method: 'DELETE' }); }
-                else if (action === "4") {
-                    if (!targetUUID) { alert("NO UUID"); return; }
-                    if (currentStatus) { await fetch(verifyUrl, { method: 'DELETE' }); alert("UNVERIFIED"); } 
-                    else { await fetch(verifyUrl, { method: 'PUT', body: JSON.stringify(true) }); alert("VERIFIED"); }
+                    currentIndex = 0; 
+                    document.getElementById('music-card').style.display = "block"; 
+                    loadSong(0);
+                } else {
+                    alert("No tracks found. Try a different keyword.");
                 }
-                else if (action === "5") { if(targetUUID && confirm("BAN?")) { await fetch(banUrl, { method: 'PUT', body: JSON.stringify(true) }); alert("BANNED"); } }
-                else if (action === "6") { if(targetUUID) { await fetch(banUrl, { method: 'DELETE' }); alert("UNBANNED"); } }
-                loadMessages();
-            } else alert("WRONG PASSWORD!");
-        }
-
-        /* ================= UTILS & OTHERS ================= */
-        function stringToHash(string) {
-            let hash = 0;
-            if (string.length === 0) return hash;
-            for (let i = 0; i < string.length; i++) {
-                const char = string.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash; 
+            } catch (e) {
+                console.error(e);
+            } finally { 
+                btn.innerHTML = '<i class="fa-solid fa-search"></i>'; 
             }
-            return hash.toString();
         }
 
-        async function initServiceData() {
-            try { const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); SERVICE_DB = await response.json(); } catch (err) { console.error("Service Data Error"); }
+        function loadSong(i) {
+            if (!currentPlaylist[i]) return;
+            const s = currentPlaylist[i];
+            const p = document.getElementById('mPlayer');
+            
+            document.getElementById('mArt').src = s.art; 
+            document.getElementById('mTitle').innerText = s.title; 
+            document.getElementById('mArtist').innerText = s.artist;
+            
+            lastPlayedArt = s.art; 
+            if(document.getElementById('mini-art')) document.getElementById('mini-art').src = lastPlayedArt;
+            
+            p.src = s.url; 
+            p.load(); 
+            togglePlay(true);
         }
-        function loadCities() {
-            const s = document.getElementById('state').value, cSel = document.getElementById('city'), cArr = document.getElementById('cityArrow');
-            cSel.innerHTML = '<option value="">SELECT CITY</option>';
-            if(!s || !SERVICE_DB[s]) { cSel.style.display = 'none'; cArr.style.display = 'none'; return; }
-            cSel.style.display = 'block'; cArr.style.display = 'block';
-            [...new Set(Object.keys(SERVICE_DB[s]).map(c => c.split('_')[0]))].sort().forEach(c => cSel.innerHTML += `<option value="${c}">${c}</option>`);
+
+        function togglePlay(force=false) {
+            const p = document.getElementById('mPlayer');
+            const i = document.querySelector('#play-pause i');
+            const a = document.getElementById('mArt');
+            
+            if (p.paused || force) { 
+                p.play().catch(()=>{}); 
+                i.className = "fa-solid fa-circle-pause"; 
+                a.style.animation = "spin 8s linear infinite"; 
+            } else { 
+                p.pause(); 
+                i.className = "fa-solid fa-circle-play"; 
+                a.style.animation = "none"; 
+            }
         }
-        function showDetails() {
-            const s = document.getElementById('state').value, c = document.getElementById('city').value, scInfo = document.getElementById('scInfo');
-            if(!c || !SERVICE_DB[s]) return;
-            scInfo.innerHTML = ''; 
-            Object.keys(SERVICE_DB[s]).filter(key => key === c || key.startsWith(c + "_")).forEach(key => {
-                const d = SERVICE_DB[s][key];
-                scInfo.innerHTML += `<div class="detail-card"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><h3 style="font-size:1.4rem;">${d.n}</h3><span class="sc-badge">ID: ${d.c}</span></div><p style="text-transform:none;opacity:0.7;font-size:1rem;margin-bottom:15px;">${d.a}</p><div style="font-size:0.9rem;margin-bottom:15px;"><p>🕒 TIME: ${d.t}</p><p>🚫 OFF : ${d.o}</p></div><div class="card-row"><button class="btn" style="flex:1;padding:12px;" onclick="window.open('tel:${d.p}')">CALL</button><button class="btn" style="flex:1;padding:12px;" onclick="window.open('${d.m}')">MAPS</button></div></div>`;
-            });
+
+        // CSS Animation for spinning disc
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
+        document.head.appendChild(styleSheet);
+
+        function nextSong() { 
+            if(currentPlaylist.length) { 
+                currentIndex = (currentIndex + 1) % currentPlaylist.length; 
+                loadSong(currentIndex); 
+            } 
+        }
+
+        function prevSong() { 
+            if(currentPlaylist.length) { 
+                currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length; 
+                loadSong(currentIndex); 
+            } 
+        }
+
+        function handleMusicClose() { 
+            closeScreen('musicScr'); 
+            if (!document.getElementById('mPlayer').paused) { 
+                document.getElementById('mini-player').style.display = 'block'; 
+                document.getElementById('mini-art').src = lastPlayedArt; 
+                document.getElementById('mini-art').style.animation = "spin 8s linear infinite";
+            } 
+        }
+
+        function restorePlayer() { 
+            document.getElementById('mini-player').style.display = 'none'; 
+            openScreen('musicScr'); 
+        }
+
+        async function downloadCurrentSong() { 
+            const s = currentPlaylist[currentIndex]; 
+            if(s) window.open(s.url, '_blank'); 
+        }
+
+        /* ========================================
+           WALLPAPER & AI MODULE
+        ========================================
+        */
+        async function initWallpaperData() {
+            const g = document.getElementById('wallpaperGrid'); 
+            if(g.innerHTML) return;
+            g.innerHTML = "<p style='grid-column:span 2; text-align:center; padding:20px;'>Loading Gallery...</p>";
+            
+            try { 
+                const r = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
+                const d = await r.json(); 
+                const walls = Array.isArray(d) ? d : d.wallpapers;
+                
+                g.innerHTML = walls.map(w => `
+                    <div class="wp-item">
+                        <img src="${w.img}" loading="lazy">
+                        <button class="wp-overlay-btn" onclick="runDownload(this.parentElement, '${w.url}')">DOWNLOAD</button>
+                    </div>`).join(''); 
+            } catch(e){
+                g.innerHTML = "<p>Failed to load wallpapers.</p>";
+            }
         }
 
         async function initPresetData() {
-            const grid = document.getElementById('presetGrid');
-            grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING PRESETS...</p>";
-            try { 
-                const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
-                const data = await res.json(); 
-                grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); 
-                setTimeout(attachScrollAnimation, 100);
-            } catch(e) { grid.innerHTML = "ERROR"; }
-        }
+            const g = document.getElementById('presetGrid'); 
+            if(g.innerHTML) return;
+            g.innerHTML = "<p style='grid-column:span 2; text-align:center; padding:20px;'>Loading Presets...</p>";
 
-        async function initWallpaperData() {
-            const grid = document.getElementById('wallpaperGrid');
-            grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING WALLPAPERS...</p>";
             try { 
-                const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
-                const data = await res.json(); 
-                const walls = Array.isArray(data) ? data : data.wallpapers; 
-                grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); 
-                setTimeout(attachScrollAnimation, 100); 
-            } catch(e) { grid.innerHTML = "ERROR LOADING"; }
+                const r = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
+                const d = await r.json(); 
+                g.innerHTML = d.map(p => `
+                    <div class="wp-item">
+                        <img src="${p.img}" loading="lazy">
+                        <button class="wp-overlay-btn" onclick="runDownload(this.parentElement, '${p.url}')">GET PRESET</button>
+                    </div>`).join(''); 
+            } catch(e){
+                g.innerHTML = "<p>Failed to load presets.</p>";
+            }
         }
 
         async function generateAIWall() {
-            const prompt = document.getElementById('aiPrompt').value.trim();
-            const ratio = document.getElementById('aiRatio').value;
-            const btn = document.getElementById('genBtn'), aiImg = document.getElementById('aiImg'), resultDiv = document.getElementById('aiResult'), bar = btn.querySelector('.progress-bar'), txt = btn.querySelector('.btn-text');
-            if (!prompt) { alert("PLEASE ENTER SOMETHING"); return; }
-            btn.style.pointerEvents = 'none'; txt.innerText = 'IMAGINING...'; bar.style.transition = 'width 60s cubic-bezier(0.4, 0, 0.2, 1)'; bar.style.width = '90%'; resultDiv.style.display = 'none'; aiImg.style.opacity = '0';
-            let w = 1080, h = 1920; if (ratio === "16:9") { w = 1920; h = 1080; } else if (ratio === "1:1") { w = 1080; h = 1080; }
-            const seed = Math.floor(Math.random() * 100000);
-            const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", nothing style, minimal, 8k")}?width=${w}&height=${h}&seed=${seed}&nologo=true&model=flux`;
-            try {
-                const res = await fetch(url); if (!res.ok) throw new Error("Error"); const blob = await res.blob();
-                if (blob.size > 1000000) throw new Error("Rate Limit");
-                aiImg.src = URL.createObjectURL(blob); resultDiv.style.display = 'block'; setTimeout(() => { aiImg.style.opacity = '1'; resultDiv.scrollIntoView({behavior:'smooth'}); }, 100);
-                bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'GENERATE AGAIN';
-            } catch (e) { alert("SERVER BUSY. TRY LATER."); bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'TRY AGAIN'; } finally { btn.style.pointerEvents = 'all'; }
+            const p = document.getElementById('aiPrompt').value.trim(); 
+            if(!p) { alert("Please describe your wallpaper first."); return; }
+            
+            const btn = document.getElementById('genBtn'); 
+            btn.style.pointerEvents = 'none'; 
+            btn.querySelector('.btn-text').innerText = 'Generating...';
+            
+            const r = document.getElementById('aiRatio').value === "16:9" ? [1920, 1080] : (document.getElementById('aiRatio').value === "1:1" ? [1080, 1080] : [1080, 1920]);
+            const seed = Math.floor(Math.random() * 10000);
+            const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(p + ", nothing style, minimal, abstract, high quality, 8k")}?width=${r[0]}&height=${r[1]}&seed=${seed}&nologo=true&model=flux`;
+            
+            const img = document.getElementById('aiImg'); 
+            img.onload = () => { 
+                document.getElementById('aiResult').style.display = 'block'; 
+                btn.querySelector('.btn-text').innerText = 'GENERATE NEW'; 
+                btn.style.pointerEvents = 'all'; 
+            }; 
+            img.src = url;
         }
-        async function downloadAIWall(btn) { runDownload(btn, document.getElementById('aiImg').src); }
+
+        function downloadAIWall(btn) { 
+            const a = document.createElement('a'); 
+            a.href = document.getElementById('aiImg').src; 
+            a.download = "Nothing_AI_Generated.png"; 
+            a.click(); 
+        }
+
+        /* ========================================
+           SERVICE & CHAT MODULE
+        ========================================
+        */
+        async function initServiceData() { 
+            try { 
+                const r = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); 
+                CONFIG.SERVICE_DB = await r.json(); 
+            } catch(e){} 
+        }
+
+        function loadCities() { 
+            const s = document.getElementById('state').value, c = document.getElementById('city'); 
+            c.innerHTML = '<option value="">Select City</option>'; 
+            c.style.display = s && CONFIG.SERVICE_DB[s] ? 'block' : 'none';
+            if(s && CONFIG.SERVICE_DB[s]) {
+                const cities = [...new Set(Object.keys(CONFIG.SERVICE_DB[s]).map(x => x.split('_')[0]))].sort();
+                cities.forEach(x => c.innerHTML += `<option value="${x}">${x}</option>`);
+            }
+        }
+
+        function showDetails() {
+            const s = document.getElementById('state').value, c = document.getElementById('city').value, i = document.getElementById('scInfo');
+            if(!c) return; 
+            i.innerHTML = '';
+            
+            const centers = Object.keys(CONFIG.SERVICE_DB[s]).filter(k => k === c || k.startsWith(c + "_"));
+            centers.forEach(k => {
+                const d = CONFIG.SERVICE_DB[s][k];
+                i.innerHTML += `
+                    <div style="background:var(--bg); padding:20px; border-radius:12px; margin-bottom:15px; border:1px solid var(--border);">
+                        <h3 style="margin-bottom:5px;">${d.n}</h3>
+                        <p style="font-size:0.9rem; color:var(--text-sec); margin-bottom:10px;">${d.a}</p>
+                        <p style="font-size:0.8rem; margin-bottom:15px;"><i class="fa-regular fa-clock"></i> ${d.t}</p>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn-primary" style="margin:0; padding:10px; font-size:0.8rem; width:auto;" onclick="window.open('tel:${d.p}')">CALL NOW</button>
+                            <button class="btn-primary" style="margin:0; padding:10px; font-size:0.8rem; width:auto;" onclick="window.open('${d.m}')">GET DIRECTIONS</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        /* ========================================
+           CHAT SYSTEM (FIREBASE)
+        ========================================
+        */
+        let userUUID = localStorage.getItem('ns_user_uuid');
+        if(!userUUID) { userUUID = 'uid_' + Date.now().toString(36); localStorage.setItem('ns_user_uuid', userUUID); }
+
+        async function sendMsg() {
+            const txt = document.getElementById('userMsg').value.trim(); 
+            if(!txt) return;
+            
+            let name = localStorage.getItem('ns_user_fixed'); 
+            if(!name) { 
+                name = prompt("Please enter your name for the community:"); 
+                if(name) localStorage.setItem('ns_user_fixed', name); 
+                else return; 
+            }
+
+            try {
+                await fetch(DB_URL, { 
+                    method: 'POST', 
+                    body: JSON.stringify({ userName: name, text: txt, timestamp: Date.now(), uuid: userUUID }) 
+                });
+                document.getElementById('userMsg').value = ""; 
+                loadMessages();
+            } catch(e) { alert("Message failed to send."); }
+        }
+
+        async function loadMessages() {
+            try { 
+                const r = await fetch(DB_URL); 
+                const d = await r.json();
+                const b = document.getElementById('msgBoard'); 
+                
+                if(!d) { b.innerHTML='<p style="text-align:center; padding:20px; opacity:0.6;">No messages yet. Be the first!</p>'; return; }
+                
+                // Limit to last 50 messages to prevent lag
+                const msgs = Object.values(d).slice(-50);
+                
+                b.innerHTML = msgs.map(m => `
+                    <div style="background:var(--surface); padding:12px 16px; border-radius:16px; margin-bottom:12px; border:1px solid var(--border); border-bottom-left-radius: 4px;">
+                        <span style="color:var(--accent); font-size:0.75rem; font-weight:700; display:block; margin-bottom:4px;">${m.userName || 'Anonymous'}</span>
+                        <p style="line-height:1.4;">${m.text}</p>
+                        ${m.reply ? `<div style="margin-top:8px; font-size:0.85rem; color:var(--text-main); background:rgba(215, 25, 33, 0.1); padding:8px; border-radius:8px; border-left:3px solid var(--accent);"><strong>Admin:</strong> ${m.reply}</div>` : ''}
+                    </div>`).join('');
+                
+                b.scrollTop = b.scrollHeight; 
+            } catch(e){}
+        }
     </script>
 </body>
-</html><style>img { 
-    -webkit-touch-callout: none !important; /* Blocks iOS Menu */
-    -webkit-user-select: none !important;   /* Blocks Text Selection */
-    -khtml-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important;
-    -webkit-user-drag: none !important;     /* Blocks Dragging */
-    pointer-events: auto !important;        /* Keeps your click buttons working */
-}</style><script>// ================= BLOCK IMAGE LONG-PRESS MENU =================
-    window.addEventListener("contextmenu", function(e) {
-        // Only block if the element touched is an Image
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-        }
-    }, false);</script>
+</html>
